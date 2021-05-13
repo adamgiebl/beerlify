@@ -1,0 +1,44 @@
+.steps {
+  .step {
+    &--tap {
+      --iterations: 1;
+      --height: 0;
+      background: transparent;
+      position: relative;
+
+      &.yes {
+        background: transparent;
+        &::before {
+          content: " ";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: all 0.5s;
+          height: var(--height);
+          width: 100%;
+          background: rgb(255, 212, 70);
+          animation: fillUp 10s linear;
+          animation-fill-mode: forwards;
+          animation-iteration-count: var(--iterations);
+          z-index: -1;
+          will-change: height;
+        }
+      }
+
+      .time {
+        color: royalblue;
+        font-weight: bold;
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
+/*@keyframes fillUp {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}*/
