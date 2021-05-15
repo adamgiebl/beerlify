@@ -10,7 +10,6 @@ const createTapMap = (taps) => {
 };
 
 const useSplitData = () => {
-  const [data, setData] = useState([]);
   const [taps, setTaps] = useState([]);
   const [serving, setServing] = useState([]);
   const [queue, setQueue] = useState([]);
@@ -18,8 +17,6 @@ const useSplitData = () => {
   const [tapMap, setTapMap] = useState({});
 
   const updateData = (data) => {
-    setData(data);
-
     setTaps(
       data.taps.map((item) => ({
         ...item,
@@ -53,7 +50,7 @@ const useSplitData = () => {
     );
   };
 
-  return [updateData, data, taps, serving, queue, bartenders, tapMap];
+  return [updateData, taps, serving, queue, bartenders, tapMap];
 };
 
 export default useSplitData;

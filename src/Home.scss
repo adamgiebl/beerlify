@@ -47,3 +47,16 @@ body {
 header {
   padding: 20px 0;
 }
+
+.widgets {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+
+  .widget {
+    padding: 20px 60px;
+    border: 1px solid lightgray;
+    font-size: 20px;
+    margin-right: 20px;
+  }
+}
