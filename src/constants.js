@@ -8,5 +8,3 @@ export const statusMessages = {
   waiting: "Waiting...",
   reserveTap: "Reserving the tap",
 };
-
-// starting to serve > pouring beer > releasing the tap > receiving payment

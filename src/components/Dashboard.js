@@ -1,31 +1,22 @@
 import { useEffect, useState } from "react";
-import "./Home.scss";
-import Tables from "./components/Tables";
-import { formatDate } from "./utils";
-import { useSplitData } from "./customHooks";
+import "./Dashboard.scss";
+import { formatDate } from "../utils";
+import { useSplitData } from "../customHooks";
 import _ from "lodash/array";
 import { Statistic } from "antd";
-import Bartender from "./components/Bartender";
-import Bartender2 from "./components/Bartender2";
-import TapAnimation from "./components/TapAnimation";
+import { Area } from "@ant-design/charts";
 
 const URL = "https://beerlify.herokuapp.com/";
 
-function Home() {
+function Dashboard() {
   const [refreshTime, setRefreshTime] = useState(null);
   const [allOrders, setAllOrders] = useState([]);
   const [completedOrders, setCompletedOrders] = useState([]);
   const [beersSold, setBeersSold] = useState(0);
+  const [queueChart, setQueueChart] = useState([]);
+  const [queueUpdate, setQueueUpdate] = useState();
 
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
-
-  /*const addToCompleted = (order) => {
-    if (!completedOrders.some((currOrder) => currOrder.id === order.id)) {
-      setCompletedOrders((prevOrders) =>
-        [order, ...prevOrders].sort((a, b) => b.id - a.id)
-      );
-    }
-  };*/
 
   const getBeersSold = () => {
     if (completedOrders.length > 0) {
@@ -70,7 +61,57 @@ function Home() {
         return temp;
       });
     }
+    /*setQueueChart((prevChart) => {
+      console.log(prevChart);
+      return [
+        ...prevChart,
+        { number: queue.length, timestamp: formatDate(Date.now()) },
+      ];
+    });*/
   }, [queue, serving]);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setQueueUpdate(Date.now());
+    }, 10000);
+
+    return () => clearInterval(id);
+  }, []);
+  useEffect(() => {
+    setQueueChart((prevChart) => {
+      console.log(prevChart);
+      const copy = prevChart;
+      if (copy.length > 20) {
+        copy.shift();
+      }
+      console.log(queue);
+      return [
+        ...copy,
+        { number: queue.length, timestamp: formatDate(Date.now()) },
+      ];
+    });
+  }, [queueUpdate]);
+
+  const config = {
+    xField: "timestamp",
+    yField: "number",
+    point: {
+      size: 5,
+      shape: "diamond",
+    },
+    xAxis: {},
+    yAxis: {
+      min: 0,
+      max: 7,
+      title: {
+        text: "Customers in Queue",
+      },
+    },
+    smooth: true,
+    areaStyle: {
+      fill: "l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff",
+    },
+  };
 
   return (
     <>
@@ -92,31 +133,11 @@ function Home() {
           />
         </div>
       </div>
-      {false && <TapAnimation />}
-      {false && (
-        <div className="bartenders">
-          {true &&
-            bartenders.map((bartender) => (
-              <Bartender2 {...bartender} serving={serving} tapMap={tapMap} />
-            ))}
-        </div>
-      )}
-      {true && (
-        <div className="home">
-          <Tables
-            {...{
-              taps,
-              serving,
-              queue,
-              bartenders,
-              tapMap,
-              completedOrders,
-            }}
-          />
-        </div>
-      )}
+      <section className="queue-chart">
+        <Area data={queueChart} {...config} />
+      </section>
     </>
   );
 }
 
-export default Home;
+export default Dashboard;

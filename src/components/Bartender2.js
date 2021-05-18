@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useReducer } from "react";
+import { useEffect, useState, useRef, useReducer, memo } from "react";
 import { statusMessages } from "../constants";
 import _ from "lodash/collection";
 import "./Bartender.scss";
@@ -37,9 +37,7 @@ const Bartender = ({
     } else if (statusDetail !== "releaseTap") {
       setActiveTap("none");
     }
-  }, [usingTap, tapMap, statusDetail]);
-
-  //console.log(name, statusDetail);
+  }, [usingTap, statusDetail, order]);
 
   const renderPouringState = () => {
     if (order) {
@@ -83,4 +81,4 @@ const Bartender = ({
   );
 };
 
-export default Bartender;
+export default memo(Bartender);

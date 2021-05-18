@@ -1,5 +1,6 @@
 import { Table, Tag, Progress, Typography, Image, Badge } from "antd";
 import { SyncOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { formatDate } from "../utils";
 import { statusMessages } from "../constants";
 
 const tableConfig = {
@@ -39,6 +40,7 @@ const Tables = ({
           dataSource={taps}
           loading={taps.length === 0}
           {...tableConfig}
+          rowKey="id"
         >
           <Column title="ID" dataIndex="id" key="id" />
           <Column
@@ -96,6 +98,7 @@ const Tables = ({
           loading={bartenders.length === 0}
           {...tableConfig}
           size={"small"}
+          rowKey="name"
         >
           <Column
             title="Name"
@@ -164,8 +167,9 @@ const Tables = ({
           )}
           dataSource={completedOrders}
           {...tableConfig}
-          pagination={{ pageSize: 5 }}
-          scroll={{ y: 240 }}
+          pagination={{ pageSize: 10 }}
+          scroll={{ y: 300 }}
+          rowKey="id"
         >
           <Column title="Customer ID" dataIndex="id" key="id" />
           <Column
@@ -182,7 +186,12 @@ const Tables = ({
               </>
             )}
           />
-          <Column title="Order Time" dataIndex="startTime" key="startTime" />
+          <Column
+            title="Order Time"
+            dataIndex="startTime"
+            key="startTime"
+            render={(timestamp) => formatDate(timestamp)}
+          />
         </Table>
         <Table
           title={() => (
@@ -196,6 +205,7 @@ const Tables = ({
             </Badge>
           )}
           dataSource={serving}
+          rowKey="id"
           {...tableConfig}
         >
           <Column title="Customer ID" dataIndex="id" key="id" />
@@ -213,7 +223,12 @@ const Tables = ({
               </>
             )}
           />
-          <Column title="Order Time" dataIndex="startTime" key="startTime" />
+          <Column
+            title="Order Time"
+            dataIndex="startTime"
+            key="startTime"
+            render={(timestamp) => formatDate(timestamp)}
+          />
         </Table>
         <Table
           title={() => (
@@ -227,6 +242,7 @@ const Tables = ({
             </Badge>
           )}
           dataSource={queue}
+          rowKey="id"
           {...tableConfig}
         >
           <Column title="Customer ID" dataIndex="id" key="id" />
@@ -244,7 +260,12 @@ const Tables = ({
               </>
             )}
           />
-          <Column title="Order Time" dataIndex="startTime" key="startTime" />
+          <Column
+            title="Order Time"
+            dataIndex="startTime"
+            key="startTime"
+            render={(timestamp) => formatDate(timestamp)}
+          />
         </Table>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { formatDate } from "../utils";
 
 const createTapMap = (taps) => {
@@ -16,38 +16,48 @@ const useSplitData = () => {
   const [bartenders, setBartenders] = useState([]);
   const [tapMap, setTapMap] = useState({});
 
-  const updateData = (data) => {
-    setTaps(
-      data.taps.map((item) => ({
-        ...item,
-        key: item.id,
-      }))
-    );
+  const lastQueueOrderID = useRef(null);
+  const lastServingOrderID = useRef(null);
 
-    setTapMap(createTapMap(data.taps));
+  const firstQueueOrderID = useRef(null);
+  const firstServingOrderID = useRef(null);
 
-    setBartenders(
-      data.bartenders.map((item) => ({
-        ...item,
-        key: item.name,
-      }))
-    );
+  const updateData = ({ queue, bartenders, serving, taps }) => {
+    setTaps(taps);
 
-    setQueue(
-      data.queue.map((item) => ({
-        ...item,
-        key: item.id,
-        startTime: formatDate(item.startTime),
-      }))
-    );
+    setTapMap(createTapMap(taps));
 
-    setServing(
-      data.serving.map((item) => ({
-        ...item,
-        key: item.id,
-        startTime: formatDate(item.startTime),
-      }))
-    );
+    setBartenders(bartenders);
+
+    if (queue.length > 0) {
+      const currentLastQueueOrderID = queue[queue.length - 1].id;
+      const currentFirstQueueOrderID = queue[0].id;
+      if (
+        lastQueueOrderID.current !== currentLastQueueOrderID ||
+        firstQueueOrderID.current !== currentFirstQueueOrderID ||
+        currentLastQueueOrderID === currentFirstQueueOrderID
+      ) {
+        lastQueueOrderID.current = currentLastQueueOrderID;
+        firstQueueOrderID.current = currentFirstQueueOrderID;
+        setQueue(queue);
+      } else {
+      }
+    }
+
+    if (serving.length > 0) {
+      const currentLastServingOrderID = serving[serving.length - 1].id;
+      const currentFirstServingOrderID = serving[0].id;
+      if (
+        lastServingOrderID.current !== currentLastServingOrderID ||
+        firstServingOrderID.current !== currentFirstServingOrderID ||
+        currentLastServingOrderID === currentFirstServingOrderID
+      ) {
+        lastServingOrderID.current = currentLastServingOrderID;
+        firstServingOrderID.current = currentFirstServingOrderID;
+        setServing(serving);
+      } else {
+      }
+    }
   };
 
   return [updateData, taps, serving, queue, bartenders, tapMap];
