@@ -4,7 +4,7 @@ import "./global.scss";
 import Home from "./Home";
 import Dash from "./components/Dashboard";
 import { Router, Link } from "@reach/router";
-import Form from "./form";
+import Form from "./form/Form";
 
 ReactDOM.render(
   <React.StrictMode>

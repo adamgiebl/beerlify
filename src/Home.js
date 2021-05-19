@@ -87,8 +87,8 @@ function Home() {
         <div className="widget widget--revenue">
           <Statistic
             title="Total revenue"
-            value={getBeersSold() * 3}
-            suffix={"$"}
+            value={getBeersSold() * 45}
+            suffix={",-"}
           />
         </div>
       </div>
