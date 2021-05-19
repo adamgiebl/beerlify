@@ -4,3 +4,14 @@ export const formatDate = (timestamp) =>
     minute: "2-digit",
     second: "2-digit",
   }).format(timestamp);
+
+export const getImage = (name) => {
+  try {
+    return require(`./images/${name
+      .toLowerCase()
+      .replaceAll(":", "")
+      .replaceAll(" ", "")}.png`).default;
+  } catch {
+    return null;
+  }
+};

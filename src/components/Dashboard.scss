@@ -21,5 +21,65 @@ header {
 }
 
 .queue-chart {
-  max-width: 1000px;
+  max-width: 500px;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.beer-chart {
+  height: 100%;
+  flex-direction: column;
+  --height: 0;
+  --width: 55px;
+  .beer-chart-content {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: end;
+    height: 100%;
+    gap: 20px;
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: var(--width);
+      height: var(--height);
+      transition: all 0.5s;
+
+      .column__image {
+        width: var(--width);
+        height: var(--width);
+        margin-bottom: 10px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .column__bar {
+        background: var(--darkblue);
+        width: 100%;
+        flex-grow: 1;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        padding-top: calc(var(--width) / 5);
+      }
+    }
+  }
+  .annotations {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: end;
+    gap: 20px;
+    max-width: 340px;
+
+    .annotations__name {
+      font-size: 12px;
+      width: var(--width);
+      color: var(--darkblue);
+    }
+  }
 }

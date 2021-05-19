@@ -1,23 +1,12 @@
 import { Table, Tag, Progress, Typography, Image, Badge } from "antd";
 import { SyncOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { formatDate } from "../utils";
+import { formatDate, getImage } from "../utils";
 import { statusMessages } from "../constants";
 
 const tableConfig = {
   bordered: true,
   pagination: false,
   size: "small",
-};
-
-const getImage = (name) => {
-  try {
-    return require(`../images/${name
-      .toLowerCase()
-      .replaceAll(":", "")
-      .replaceAll(" ", "")}.png`).default;
-  } catch {
-    return null;
-  }
 };
 
 const { Title } = Typography;

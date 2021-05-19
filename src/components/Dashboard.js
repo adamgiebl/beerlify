@@ -5,6 +5,7 @@ import { useSplitData } from "../customHooks";
 import _ from "lodash/array";
 import { Statistic } from "antd";
 import { Area } from "@ant-design/charts";
+import { getImage } from "../utils";
 
 const URL = "https://beerlify.herokuapp.com/";
 
@@ -15,6 +16,14 @@ function Dashboard() {
   const [beersSold, setBeersSold] = useState(0);
   const [queueChart, setQueueChart] = useState([]);
   const [queueUpdate, setQueueUpdate] = useState();
+  const [beerChart, setBeerChart] = useState({
+    "Ruined Childhood": 29,
+    "Fairy Tale Ale": 27,
+    "Hollaback Lager": 37,
+    Mowintime: 29,
+    Steampunk: 23,
+    "Hoppily Ever After": 27,
+  });
 
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
 
@@ -58,6 +67,22 @@ function Dashboard() {
         );
 
         setCompletedOrders(completed.sort((a, b) => b.id - a.id));
+
+        const red = completed.reduce((acc, curr) => {
+          curr.order.forEach((beer) => {
+            if (acc[beer]) {
+              acc[beer] += 1;
+            } else {
+              acc[beer] = 1;
+            }
+          });
+          return acc;
+        }, {});
+
+        //setBeerChart(red);
+
+        console.log(red);
+
         return temp;
       });
     }
@@ -113,6 +138,46 @@ function Dashboard() {
     },
   };
 
+  const renderBeerChart = () => {
+    const maxValue = Math.max(...Object.values(beerChart));
+    const height = maxValue + maxValue / 10;
+
+    const renderBars = () => {
+      return Object.keys(beerChart)
+        .sort((a, b) => beerChart[b] - beerChart[a])
+        .map((key) => {
+          return (
+            <div
+              key={key}
+              className="column"
+              style={{ "--height": `${(beerChart[key] / height) * 100}%` }}
+            >
+              <img className="column__image" src={getImage(key)} alt="chart" />
+              <div className="column__bar">{beerChart[key]}</div>
+            </div>
+          );
+        });
+    };
+
+    const renderNames = () => {
+      return (
+        <div className="annotations">
+          {Object.keys(beerChart)
+            .sort((a, b) => beerChart[b] - beerChart[a])
+            .map((key) => {
+              return <div className="annotations__name">{key}</div>;
+            })}
+        </div>
+      );
+    };
+    return (
+      <>
+        <div className="beer-chart-content">{renderBars()}</div>
+        {renderNames()}
+      </>
+    );
+  };
+
   return (
     <>
       <header>
@@ -133,9 +198,13 @@ function Dashboard() {
           />
         </div>
       </div>
-      <section className="queue-chart">
-        <Area data={queueChart} {...config} />
-      </section>
+      <div className="dashboard">
+        <section className="queue-chart">
+          <Area data={queueChart} {...config} />
+        </section>
+
+        <section className="beer-chart">{renderBeerChart()}</section>
+      </div>
     </>
   );
 }
