@@ -1,0 +1,39 @@
+main {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  .elem-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  .cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 200px;
+    }
+    button {
+      background-color: var(--orange);
+      border: none;
+      padding: 10px 30px;
+      width: 150px;
+      margin-top: 10px;
+      &:hover {
+        transition: 0.3s;
+        background: var(--blue);
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .elem-down {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+  }
+}

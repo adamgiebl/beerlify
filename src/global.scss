@@ -1,20 +1,26 @@
 @import "~antd/dist/antd.css";
 @import "~react-grid-layout/css/styles.css";
 @import "~react-resizable/css/styles.css";
-
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --orange: #eeb448;
+  --blue: #475073;
+  --dark-blue: #292d3c;
+  --light-blue: #b1beca;
+  --light-gray: #f2f1f1;
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Merriweather", serif;
 }
 
 code {
