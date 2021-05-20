@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-import { formatDate } from "../utils";
+import { useState, useRef } from "react";
 
 const createTapMap = (taps) => {
   let map = {};

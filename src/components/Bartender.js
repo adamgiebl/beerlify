@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState, useRef, useReducer, memo } from "react";
 import { statusMessages } from "../constants";
-import { Steps } from "antd";
 import _ from "lodash/collection";
 import "./Bartender.scss";
-
-const { Step } = Steps;
+import Tap from "./Tap";
 
 const Bartender = ({
   name,
@@ -18,10 +17,8 @@ const Bartender = ({
   const [order, setOrder] = useState(null);
   const [taps, setTaps] = useState([]);
   const [activeTap, setActiveTap] = useState(null);
-  const [current, setCurrent] = useState();
-  const [step, setStep] = useState();
 
-  const checkMap = (item) => {
+  const isActiveTap = (item) => {
     return item === tapMap[activeTap];
   };
 
@@ -36,37 +33,23 @@ const Bartender = ({
   }, [order]);
 
   useEffect(() => {
-    if (usingTap) {
+    if (usingTap !== null) {
       setActiveTap(usingTap);
+    } else if (statusDetail !== "releaseTap") {
+      setActiveTap("none");
     }
-  }, [usingTap, tapMap]);
-
-  useEffect(() => {
-    console.log("useEffect", statusDetail);
-    if (step !== statusDetail) {
-      console.log("setting", activeTap);
-      setStep(statusDetail);
-      setCurrent((prevState) => prevState + 1);
-    } else if (statusDetail === "startServing") {
-      console.log("START SERVING");
-      setCurrent(0);
-    }
-  });
-
-  //console.log(name, statusDetail);
+  }, [usingTap, statusDetail, order]);
 
   const renderPouringState = () => {
     if (order) {
       return taps.map((item, index) => {
         return (
-          <>
-            <Step
-              className={`step ${checkMap(item[0]) ? "yes" : null}`}
-              description={item[0]}
-              status={checkMap(item[0]) ? "yes" : null}
-              key={item[0]}
-            />
-          </>
+          <Tap
+            beerArray={item}
+            isActiveTap={isActiveTap}
+            statusDetail={statusDetail}
+            key={item[0]}
+          />
         );
       });
     }
@@ -75,16 +58,28 @@ const Bartender = ({
   return (
     <div className="bartender">
       <h3>
-        {name} Order: {order?.id}
+        {name} - Order: {order?.id}
       </h3>
-      <Steps current={current}>
-        <Step description={"starting to serve"} />
+      <div className="steps">
+        <div
+          className={`step step--starting ${
+            statusDetail === "startServing" ? "yes" : null
+          }`}
+        >
+          Starting to serve
+        </div>
         {renderPouringState()}
 
-        <Step description={"receiving payment"} />
-      </Steps>
+        <div
+          className={`step step--receiving ${
+            statusDetail === "receivePayment" ? "yes" : null
+          }`}
+        >
+          Receiving payment
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Bartender;
+export default memo(Bartender);

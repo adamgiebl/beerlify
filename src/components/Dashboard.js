@@ -1,11 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Dashboard.scss";
 import { formatDate } from "../utils";
 import { useSplitData } from "../customHooks";
 import _ from "lodash/array";
 import { Statistic } from "antd";
-import { Area } from "@ant-design/charts";
-import { getImage } from "../utils";
+import { antChartConfig } from "../constants";
+import { Area as AreaChart } from "@ant-design/charts";
+import BeerChart from "./BeerChart";
 
 const URL = "https://beerlify.herokuapp.com/";
 
@@ -16,14 +18,7 @@ function Dashboard() {
   const [beersSold, setBeersSold] = useState(0);
   const [queueChart, setQueueChart] = useState([]);
   const [queueUpdate, setQueueUpdate] = useState();
-  const [beerChart, setBeerChart] = useState({
-    "Ruined Childhood": 29,
-    "Fairy Tale Ale": 27,
-    "Hollaback Lager": 37,
-    Mowintime: 29,
-    Steampunk: 23,
-    "Hoppily Ever After": 27,
-  });
+  const [beerChart, setBeerChart] = useState();
 
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
 
@@ -79,9 +74,7 @@ function Dashboard() {
           return acc;
         }, {});
 
-        //setBeerChart(red);
-
-        console.log(red);
+        setBeerChart(red);
 
         return temp;
       });
@@ -102,81 +95,20 @@ function Dashboard() {
 
     return () => clearInterval(id);
   }, []);
+
   useEffect(() => {
     setQueueChart((prevChart) => {
-      console.log(prevChart);
       const copy = prevChart;
       if (copy.length > 20) {
         copy.shift();
       }
-      console.log(queue);
       return [
         ...copy,
         { number: queue.length, timestamp: formatDate(Date.now()) },
       ];
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queueUpdate]);
-
-  const config = {
-    xField: "timestamp",
-    yField: "number",
-    point: {
-      size: 5,
-      shape: "diamond",
-    },
-    xAxis: {},
-    yAxis: {
-      min: 0,
-      max: 7,
-      title: {
-        text: "Customers in Queue",
-      },
-    },
-    smooth: true,
-    areaStyle: {
-      fill: "l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff",
-    },
-  };
-
-  const renderBeerChart = () => {
-    const maxValue = Math.max(...Object.values(beerChart));
-    const height = maxValue + maxValue / 10;
-
-    const renderBars = () => {
-      return Object.keys(beerChart)
-        .sort((a, b) => beerChart[b] - beerChart[a])
-        .map((key) => {
-          return (
-            <div
-              key={key}
-              className="column"
-              style={{ "--height": `${(beerChart[key] / height) * 100}%` }}
-            >
-              <img className="column__image" src={getImage(key)} alt="chart" />
-              <div className="column__bar">{beerChart[key]}</div>
-            </div>
-          );
-        });
-    };
-
-    const renderNames = () => {
-      return (
-        <div className="annotations">
-          {Object.keys(beerChart)
-            .sort((a, b) => beerChart[b] - beerChart[a])
-            .map((key) => {
-              return <div className="annotations__name">{key}</div>;
-            })}
-        </div>
-      );
-    };
-    return (
-      <>
-        <div className="beer-chart-content">{renderBars()}</div>
-        {renderNames()}
-      </>
-    );
-  };
 
   return (
     <>
@@ -199,11 +131,13 @@ function Dashboard() {
         </div>
       </div>
       <div className="dashboard">
-        <section className="queue-chart">
-          <Area data={queueChart} {...config} />
+        <section className="queue-chart chart">
+          <AreaChart data={queueChart} {...antChartConfig} />
         </section>
 
-        <section className="beer-chart">{renderBeerChart()}</section>
+        <section className="beer-chart chart">
+          <BeerChart data={beerChart} />
+        </section>
       </div>
     </>
   );

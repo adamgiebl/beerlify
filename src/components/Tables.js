@@ -1,4 +1,4 @@
-import { Table, Tag, Progress, Typography, Image, Badge } from "antd";
+import { Table, Tag, Progress, Typography, Badge } from "antd";
 import { SyncOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { formatDate, getImage } from "../utils";
 import { statusMessages } from "../constants";
