@@ -6,7 +6,9 @@ import Listpage from "./Listpage.js";
 const Form = () => {
   const [splashOpen, setSplashOpen] = useState(false);
   return (
-    <>{splashOpen ? <Splash setSplashOpen={setSplashOpen} /> : <Listpage />}</>
+    <div className="form-wrapper">
+      {splashOpen ? <Splash setSplashOpen={setSplashOpen} /> : <Listpage />}
+    </div>
   );
 };
 

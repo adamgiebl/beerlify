@@ -3,7 +3,7 @@ import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";
 const Splash = (props) => {
   return (
-    <main>
+    <main className="splashscreen">
       <img className="elem-up" src={elemupSrc} alt="" />
       <div className="cta">
         <img src={logoSrc} alt="logo" />

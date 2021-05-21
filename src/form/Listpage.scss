@@ -4,8 +4,13 @@
     font-weight: 900;
     max-width: 100px;
   }
+  h1 {
+    max-width: 600px;
+    font-size: calc(1rem + 1vw);
+    line-height: 1.5;
+  }
   .wrapper {
-    max-width: 1100px;
+    max-width: 1200px;
   }
   .elem-up {
     position: fixed;
@@ -19,13 +24,10 @@
   header {
     padding: 100px;
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: space-between;
     margin: auto;
-    h1 {
-      max-width: 600px;
-      font-size: calc(1rem + 1vw);
-    }
+    flex-wrap: wrap-reverse;
   }
   .filters-cards {
     padding: 0 100px;
@@ -42,8 +44,8 @@
     }
     .card-container {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
       .card {
         padding: 50px;
         display: flex;
@@ -82,11 +84,10 @@
           }
         }
         button {
-          margin-top: 10px;
+          margin-top: 20px;
           background-color: var(--orange);
           border: none;
           padding: 10px 30px;
-          margin-top: 10px;
           font-weight: 700;
           white-space: nowrap;
           &:hover {
@@ -112,5 +113,52 @@
     padding: 50px;
     display: grid;
     place-items: center;
+  }
+  .modal {
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    z-index: 9;
+    background: var(--light-gray);
+    padding: 70px;
+    margin: auto;
+    .modal-header {
+      padding: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h1 {
+        max-width: 100px;
+      }
+      .close-arrow {
+        width: 15px;
+      }
+    }
+    .modal-content {
+      .single-beer {
+        width: 50px;
+        margin-right: 30px;
+      }
+    }
+
+    button {
+      background-color: var(--orange);
+      border: none;
+      padding: 10px 20px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+
+      &:disabled {
+        filter: grayscale(1);
+        cursor: default;
+      }
+    }
+    input {
+      padding: 20px;
+      border: 1px solid var(--darkblue);
+      width: 50px;
+      height: 50px;
+    }
   }
 }

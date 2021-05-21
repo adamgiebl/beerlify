@@ -1,10 +1,13 @@
+import { useState } from "react";
 import logoSrc from "../images/logo.svg";
 import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";
 import hoppilySrc from "../images/barells/hoppilyeverafter.png";
 import volumeSrc from "../images/barells/volume.svg";
+import downArrowSrc from "../images/downarrow.svg";
 import "./Listpage.scss";
 const Listpage = () => {
+  const [amount, setAmount] = useState(1);
   return (
     <div className="list-page">
       <div className="elem-up">
@@ -95,8 +98,28 @@ const Listpage = () => {
         <img src={elemdownSrc} alt="" />
       </div>
       <footer>Foobar 2021 • All rights reserved</footer>
+      <div className="modal">
+        <div className="modal-header">
+          <h1>Order summary</h1>
+          <img className="close-arrow" src={downArrowSrc} alt="" />
+        </div>
+        <div className="modal-content">
+          <div className="beer-row">
+            <img className="single-beer" src={hoppilySrc} alt="" />
+            <button
+              onClick={() => setAmount((prevAmount) => prevAmount - 1)}
+              disabled={amount === 0}
+            >
+              -
+            </button>
+            <input value={amount} />
+            <button onClick={() => setAmount((prevAmount) => prevAmount + 1)}>
+              +
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
-
 export default Listpage;
