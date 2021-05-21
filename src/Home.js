@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Home.scss";
 import Tables from "./components/Tables";
@@ -6,7 +7,6 @@ import { useSplitData } from "./customHooks";
 import _ from "lodash/array";
 import { Statistic } from "antd";
 import Bartender from "./components/Bartender";
-import Bartender2 from "./components/Bartender2";
 import TapAnimation from "./components/TapAnimation";
 
 const URL = "https://beerlify.herokuapp.com/";
@@ -97,7 +97,7 @@ function Home() {
         <div className="bartenders">
           {true &&
             bartenders.map((bartender) => (
-              <Bartender2 {...bartender} serving={serving} tapMap={tapMap} />
+              <Bartender {...bartender} serving={serving} tapMap={tapMap} />
             ))}
         </div>
       )}

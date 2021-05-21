@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./global.scss";
 import Home from "./Home";
 import Dash from "./components/Dashboard";
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 import Form from "./form/Form";
 
 ReactDOM.render(

@@ -12,19 +12,16 @@
 :root {
   --orange: #eeb448;
   --blue: #475073;
-  --dark-blue: #292d3c;
+  --darkblue: #292d3c;
   --light-blue: #b1beca;
   --light-gray: #f2f1f1;
+  --merri: "Merriweather", serif;
+  --roboto: "Roboto", sans-serif;
 }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Merriweather", serif;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: var(--roboto);
 }

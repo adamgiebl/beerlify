@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Dashboard.scss";
 import { formatDate } from "../utils";
 import { useSplitData } from "../customHooks";
 import _ from "lodash/array";
 import { Statistic } from "antd";
-import { Area } from "@ant-design/charts";
+import { antChartConfig } from "../constants";
+import { Area as AreaChart } from "@ant-design/charts";
+import BeerChart from "./BeerChart";
 
 const URL = "https://beerlify.herokuapp.com/";
 
@@ -15,6 +18,7 @@ function Dashboard() {
   const [beersSold, setBeersSold] = useState(0);
   const [queueChart, setQueueChart] = useState([]);
   const [queueUpdate, setQueueUpdate] = useState();
+  const [beerChart, setBeerChart] = useState();
 
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
 
@@ -58,6 +62,20 @@ function Dashboard() {
         );
 
         setCompletedOrders(completed.sort((a, b) => b.id - a.id));
+
+        const red = completed.reduce((acc, curr) => {
+          curr.order.forEach((beer) => {
+            if (acc[beer]) {
+              acc[beer] += 1;
+            } else {
+              acc[beer] = 1;
+            }
+          });
+          return acc;
+        }, {});
+
+        setBeerChart(red);
+
         return temp;
       });
     }
@@ -77,41 +95,20 @@ function Dashboard() {
 
     return () => clearInterval(id);
   }, []);
+
   useEffect(() => {
     setQueueChart((prevChart) => {
-      console.log(prevChart);
       const copy = prevChart;
       if (copy.length > 20) {
         copy.shift();
       }
-      console.log(queue);
       return [
         ...copy,
         { number: queue.length, timestamp: formatDate(Date.now()) },
       ];
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queueUpdate]);
-
-  const config = {
-    xField: "timestamp",
-    yField: "number",
-    point: {
-      size: 5,
-      shape: "diamond",
-    },
-    xAxis: {},
-    yAxis: {
-      min: 0,
-      max: 7,
-      title: {
-        text: "Customers in Queue",
-      },
-    },
-    smooth: true,
-    areaStyle: {
-      fill: "l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff",
-    },
-  };
 
   return (
     <>
@@ -133,9 +130,15 @@ function Dashboard() {
           />
         </div>
       </div>
-      <section className="queue-chart">
-        <Area data={queueChart} {...config} />
-      </section>
+      <div className="dashboard">
+        <section className="queue-chart chart">
+          <AreaChart data={queueChart} {...antChartConfig} />
+        </section>
+
+        <section className="beer-chart chart">
+          <BeerChart data={beerChart} />
+        </section>
+      </div>
     </>
   );
 }
