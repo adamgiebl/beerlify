@@ -1,17 +1,12 @@
 import { useState } from "react";
 import "./Form.scss";
 import Splash from "./Splash.js";
+import Listpage from "./Listpage.js";
 
 const Form = () => {
-  const [splashOpen, setSplashOpen] = useState(true);
+  const [splashOpen, setSplashOpen] = useState(false);
   return (
-    <>
-      {splashOpen ? (
-        <Splash setSplashOpen={setSplashOpen} />
-      ) : (
-        <main>This is the main page</main>
-      )}
-    </>
+    <>{splashOpen ? <Splash setSplashOpen={setSplashOpen} /> : <Listpage />}</>
   );
 };
 

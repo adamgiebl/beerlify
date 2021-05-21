@@ -1,0 +1,116 @@
+.list-page {
+  h3 {
+    color: var(--blue);
+    font-weight: 900;
+    max-width: 100px;
+  }
+  .wrapper {
+    max-width: 1100px;
+  }
+  .elem-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    img {
+      width: 300px;
+    }
+  }
+  header {
+    padding: 100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: auto;
+    h1 {
+      max-width: 600px;
+      font-size: calc(1rem + 1vw);
+    }
+  }
+  .filters-cards {
+    padding: 0 100px;
+    .filters {
+      span {
+        color: var(--blue);
+        font-size: calc(1rem + 0.1vw);
+        &.active {
+          color: var(--orange);
+          font-weight: 700;
+        }
+      }
+      margin-bottom: 40px;
+    }
+    .card-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 30px;
+      .card {
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        background: var(--light-gray);
+        .keg {
+          padding: 20px;
+        }
+        .beer-type {
+          color: var(--light-blue);
+          font-weight: 700;
+          font-family: "Roboto", sans-serif;
+        }
+        .volume-price {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .volume {
+            display: flex;
+            align-items: flex-end;
+            .beer-icon {
+              width: 30px;
+            }
+            .volume-txt {
+              font-weight: 700;
+              font-family: "Roboto", sans-serif;
+              color: var(--light-blue);
+              padding-left: 5px;
+              font-size: 1.2rem;
+            }
+          }
+          .price {
+            color: var(--orange);
+            font-weight: 900;
+            font-size: calc(1rem + 0.8vw);
+          }
+        }
+        button {
+          margin-top: 10px;
+          background-color: var(--orange);
+          border: none;
+          padding: 10px 30px;
+          margin-top: 10px;
+          font-weight: 700;
+          white-space: nowrap;
+          &:hover {
+            transition: 0.3s;
+            background: var(--blue);
+            color: white;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .elem-down {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    img {
+      width: 300px;
+    }
+  }
+  footer {
+    padding: 50px;
+    display: grid;
+    place-items: center;
+  }
+}
