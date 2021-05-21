@@ -181,6 +181,18 @@ const Tables = ({
             key="startTime"
             render={(timestamp) => formatDate(timestamp)}
           />
+          <Column
+            title="End Time"
+            dataIndex="endTime"
+            key="endTime"
+            render={(timestamp) => formatDate(timestamp)}
+          />
+          <Column
+            title="Finished in"
+            dataIndex="finishedIn"
+            key="finishedIn"
+            render={(finishedIn) => finishedIn + "s"}
+          />
         </Table>
         <Table
           title={() => (
