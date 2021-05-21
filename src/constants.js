@@ -23,7 +23,7 @@ export const antChartConfig = {
   xAxis: {},
   yAxis: {
     tickInterval: 1,
-    minLimit: 0,
+    min: 0,
   },
 
   smooth: true,

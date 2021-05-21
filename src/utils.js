@@ -15,3 +15,11 @@ export const getImage = (name) => {
     return null;
   }
 };
+
+export const getBeersSold = (completedOrders) => {
+  if (completedOrders.length > 0) {
+    return completedOrders.reduce((acc, curr) => acc + curr.order.length, 0);
+  } else {
+    return 0;
+  }
+};

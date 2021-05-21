@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import useMemoizeArray from "./useMemoizeArray";
 
 const createTapMap = (taps) => {
   let map = {};
@@ -15,11 +16,8 @@ const useSplitData = () => {
   const [bartenders, setBartenders] = useState([]);
   const [tapMap, setTapMap] = useState({});
 
-  const lastQueueOrderID = useRef(null);
-  const lastServingOrderID = useRef(null);
-
-  const firstQueueOrderID = useRef(null);
-  const firstServingOrderID = useRef(null);
+  const isQueueDifferent = useMemoizeArray();
+  const isServingDifferent = useMemoizeArray();
 
   const updateData = ({ queue, bartenders, serving, taps }) => {
     setTaps(taps);
@@ -28,34 +26,12 @@ const useSplitData = () => {
 
     setBartenders(bartenders);
 
-    if (queue.length > 0) {
-      const currentLastQueueOrderID = queue[queue.length - 1].id;
-      const currentFirstQueueOrderID = queue[0].id;
-      if (
-        lastQueueOrderID.current !== currentLastQueueOrderID ||
-        firstQueueOrderID.current !== currentFirstQueueOrderID ||
-        currentLastQueueOrderID === currentFirstQueueOrderID
-      ) {
-        lastQueueOrderID.current = currentLastQueueOrderID;
-        firstQueueOrderID.current = currentFirstQueueOrderID;
-        setQueue(queue);
-      } else {
-      }
+    if (isQueueDifferent(queue)) {
+      setQueue(queue);
     }
 
-    if (serving.length > 0) {
-      const currentLastServingOrderID = serving[serving.length - 1].id;
-      const currentFirstServingOrderID = serving[0].id;
-      if (
-        lastServingOrderID.current !== currentLastServingOrderID ||
-        firstServingOrderID.current !== currentFirstServingOrderID ||
-        currentLastServingOrderID === currentFirstServingOrderID
-      ) {
-        lastServingOrderID.current = currentLastServingOrderID;
-        firstServingOrderID.current = currentFirstServingOrderID;
-        setServing(serving);
-      } else {
-      }
+    if (isServingDifferent(serving)) {
+      setServing(serving);
     }
   };
 
