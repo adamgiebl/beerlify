@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { usePrevious } from "../customHooks";
 import _ from "lodash/array";
 
-const useOrderProcessing = (serving, previousServing) => {
+const useOrderProcessing = (serving) => {
   const [completedOrders, setCompletedOrders] = useState([]);
   const [avgTime, setAvgTime] = useState(0);
+  const previousServing = usePrevious(serving);
 
   useEffect(() => {
     if (serving && serving.length > 0) {
