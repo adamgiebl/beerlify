@@ -1,92 +1,142 @@
-import { useState } from "react";
+import { useEffect, useState, useRef, forwardRef, useMemo, memo } from "react";
+import { gsap } from "gsap";
+
+const beerHeight = 196;
 
 const TapAnimation = () => {
   const [active, setActive] = useState(false);
+  const beerRef = useRef(null);
+  const beerLiquidRef = useRef(null);
+  const tapStreamRef = useRef(null);
+  //const [timeline, setTimeline] = useState(gsap.timeline());
+  const timeline = useMemo(() => gsap.timeline({ paused: true }), []);
+
+  console.log("redner");
+
+  useEffect(() => {
+    console.log("run", timeline);
+    timeline.progress(0);
+    timeline.play();
+    timeline.from(beerRef.current, {
+      x: 200,
+      duration: 1,
+    });
+    timeline.from(
+      tapStreamRef.current,
+      {
+        height: 0,
+        duration: 0.5,
+      },
+      "+=1"
+    );
+    timeline.from(beerLiquidRef.current, {
+      scaleY: 0,
+      duration: 2,
+      transformOrigin: "50% 100%",
+      ease: "linear",
+    });
+    timeline.to(tapStreamRef.current, {
+      scaleY: 0,
+      y: 100,
+      duration: 0.5,
+    });
+    timeline.to(beerRef.current, {
+      x: -200,
+      duration: 1,
+      ease: "linear",
+    });
+  }, []);
+
+  function buttonClicked() {
+    if (timeline.progress() > 0) {
+      timeline.progress(0);
+      timeline.pause();
+    } else {
+      timeline.play();
+    }
+  }
 
   return (
-    <div>
+    <div className="svg-wrapper" onClick={buttonClicked}>
       <svg
-        viewBox="0 0 910 1809"
+        viewBox="0 0 178 422"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="tap-svg"
       >
-        <g id="draft" onClick={() => setActive(!active)}>
+        <g id="draft">
           <Stand />
           <Base />
           <Tap />
           <Misc />
-          <rect id="stream" x="432" y="1068" width="45" fill="#FFB62C" />
-          <Beer active={active} />
+          <rect
+            id="stream"
+            x="79"
+            y="201"
+            width="17"
+            height="196"
+            fill="#FFB62C"
+            fillOpacity="0.65"
+            ref={tapStreamRef}
+          />
+          <Beer active={active} ref={{ beerRef, beerLiquidRef }} />
         </g>
       </svg>
     </div>
   );
 };
 
-const Beer = ({ active }) => {
+const Beer = forwardRef(({ active }, { beerRef, beerLiquidRef }) => {
   return (
-    <g
-      id="beer"
-      className="beer"
-      style={{ transform: `translate(${active ? "0 0" : "-300 0"})` }}
-      transform={{}}
-    >
+    <g id="beer" className="beer" ref={beerRef}>
       <rect
         id="liquid"
-        x="377"
-        y="1498"
-        width="155"
-        height="250"
+        x="44.2266"
+        y="276.173"
+        width="86.1135"
+        height="121.1"
         fill="#FFB62C"
-        opacity={0}
+        ref={beerLiquidRef}
       />
-
       <rect
         id="Rectangle 130"
-        x="355"
-        y="1477"
-        width="199"
-        height="290"
-        rx="7"
-        fill="#EEEEEE"
-        fillOpacity="0.37"
+        x="32"
+        y="266.001"
+        width="110.559"
+        height="140.476"
+        rx="0.900137"
+        fill="#CBCBCB"
+        fillOpacity="0.29"
       />
       <path
         id="Rectangle 132"
-        d="M455 1477H547C550.866 1477 554 1480.13 554 1484V1760C554 1763.87 550.866 1767 547 1767H455V1477Z"
-        fill="white"
-        fillOpacity="0.26"
+        d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
+        fill="#E4E4E4"
+        fillOpacity="0.27"
       />
       <g id="Rectangle 133">
-        <mask id="path-23-inside-1" fill="white">
-          <path d="M532 1550H595C598.866 1550 602 1553.13 602 1557V1689C602 1692.87 598.866 1696 595 1696H532V1550Z" />
+        <mask id="path-22-inside-1" fill="white">
+          <path d="M130.806 299.497H176.906C177.403 299.497 177.806 299.9 177.806 300.397V373.596C177.806 374.094 177.403 374.497 176.906 374.497H130.806V299.497Z" />
         </mask>
         <path
-          d="M532 1550H595C598.866 1550 602 1553.13 602 1557V1689C602 1692.87 598.866 1696 595 1696H532V1550Z"
+          d="M130.806 299.497H176.906C177.403 299.497 177.806 299.9 177.806 300.397V373.596C177.806 374.094 177.403 374.497 176.906 374.497H130.806V299.497Z"
           stroke="#D3D3D3"
-          strokeWidth="40"
-          mask="url(#path-23-inside-1)"
+          strokeOpacity="0.62"
+          strokeWidth="24"
+          mask="url(#path-22-inside-1)"
         />
       </g>
     </g>
   );
-};
+});
 
 const Misc = () => {
   return (
     <g id="misc">
       <path
         id="plate"
-        d="M784.482 1767.03H455.015H0V1808.75H455.015H909.9V1767.03H784.482Z"
+        d="M151.809 405.917H88.2601H0.495117V421.085H88.2601H176V405.917H151.809Z"
         fill="#494949"
-      />
-      <path
-        id="image"
-        d="M455.015 96.6961C365.207 96.6961 292.426 170.517 292.426 261.494C292.426 352.471 365.207 426.293 455.015 426.293C544.822 426.293 617.604 352.471 617.604 261.494C617.604 170.517 544.822 96.6961 455.015 96.6961Z"
-        stroke="#515E6C"
-        strokeWidth="14"
-        strokeMiterlimit="10"
       />
     </g>
   );
@@ -97,12 +147,12 @@ const Base = () => {
     <g id="base">
       <path
         id="Vector_4"
-        d="M455.015 0H750.17C811.515 0 861.292 49.7774 861.162 111.122V1021.15C861.162 1082.5 811.385 1132.27 750.04 1132.27H627.351H454.885V1094.84V1042.47L455.015 486.727V432.661C548.201 432.661 623.842 355.98 623.842 261.494C623.842 167.008 548.331 90.3272 455.015 90.3272V0Z"
+        d="M87.0468 98.5137H115.736C121.698 98.5137 126.537 104.054 126.524 110.882V212.176C126.524 219.004 121.686 224.545 115.723 224.545H103.798H87.0342V220.379V214.549L87.0468 152.69V146.672C96.1045 146.672 103.457 138.137 103.457 127.62C103.457 117.103 96.1171 108.568 87.0468 108.568V98.5137Z"
         fill="#AFB6BC"
       />
       <path
         id="Vector_5"
-        d="M286.057 261.494C286.057 167.008 361.698 90.3272 454.885 90.3272V0H159.729C98.3848 0 48.6074 49.7774 48.6074 111.122V1021.02C48.6074 1082.37 98.3848 1132.14 159.729 1132.14H455.015V432.661C361.698 432.661 286.057 355.98 286.057 261.494Z"
+        d="M71.8472 127.623C71.8472 117.105 78.7029 108.569 87.1487 108.569V98.5137H60.3976C54.8377 98.5137 50.3262 104.055 50.3262 110.884V212.175C50.3262 219.004 54.8377 224.545 60.3976 224.545H87.1605V146.678C78.7029 146.678 71.8472 138.142 71.8472 127.623Z"
         fill="#BDC3C9"
       />
     </g>
@@ -114,17 +164,17 @@ const Stand = () => {
     <g id="stand">
       <path
         id="Vector"
-        d="M455.014 1158.92V1768.59H125.027L125.417 1767.03L301.003 1158.92H455.014Z"
+        d="M100.658 221.464V405.832H45.2744L45.3399 405.36L74.8097 221.464H100.658Z"
         fill="#BEBEBE"
       />
       <path
         id="Vector_2"
-        d="M784.48 1767.03H455.014V1158.92H634.108L784.48 1767.03Z"
+        d="M128.38 405.918H73.083V222.022H103.142L128.38 405.918Z"
         fill="#A8A8A8"
       />
       <path
         id="Vector_3"
-        d="M627.481 1132.27H455.015V1094.84H319.459L308.672 1132.27L301.004 1158.92H455.015H634.11L627.481 1132.27Z"
+        d="M103.056 220.325H85.7723V209.019H74.6036L73.083 220.325V228.373H85.7723H103.959L103.056 220.325Z"
         fill="#424C5A"
       />
     </g>
@@ -136,61 +186,61 @@ const Tap = () => {
     <g id="tap">
       <path
         id="Vector_6"
-        d="M454.818 699.543H368V935.693H454.818V699.543Z"
+        d="M88.1829 68.377H56.8311V153.656H88.1829V68.377Z"
         fill="#747E89"
       />
       <path
         id="Vector_7"
-        d="M454.818 935.693V1067.74H422.196L368 935.693H454.818Z"
+        d="M88.1829 153.657V201.342H76.4025L56.8311 153.657H88.1829Z"
         fill="#515E6C"
       />
       <path
         id="Vector_8"
-        d="M454.687 713.449H395.682V782.852H454.687V713.449Z"
+        d="M88.1351 73.3994H66.8271V98.4621H88.1351V73.3994Z"
         fill="#979EA7"
       />
       <path
         id="Vector_9"
-        d="M454.688 720.338H409.59V755.039H454.688V720.338Z"
+        d="M88.1347 75.8872H71.8486V88.4186H88.1347V75.8872Z"
         fill="#B9BFC4"
       />
       <path
         id="Vector_10"
-        d="M454.817 512V741.262H425.315L422.716 720.337L421.936 713.449L420.246 699.543L397.502 512H454.817Z"
+        d="M88.1832 0.651367V83.4427H77.5292L76.5905 75.8864L76.3089 73.3989L75.6988 68.3769L67.4854 0.651367H88.1832Z"
         fill="#E5A038"
       />
       <path
         id="Vector_11"
-        d="M512.132 512L492.247 699.543H454.816V512H512.132Z"
+        d="M108.88 0.651367L101.7 68.3769H88.1826V0.651367H108.88Z"
         fill="#EEB448"
       />
       <path
         id="Vector_12"
-        d="M541.634 699.543V935.693H454.816V782.852H513.821V713.449H490.687L492.247 699.543H541.634Z"
+        d="M119.534 68.377V153.656H88.1826V98.4616H109.491V73.3989H101.136L101.7 68.377H119.534Z"
         fill="#515E6C"
       />
       <path
         id="Vector_13"
-        d="M513.821 713.449V782.852H454.816V755.039H499.915V720.337H490.038L490.687 713.449H513.821Z"
+        d="M109.491 73.3994V98.4621H88.1826V88.4183H104.469V75.8869H100.902L101.136 73.3994H109.491Z"
         fill="#747E89"
       />
       <path
         id="Vector_14"
-        d="M499.915 720.338V755.039H454.816V741.263H487.828L490.038 720.338H499.915Z"
+        d="M104.469 75.8872V88.4186H88.1826V83.4436H100.104L100.902 75.8872H104.469Z"
         fill="#979EA7"
       />
       <path
         id="Vector_15"
-        d="M454.816 699.543V713.449V720.338V741.262H487.828L490.038 720.338L490.687 713.449L492.247 699.543H454.816Z"
+        d="M88.1826 68.377V73.3989V75.8864V83.4427H100.104L100.902 75.8864L101.136 73.3989L101.7 68.377H88.1826Z"
         fill="#EEB448"
       />
       <path
         id="Vector_16"
-        d="M541.634 935.693L487.308 1067.74H454.816V935.693H541.634Z"
+        d="M119.534 153.657L99.9161 201.342H88.1826V153.657H119.534Z"
         fill="#424C5A"
       />
     </g>
   );
 };
 
-export default TapAnimation;
+export default memo(TapAnimation);

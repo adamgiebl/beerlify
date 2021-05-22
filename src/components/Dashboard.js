@@ -5,9 +5,9 @@ import { formatDate, getBeersSold } from "../utils";
 import {
   useSplitData,
   useQueueChart,
-  usePrevious,
   useBeerChart,
   useOrderProcessing,
+  usePeriodicalFetch,
 } from "../customHooks";
 import _ from "lodash/array";
 import { antChartConfig } from "../constants";
@@ -15,34 +15,17 @@ import { Area as AreaChart } from "@ant-design/charts";
 import BeerChart from "./BeerChart";
 import Statistic from "./Statistic";
 
-const URL = "https://beerlify.herokuapp.com/";
-
 function Dashboard() {
   const [refreshTime, setRefreshTime] = useState(null);
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
-  const previousServing = usePrevious(serving);
-  const [completedOrders, averageOrderTime] = useOrderProcessing(
-    serving,
-    previousServing
-  );
+  const [completedOrders, averageOrderTime] = useOrderProcessing(serving);
   const queueChart = useQueueChart(queue);
   const beerChart = useBeerChart(completedOrders);
 
-  useEffect(() => {
-    const id = setInterval(
-      () =>
-        fetch(URL)
-          .then((data) => data.json())
-          .then((data) => {
-            updateData(data);
-
-            setRefreshTime(formatDate(data.timestamp));
-          }),
-      1000
-    );
-
-    return () => clearInterval(id);
-  }, [updateData]);
+  usePeriodicalFetch((data) => {
+    updateData(data);
+    setRefreshTime(formatDate(data.timestamp));
+  });
 
   return (
     <main className="dashboard-wrapper">
@@ -53,7 +36,7 @@ function Dashboard() {
         <div className="widget widget--orders">
           <Statistic
             value={completedOrders.length + serving.length + queue.length}
-            title={"Total Orders"}
+            title={"Orders"}
           />
         </div>
         <div className="widget widget--revenue">
