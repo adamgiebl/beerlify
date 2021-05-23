@@ -1,32 +1,26 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Dashboard.scss";
-import { formatDate, getBeersSold } from "../utils";
-import {
-  useSplitData,
-  useQueueChart,
-  useBeerChart,
-  useOrderProcessing,
-  usePeriodicalFetch,
-} from "../customHooks";
+import { getBeersSold } from "../utils";
+import { useQueueChart, useBeerChart } from "../customHooks";
 import _ from "lodash/array";
 import { antChartConfig } from "../constants";
 import { Area as AreaChart } from "@ant-design/charts";
 import BeerChart from "./BeerChart";
 import Statistic from "./Statistic";
 
-function Dashboard() {
-  const [refreshTime, setRefreshTime] = useState(null);
-  const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
-  const [completedOrders, averageOrderTime] = useOrderProcessing(serving);
-  const queueChart = useQueueChart(queue);
-  const beerChart = useBeerChart(completedOrders);
-
-  usePeriodicalFetch((data) => {
-    updateData(data);
-    setRefreshTime(formatDate(data.timestamp));
-  });
-
+function Dashboard({
+  taps,
+  serving,
+  queue,
+  bartenders,
+  tapMap,
+  completedOrders,
+  averageOrderTime,
+  refreshTime,
+  queueChart,
+  beerChart,
+}) {
   return (
     <main className="dashboard-wrapper">
       <header>
@@ -55,7 +49,7 @@ function Dashboard() {
         <div className="widget widget--time">
           <Statistic
             value={averageOrderTime}
-            title="Avg. Order Time"
+            title="Avg. time to complete an order"
             suffix={"s"}
           />
         </div>

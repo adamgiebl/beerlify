@@ -1,5 +1,4 @@
 .dashboard-wrapper {
-  padding: 30px;
   padding-top: 0;
 }
 
@@ -65,7 +64,8 @@ header {
       align-items: center;
       width: var(--width);
       height: var(--height);
-      transition: all 0.5s cubic-bezier(0.36, 0, 0.66, -0.56);
+      //transition: all 0.5s cubic-bezier(0.36, 0, 0.66, -0.56);
+      transition: all 0.5s;
       position: relative;
 
       .column__image {
@@ -86,8 +86,8 @@ header {
         text-align: center;
         padding-top: calc(var(--width) / 5);
         overflow: hidden;
-        border-top-left-radius: 7px;
-        border-top-right-radius: 7px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
       }
     }
   }

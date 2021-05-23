@@ -4,7 +4,7 @@ import "./Statistic.scss";
 const Statistic = ({ value = 0, title, suffix = "" }) => {
   const { number } = useSpring({
     from: { number: 0 },
-    number: value,
+    number: value || 0,
     delay: 200,
   });
 

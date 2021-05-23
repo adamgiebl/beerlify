@@ -1,11 +1,67 @@
+.bartenders {
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
+}
+
 .bartender {
   margin-bottom: 50px;
-  max-width: 1100px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 7px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-right: 20px;
+  max-width: 300px;
+  width: 100%;
+
+  .order {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .taps {
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: column;
+    margin-bottom: 20px;
+    .tap-image {
+      overflow: hidden;
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 3px solid var(--darkblue);
+        object-fit: cover;
+      }
+
+      &.active {
+        box-shadow: 0 0 20px 0px rgba(0, 132, 255, 0.6);
+        border-radius: 50%;
+        transition: all 0.3s;
+        transform: scale(1.1);
+        img {
+          border: 3px solid rgb(0, 132, 255);
+          transition: all 0.3s;
+          display: block;
+        }
+      }
+    }
+  }
 }
 
 .steps {
   display: flex;
-  align-items: stretch;
+  margin: 20px 0;
+  min-height: 270px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 
   .step {
     padding: 20px;

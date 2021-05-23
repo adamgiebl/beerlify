@@ -3,21 +3,19 @@ import { gsap } from "gsap";
 
 const beerHeight = 196;
 
-const TapAnimation = () => {
-  const [active, setActive] = useState(false);
+const TapAnimation = ({ active, repeat, statusDetail, key }) => {
   const beerRef = useRef(null);
+  const beerContainerRef = useRef(null);
   const beerLiquidRef = useRef(null);
   const tapStreamRef = useRef(null);
   //const [timeline, setTimeline] = useState(gsap.timeline());
-  const timeline = useMemo(() => gsap.timeline({ paused: true }), []);
-
-  console.log("redner");
+  const timeline = useMemo(
+    () => gsap.timeline({ repeat: repeat - 1, paused: true }),
+    [repeat]
+  );
 
   useEffect(() => {
-    console.log("run", timeline);
-    timeline.progress(0);
-    timeline.play();
-    timeline.from(beerRef.current, {
+    timeline.from(beerContainerRef.current, {
       x: 200,
       duration: 1,
     });
@@ -31,7 +29,7 @@ const TapAnimation = () => {
     );
     timeline.from(beerLiquidRef.current, {
       scaleY: 0,
-      duration: 2,
+      duration: 6,
       transformOrigin: "50% 100%",
       ease: "linear",
     });
@@ -40,12 +38,21 @@ const TapAnimation = () => {
       y: 100,
       duration: 0.5,
     });
-    timeline.to(beerRef.current, {
+    timeline.to(beerContainerRef.current, {
       x: -200,
       duration: 1,
-      ease: "linear",
     });
-  }, []);
+  }, [timeline]);
+
+  useEffect(() => {
+    if (active) {
+      timeline.progress(0);
+      timeline.play();
+    } else {
+      timeline.progress(0);
+      timeline.pause();
+    }
+  }, [active]);
 
   function buttonClicked() {
     if (timeline.progress() > 0) {
@@ -57,7 +64,13 @@ const TapAnimation = () => {
   }
 
   return (
-    <div className="svg-wrapper" onClick={buttonClicked}>
+    <div
+      className={`svg-wrapper ${!active ? "hidden" : ""} ${
+        statusDetail === "releaseTap" && "release"
+      }`}
+      onClick={buttonClicked}
+    >
+      <div>{repeat}</div>
       <svg
         viewBox="0 0 178 422"
         fill="none"
@@ -79,56 +92,61 @@ const TapAnimation = () => {
             fillOpacity="0.65"
             ref={tapStreamRef}
           />
-          <Beer active={active} ref={{ beerRef, beerLiquidRef }} />
+          <Beer
+            active={active}
+            ref={{ beerRef, beerContainerRef, beerLiquidRef }}
+            key={key}
+          />
         </g>
       </svg>
     </div>
   );
 };
 
-const Beer = forwardRef(({ active }, { beerRef, beerLiquidRef }) => {
-  return (
-    <g id="beer" className="beer" ref={beerRef}>
-      <rect
-        id="liquid"
-        x="44.2266"
-        y="276.173"
-        width="86.1135"
-        height="121.1"
-        fill="#FFB62C"
-        ref={beerLiquidRef}
-      />
-      <rect
-        id="Rectangle 130"
-        x="32"
-        y="266.001"
-        width="110.559"
-        height="140.476"
-        rx="0.900137"
-        fill="#CBCBCB"
-        fillOpacity="0.29"
-      />
-      <path
-        id="Rectangle 132"
-        d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
-        fill="#E4E4E4"
-        fillOpacity="0.27"
-      />
-      <g id="Rectangle 133">
-        <mask id="path-22-inside-1" fill="white">
-          <path d="M130.806 299.497H176.906C177.403 299.497 177.806 299.9 177.806 300.397V373.596C177.806 374.094 177.403 374.497 176.906 374.497H130.806V299.497Z" />
-        </mask>
-        <path
-          d="M130.806 299.497H176.906C177.403 299.497 177.806 299.9 177.806 300.397V373.596C177.806 374.094 177.403 374.497 176.906 374.497H130.806V299.497Z"
-          stroke="#D3D3D3"
-          strokeOpacity="0.62"
-          strokeWidth="24"
-          mask="url(#path-22-inside-1)"
-        />
+const Beer = forwardRef(
+  ({ key }, { beerRef, beerContainerRef, beerLiquidRef }) => {
+    return (
+      <g className="beer-container" ref={beerContainerRef}>
+        <g id="beer" className="beer" ref={beerRef}>
+          <rect
+            id="liquid"
+            x="44"
+            y="276.173"
+            width="86.1135"
+            height="121.1"
+            fill="#FFB62C"
+            ref={beerLiquidRef}
+          />
+          <rect
+            id="Rectangle 130"
+            x="32"
+            y="266.001"
+            width="110.559"
+            height="140.476"
+            rx="0.900137"
+            fill="#CBCBCB"
+            fillOpacity="0.29"
+          />
+          <path
+            id="Rectangle 132"
+            d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
+            fill="#E4E4E4"
+            fillOpacity="0.27"
+          />
+          <g id="Rectangle 133">
+            <path
+              id="Rectangle 133"
+              d="M136 301H169.1C169.597 301 170 301.403 170 301.9V375.1C170 375.597 169.597 376 169.1 376H136V301Z"
+              stroke="#D3D3D3"
+              strokeOpacity="0.62"
+              strokeWidth="12"
+            />
+          </g>
+        </g>
       </g>
-    </g>
-  );
-});
+    );
+  }
+);
 
 const Misc = () => {
   return (
