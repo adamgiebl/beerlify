@@ -2,31 +2,32 @@
 import { useEffect, useState } from "react";
 import "./DataDump.scss";
 import Tables from "./Tables";
-import { formatDate, getBeersSold } from "../utils";
-import {
-  useSplitData,
-  useOrderProcessing,
-  usePeriodicalFetch,
-} from "../customHooks";
+import { getBeersSold } from "../utils";
 import _ from "lodash/array";
 import { Statistic } from "antd";
 import Bartender2 from "./Bartender2";
 import TapAnimation from "./TapAnimation";
+import iconData from "../images/data.svg";
 
-function DataDump() {
-  const [refreshTime, setRefreshTime] = useState(null);
-  const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
-  const [completedOrders, averageOrderTime] = useOrderProcessing(serving);
-
-  usePeriodicalFetch((data) => {
-    updateData(data);
-    setRefreshTime(formatDate(data.timestamp));
-  });
-
+function DataDump({
+  taps,
+  serving,
+  queue,
+  bartenders,
+  tapMap,
+  completedOrders,
+  averageOrderTime,
+  refreshTime,
+}) {
   return (
     <main className="dashboard-wrapper">
-      <header>
-        Data refreshed at: <b>{refreshTime}</b>
+      <header className="header">
+        <div className="label">
+          <img src={iconData} alt="" /> Raw Data
+        </div>
+        <div className="time">
+          Data refreshed at: <b>{refreshTime}</b>
+        </div>
       </header>
       {true && (
         <div className="widgets">

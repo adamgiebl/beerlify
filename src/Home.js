@@ -23,7 +23,7 @@ import {
 } from "./customHooks";
 
 function Home() {
-  const [activeTab, setActiveTab] = useState(null);
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [refreshTime, setRefreshTime] = useState(null);
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
   const [completedOrders, averageOrderTime] = useOrderProcessing(serving);
@@ -34,6 +34,19 @@ function Home() {
     updateData(data);
     setRefreshTime(formatDate(data.timestamp));
   });
+
+  const dashboardProps = {
+    taps,
+    serving,
+    queue,
+    bartenders,
+    tapMap,
+    completedOrders,
+    averageOrderTime,
+    refreshTime,
+    queueChart,
+    beerChart,
+  };
 
   return (
     <div className="home-content">
@@ -56,61 +69,48 @@ function Home() {
             <img src={iconPerson} alt="" />
             Bartenders
           </li>
-          <li className="navigation-item" onClick={() => setActiveTab("data")}>
+          <li
+            className="navigation-item navigation-item--grey"
+            onClick={() => setActiveTab("data")}
+          >
             <img src={iconData} alt="" />
             Raw Data
           </li>
         </ul>
       </aside>
-      <main className="dashboard-wrapper">
+      <main className="main-wrapper">
         <TransitionGroup component={null}>
           {activeTab === "dashboard" && (
             <CSSTransition classNames="dialog" timeout={300}>
-              <Dashboard
-                {...{
-                  taps,
-                  serving,
-                  queue,
-                  bartenders,
-                  tapMap,
-                  completedOrders,
-                  averageOrderTime,
-                  refreshTime,
-                  queueChart,
-                  beerChart,
-                }}
-              />
+              <Dashboard {...dashboardProps} />
             </CSSTransition>
           )}
           {activeTab === "bartenders" && (
             <CSSTransition classNames="dialog" timeout={300}>
-              <div className="bartenders">
-                {bartenders.map((bartender) => (
-                  <Bartender2
-                    {...bartender}
-                    serving={serving}
-                    tapMap={tapMap}
-                  />
-                ))}
-              </div>
+              <main className="dashboard-wrapper">
+                <header className="header">
+                  <div className="label">
+                    <img src={iconPerson} alt="" /> Bartenders
+                  </div>
+                  <div className="time">
+                    Data refreshed at: <b>{refreshTime}</b>
+                  </div>
+                </header>
+                <div className="bartenders">
+                  {bartenders.map((bartender) => (
+                    <Bartender2
+                      {...bartender}
+                      serving={serving}
+                      tapMap={tapMap}
+                    />
+                  ))}
+                </div>
+              </main>
             </CSSTransition>
           )}
           {activeTab === "data" && (
             <CSSTransition classNames="dialog" timeout={300}>
-              <DataDump
-                {...{
-                  taps,
-                  serving,
-                  queue,
-                  bartenders,
-                  tapMap,
-                  completedOrders,
-                  averageOrderTime,
-                  refreshTime,
-                  queueChart,
-                  beerChart,
-                }}
-              />
+              <DataDump {...dashboardProps} />
             </CSSTransition>
           )}
         </TransitionGroup>

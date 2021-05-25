@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export const formatDate = (timestamp) =>
   new Intl.DateTimeFormat("dk-DK", {
     hour: "2-digit",
@@ -21,5 +23,13 @@ export const getBeersSold = (completedOrders) => {
     return completedOrders.reduce((acc, curr) => acc + curr.order.length, 0);
   } else {
     return 0;
+  }
+};
+
+export const getTopSelling = (beerChart) => {
+  if (beerChart) {
+    return _.maxBy(Object.keys(beerChart), (o) => beerChart[o]);
+  } else {
+    return "Collecting data...";
   }
 };

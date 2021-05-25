@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Dashboard.scss";
-import { getBeersSold } from "../utils";
+import { getBeersSold, getTopSelling } from "../utils";
 import { useQueueChart, useBeerChart } from "../customHooks";
-import _ from "lodash/array";
+import _ from "lodash";
 import { antChartConfig } from "../constants";
 import { Area as AreaChart } from "@ant-design/charts";
 import BeerChart from "./BeerChart";
 import Statistic from "./Statistic";
+import iconDashboard from "../images/icon-dashboard.svg";
 
 function Dashboard({
   taps,
@@ -23,8 +24,13 @@ function Dashboard({
 }) {
   return (
     <main className="dashboard-wrapper">
-      <header>
-        Data refreshed at: <b>{refreshTime}</b>
+      <header className="header">
+        <div className="label">
+          <img src={iconDashboard} alt="" /> Dashboard
+        </div>
+        <div className="time">
+          Data refreshed at: <b>{refreshTime}</b>
+        </div>
       </header>
       <div className="widgets">
         <div className="widget widget--orders">
@@ -53,13 +59,26 @@ function Dashboard({
             suffix={"s"}
           />
         </div>
+        <div className="widget widget--time">
+          <Statistic
+            value={getTopSelling(beerChart)}
+            title="Top selling beer"
+          />
+        </div>
       </div>
-      <div className="dashboard">
+      <div className="main-widgets">
         <section className="queue-chart chart">
-          <AreaChart data={queueChart} {...antChartConfig} />
+          <h4 className="chart__label">Customers in queue</h4>
+          <AreaChart
+            data={queueChart}
+            {...antChartConfig}
+            autoFit={true}
+            width={400}
+          />
         </section>
 
         <section className="beer-chart chart">
+          <h4 className="chart__label">Beers sold</h4>
           <BeerChart data={beerChart} />
         </section>
       </div>

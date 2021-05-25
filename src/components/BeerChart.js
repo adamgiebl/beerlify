@@ -1,5 +1,6 @@
 import { getImage } from "../utils";
 import { Spin } from "antd";
+import "./BeerChart.scss";
 
 const BeerChart = ({ data }) => {
   if (!data)

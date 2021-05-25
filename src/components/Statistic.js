@@ -11,9 +11,14 @@ const Statistic = ({ value = 0, title, suffix = "" }) => {
   return (
     <div className="statistic">
       <div>
-        <animated.span className="statistic__value">
-          {number.to((n) => n.toFixed(0))}
-        </animated.span>
+        {typeof value === "number" ? (
+          <animated.span className="statistic__value">
+            {number.to((n) => n.toFixed(0))}
+          </animated.span>
+        ) : (
+          <span className="statistic__value">{value}</span>
+        )}
+
         <span className="statistic__suffix">{suffix}</span>
       </div>
       <span className="statistic__title">{title}</span>

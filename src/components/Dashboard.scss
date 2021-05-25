@@ -1,32 +1,41 @@
 .dashboard-wrapper {
-  padding-top: 0;
-}
+  padding: 40px;
 
-header {
-  padding: 20px 0;
+  header {
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .label {
+      font-size: 18px;
+
+      img {
+        width: 20px;
+        position: relative;
+        top: -2px;
+      }
+    }
+  }
 }
 
 .widgets {
   display: flex;
   margin-bottom: 20px;
-  align-items: center;
+  align-items: stretch;
 
   .widget {
     padding: 20px 60px;
-    border: 1px solid white;
+    //border: 1px solid ghostwhite;
     font-size: 20px;
     margin-right: 20px;
-    border-radius: 7px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 20px;
+    box-shadow: var(--lightshadow);
+    background: white;
   }
 }
 
-.queue-chart {
-  max-width: 500px;
-  pointer-events: none;
-}
-
-.dashboard {
+.main-widgets {
   display: grid;
   grid-template-columns: auto auto;
   justify-items: start;
@@ -34,87 +43,17 @@ header {
   gap: 20px;
 
   .chart {
-    border: 1px solid white;
-    padding: 20px;
-    border-radius: 7px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  }
-}
+    background: white;
+    padding: 30px 40px;
+    padding-top: 20px;
+    border-radius: 20px;
+    box-shadow: var(--lightshadow);
 
-.beer-chart {
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  font-family: var(--merri);
-  --height: 0;
-  --width: 55px;
-  .beer-chart-content {
-    padding-top: calc(var(--width) + 10px);
-    display: inline-grid;
-    grid-auto-flow: column;
-    align-items: end;
-    height: 100%;
-    gap: 20px;
-    overflow: hidden;
-
-    .column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: var(--width);
-      height: var(--height);
-      //transition: all 0.5s cubic-bezier(0.36, 0, 0.66, -0.56);
-      transition: all 0.5s;
-      position: relative;
-
-      .column__image {
-        position: absolute;
-        top: calc(var(--width) * -1 - 10px);
-        width: var(--width);
-        height: var(--width);
-        object-fit: cover;
-        border-radius: 50%;
-      }
-
-      .column__bar {
-        background: var(--darkblue);
-        width: 100%;
-        flex-grow: 1;
-        color: white;
-        font-size: 20px;
-        text-align: center;
-        padding-top: calc(var(--width) / 5);
-        overflow: hidden;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-      }
+    &__label {
+      font-size: 20px;
+      font-family: var(--merri);
+      font-weight: 700;
+      padding-bottom: 10px;
     }
-  }
-  .annotations {
-    grid-column: 1 / -1;
-    display: inline-grid;
-    grid-auto-flow: column;
-    align-items: end;
-    gap: 20px;
-    max-width: 340px;
-    align-items: start;
-    margin-top: 10px;
-
-    .annotations__name {
-      font-size: 10px;
-      width: var(--width);
-      color: var(--darkblue);
-      vertical-align: top;
-      font-weight: 900;
-    }
-  }
-
-  .spinner {
-    margin: 20px 0;
-    margin-bottom: 20px;
-    padding: 30px 50px;
-    text-align: center;
-    border-radius: 4px;
   }
 }
