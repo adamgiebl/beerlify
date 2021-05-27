@@ -50,6 +50,24 @@
 
 .main-wrapper {
   transform-origin: center center;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    padding-bottom: 0px;
+
+    .label {
+      font-size: 18px;
+
+      img {
+        width: 20px;
+        position: relative;
+        top: -2px;
+      }
+    }
+  }
 }
 
 .dialog-enter {

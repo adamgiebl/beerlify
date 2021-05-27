@@ -1,17 +1,50 @@
 .statistic {
   font-family: var(--merri);
-  display: flex;
-  flex-direction: column;
+  font-size: 9px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
   align-items: center;
-  justify-content: center;
+  box-shadow: var(--lightshadow);
+  background: white;
+  border-radius: 2em;
+  padding: 3em 4em;
+  padding-left: 3em;
+
   color: var(--darkblue);
+
+  &__icon {
+    grid-row: span 2;
+    display: flex;
+    padding-right: 1.5em;
+    font-size: inherit;
+    img,
+    svg {
+      width: 6em;
+      height: 6em;
+    }
+  }
 
   &__value {
     font-weight: 900;
-    font-size: 35px;
+    font-size: 3em;
+
+    &--text {
+      font-size: 2.2em;
+    }
   }
 
   &__title {
-    font-size: 15px;
+    font-size: 1.5em;
   }
+
+  &__suffix {
+    padding-left: 0.2em;
+    font-size: 1.8em;
+  }
+}
+
+.label-image {
+  border-radius: 50%;
+  object-fit: cover;
 }

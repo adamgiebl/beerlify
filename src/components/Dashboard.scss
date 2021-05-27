@@ -1,43 +1,19 @@
 .dashboard-wrapper {
   padding: 40px;
-
-  header {
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .label {
-      font-size: 18px;
-
-      img {
-        width: 20px;
-        position: relative;
-        top: -2px;
-      }
-    }
-  }
+  padding-top: 20px;
 }
 
 .widgets {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   margin-bottom: 20px;
-  align-items: stretch;
-
-  .widget {
-    padding: 20px 60px;
-    //border: 1px solid ghostwhite;
-    font-size: 20px;
-    margin-right: 20px;
-    border-radius: 20px;
-    box-shadow: var(--lightshadow);
-    background: white;
-  }
+  align-items: start;
+  gap: 20px;
 }
 
 .main-widgets {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   justify-items: start;
   justify-content: start;
   gap: 20px;
@@ -55,5 +31,26 @@
       font-weight: 700;
       padding-bottom: 10px;
     }
+  }
+}
+
+.new-orders {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+
+  .order {
+    animation: fly 1s linear;
+    padding: 20px;
+    border-radius: 20px;
+    background: red;
+  }
+}
+
+@keyframes fly {
+  to {
+    transform: translateY(-200px);
+    opacity: 0;
   }
 }

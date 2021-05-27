@@ -5,7 +5,7 @@ import Tables from "./components/Tables";
 import { formatDate, getBeersSold } from "./utils";
 import _ from "lodash/array";
 import { Statistic } from "antd";
-import Bartender2 from "./components/Bartender2";
+import Bartender from "./components/Bartender";
 import TapAnimation from "./components/TapAnimation";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import logo from "./images/logo.svg";
@@ -23,10 +23,11 @@ import {
 } from "./customHooks";
 
 function Home() {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("Dashboard");
   const [refreshTime, setRefreshTime] = useState(null);
   const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
-  const [completedOrders, averageOrderTime] = useOrderProcessing(serving);
+  const [completedOrders, averageOrderTime, newOrders, setNewOrders] =
+    useOrderProcessing(serving, queue);
   const queueChart = useQueueChart(queue);
   const beerChart = useBeerChart(completedOrders);
 
@@ -43,9 +44,10 @@ function Home() {
     tapMap,
     completedOrders,
     averageOrderTime,
-    refreshTime,
     queueChart,
     beerChart,
+    newOrders,
+    setNewOrders,
   };
 
   return (
@@ -57,21 +59,21 @@ function Home() {
         <ul className="sidebar__navigation">
           <li
             className="navigation-item"
-            onClick={() => setActiveTab("dashboard")}
+            onClick={() => setActiveTab("Dashboard")}
           >
             <img src={iconDashboard} alt="" />
             Dashboard
           </li>
           <li
             className="navigation-item"
-            onClick={() => setActiveTab("bartenders")}
+            onClick={() => setActiveTab("Bartenders")}
           >
             <img src={iconPerson} alt="" />
             Bartenders
           </li>
           <li
             className="navigation-item navigation-item--grey"
-            onClick={() => setActiveTab("data")}
+            onClick={() => setActiveTab("Raw Data")}
           >
             <img src={iconData} alt="" />
             Raw Data
@@ -79,26 +81,26 @@ function Home() {
         </ul>
       </aside>
       <main className="main-wrapper">
+        <header className="header">
+          <div className="label">
+            <img src={iconDashboard} alt="" /> {activeTab}
+          </div>
+          <div className="time">
+            Data refreshed at: <b>{refreshTime}</b>
+          </div>
+        </header>
         <TransitionGroup component={null}>
-          {activeTab === "dashboard" && (
+          {activeTab === "Dashboard" && (
             <CSSTransition classNames="dialog" timeout={300}>
               <Dashboard {...dashboardProps} />
             </CSSTransition>
           )}
-          {activeTab === "bartenders" && (
+          {activeTab === "Bartenders" && (
             <CSSTransition classNames="dialog" timeout={300}>
               <main className="dashboard-wrapper">
-                <header className="header">
-                  <div className="label">
-                    <img src={iconPerson} alt="" /> Bartenders
-                  </div>
-                  <div className="time">
-                    Data refreshed at: <b>{refreshTime}</b>
-                  </div>
-                </header>
                 <div className="bartenders">
                   {bartenders.map((bartender) => (
-                    <Bartender2
+                    <Bartender
                       {...bartender}
                       serving={serving}
                       tapMap={tapMap}
@@ -108,7 +110,7 @@ function Home() {
               </main>
             </CSSTransition>
           )}
-          {activeTab === "data" && (
+          {activeTab === "Raw Data" && (
             <CSSTransition classNames="dialog" timeout={300}>
               <DataDump {...dashboardProps} />
             </CSSTransition>

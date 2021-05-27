@@ -5,9 +5,8 @@ import Tables from "./Tables";
 import { getBeersSold } from "../utils";
 import _ from "lodash/array";
 import { Statistic } from "antd";
-import Bartender2 from "./Bartender2";
+import BartenderRaw from "./BartenderRaw";
 import TapAnimation from "./TapAnimation";
-import iconData from "../images/data.svg";
 
 function DataDump({
   taps,
@@ -21,14 +20,6 @@ function DataDump({
 }) {
   return (
     <main className="dashboard-wrapper">
-      <header className="header">
-        <div className="label">
-          <img src={iconData} alt="" /> Raw Data
-        </div>
-        <div className="time">
-          Data refreshed at: <b>{refreshTime}</b>
-        </div>
-      </header>
       {true && (
         <div className="widgets">
           <div className="widget widget--orders">
@@ -59,13 +50,7 @@ function DataDump({
           </div>
         </div>
       )}
-      {false && (
-        <div className="bartenders">
-          {bartenders.map((bartender) => (
-            <Bartender2 {...bartender} serving={serving} tapMap={tapMap} />
-          ))}
-        </div>
-      )}
+
       {true && (
         <div className="data-tables">
           <Tables
@@ -78,6 +63,13 @@ function DataDump({
               completedOrders,
             }}
           />
+        </div>
+      )}
+      {false && (
+        <div className="bartenders">
+          {bartenders.map((bartender) => (
+            <BartenderRaw {...bartender} serving={serving} tapMap={tapMap} />
+          ))}
         </div>
       )}
     </main>

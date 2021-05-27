@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 
 const beerHeight = 196;
 
-const TapAnimation = ({ active, repeat, statusDetail, key }) => {
+const TapAnimation = ({ active, repeat, statusDetail }) => {
   const beerRef = useRef(null);
   const beerContainerRef = useRef(null);
   const beerLiquidRef = useRef(null);
@@ -95,7 +95,6 @@ const TapAnimation = ({ active, repeat, statusDetail, key }) => {
           <Beer
             active={active}
             ref={{ beerRef, beerContainerRef, beerLiquidRef }}
-            key={key}
           />
         </g>
       </svg>
@@ -103,50 +102,48 @@ const TapAnimation = ({ active, repeat, statusDetail, key }) => {
   );
 };
 
-const Beer = forwardRef(
-  ({ key }, { beerRef, beerContainerRef, beerLiquidRef }) => {
-    return (
-      <g className="beer-container" ref={beerContainerRef}>
-        <g id="beer" className="beer" ref={beerRef}>
-          <rect
-            id="liquid"
-            x="44"
-            y="276.173"
-            width="86.1135"
-            height="121.1"
-            fill="#FFB62C"
-            ref={beerLiquidRef}
-          />
-          <rect
-            id="Rectangle 130"
-            x="32"
-            y="266.001"
-            width="110.559"
-            height="140.476"
-            rx="0.900137"
-            fill="#CBCBCB"
-            fillOpacity="0.29"
-          />
+const Beer = forwardRef(({}, { beerRef, beerContainerRef, beerLiquidRef }) => {
+  return (
+    <g className="beer-container" ref={beerContainerRef}>
+      <g id="beer" className="beer" ref={beerRef}>
+        <rect
+          id="liquid"
+          x="44"
+          y="276.173"
+          width="86.1135"
+          height="121.1"
+          fill="#FFB62C"
+          ref={beerLiquidRef}
+        />
+        <rect
+          id="Rectangle 130"
+          x="32"
+          y="266.001"
+          width="110.559"
+          height="140.476"
+          rx="0.900137"
+          fill="#CBCBCB"
+          fillOpacity="0.29"
+        />
+        <path
+          id="Rectangle 132"
+          d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
+          fill="#E4E4E4"
+          fillOpacity="0.27"
+        />
+        <g id="Rectangle 133">
           <path
-            id="Rectangle 132"
-            d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
-            fill="#E4E4E4"
-            fillOpacity="0.27"
+            id="Rectangle 133"
+            d="M136 301H169.1C169.597 301 170 301.403 170 301.9V375.1C170 375.597 169.597 376 169.1 376H136V301Z"
+            stroke="#D3D3D3"
+            strokeOpacity="0.62"
+            strokeWidth="12"
           />
-          <g id="Rectangle 133">
-            <path
-              id="Rectangle 133"
-              d="M136 301H169.1C169.597 301 170 301.403 170 301.9V375.1C170 375.597 169.597 376 169.1 376H136V301Z"
-              stroke="#D3D3D3"
-              strokeOpacity="0.62"
-              strokeWidth="12"
-            />
-          </g>
         </g>
       </g>
-    );
-  }
-);
+    </g>
+  );
+});
 
 const Misc = () => {
   return (
