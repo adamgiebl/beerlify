@@ -16,6 +16,7 @@
   --gray: #a9a9a9;
   --merri: "Merriweather", serif;
   --roboto: "Roboto", sans-serif;
+  --lightshadow: rgba(0, 0, 0, 0.1) 0px 5px 38px;
 }
 
 body {
@@ -23,5 +24,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--roboto);
-  background: ghostwhite;
+  background: white;
 }

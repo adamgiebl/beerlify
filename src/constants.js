@@ -13,12 +13,19 @@ export const antChartConfig = {
   xField: "timestamp",
   yField: "number",
   point: {
-    size: 5,
+    size: 0,
     shape: "diamond",
     color: "#292d3c",
   },
   line: {
     color: "#292d3c",
+  },
+  style: {
+    lineWidth: 10,
+    fillOpacity: 0,
+  },
+  lineStyle: {
+    fill: "red",
   },
   xAxis: {},
   yAxis: {

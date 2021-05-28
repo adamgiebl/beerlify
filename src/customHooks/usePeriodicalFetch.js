@@ -15,7 +15,7 @@ const usePeriodicalFetch = (callback, deps = []) => {
     );
 
     return () => clearInterval(id);
-  }, [deps]);
+  }, [deps, callback]);
 };
 
 export default usePeriodicalFetch;

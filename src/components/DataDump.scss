@@ -1,0 +1,40 @@
+.data-tables {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 10px;
+}
+
+.ant-tag {
+  margin-bottom: 10px;
+}
+
+.ant-progress {
+  width: 150px;
+}
+
+.group {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 10px;
+}
+
+.ant-table {
+  h4.ant-typography,
+  .ant-typography h4 {
+    margin-bottom: 0;
+  }
+
+  td.table-name {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .table-image {
+    width: 33px;
+    height: 33px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+}

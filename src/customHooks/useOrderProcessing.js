@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { usePrevious } from "../customHooks";
 import _ from "lodash/array";
 
-const useOrderProcessing = (serving) => {
+const useOrderProcessing = (serving, queue) => {
   const [completedOrders, setCompletedOrders] = useState([]);
   const [avgTime, setAvgTime] = useState(0);
+  const [newOrders, setNewOrders] = useState([]);
   const previousServing = usePrevious(serving);
+  const previousQueue = usePrevious(queue);
 
   useEffect(() => {
     if (serving && serving.length > 0) {
@@ -34,7 +36,13 @@ const useOrderProcessing = (serving) => {
     }
   }, [serving, previousServing]);
 
-  return [completedOrders, avgTime];
+  useEffect(() => {
+    const diff = _.differenceBy(queue, previousQueue, (item) => item.id);
+    setNewOrders((prev) => [...prev, ...diff]);
+    console.log(diff);
+  }, [queue, previousQueue]);
+
+  return [completedOrders, avgTime, newOrders, setNewOrders];
 };
 
 export default useOrderProcessing;
