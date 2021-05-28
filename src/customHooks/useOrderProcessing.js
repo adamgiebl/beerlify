@@ -39,7 +39,7 @@ const useOrderProcessing = (serving, queue) => {
   useEffect(() => {
     const diff = _.differenceBy(queue, previousQueue, (item) => item.id);
     setNewOrders((prev) => [...prev, ...diff]);
-    console.log(diff);
+    //console.log(diff);
   }, [queue, previousQueue]);
 
   return [completedOrders, avgTime, newOrders, setNewOrders];

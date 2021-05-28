@@ -99,13 +99,18 @@ function Home() {
             <CSSTransition classNames="dialog" timeout={300}>
               <main className="dashboard-wrapper">
                 <div className="bartenders">
-                  {bartenders.map((bartender) => (
+                  {/* {bartenders.map((bartender) => (
                     <Bartender
                       {...bartender}
                       serving={serving}
                       tapMap={tapMap}
                     />
-                  ))}
+                  ))} */}
+                  <Bartender
+                    {...bartenders[0]}
+                    serving={serving}
+                    tapMap={tapMap}
+                  />
                 </div>
               </main>
             </CSSTransition>

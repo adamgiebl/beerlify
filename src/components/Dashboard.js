@@ -29,7 +29,7 @@ function Dashboard({
   setNewOrders,
 }) {
   const onAnimationEnd = (id) => {
-    console.log(id, "ontransitionend");
+    //console.log(id, "ontransitionend");
     setNewOrders((prev) => {
       return _.filter(prev, (order) => order.id !== id);
     });

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef, useReducer, memo } from "react";
 import { statusMessages } from "../constants";
-import { getImage } from "../utils";
+import { countOccurances, getImage } from "../utils";
 import _ from "lodash/collection";
 import "./Bartender.scss";
 import Tap from "./Tap";
@@ -20,16 +20,20 @@ const Bartender = ({
   const [taps, setTaps] = useState([]);
   const [activeTap, setActiveTap] = useState(null);
 
+  // find the current order to animate
   useEffect(() => {
     setOrder(serving.find((item) => item.id === servingCustomer));
   }, [servingCustomer, serving]);
 
+  // group all beers inside of the order and set as taps
   useEffect(() => {
     if (order) {
-      setTaps(Object.values(_.groupBy(order.order, (x) => x)));
+      console.log(countOccurances(order.order));
+      setTaps(countOccurances(order.order));
     }
   }, [order]);
 
+  // manage the worker status
   useEffect(() => {
     if (usingTap !== null) {
       setActiveTap(tapMap[usingTap]);
@@ -48,21 +52,28 @@ const Bartender = ({
         {statusMessages[statusDetail]} | {activeTap}
       </span>
       <div className="steps">
-        {taps.map((tap) => (
+        {/* {taps.map((tap) => (
           <TapAnimation
             key={tap[0]}
             active={tap[0] === activeTap}
             repeat={tap.length}
             statusDetail={statusDetail}
+            name={tap[0]}
           />
-        ))}
+        ))} */}
+        <TapAnimation
+          activeTap={activeTap}
+          repeat={taps[activeTap]}
+          statusDetail={statusDetail}
+          name={activeTap}
+        />
       </div>
       <div className="taps">
         {taps &&
           activeTap !== "none" &&
-          taps.map((tap) => (
-            <div className={`tap-image ${activeTap === tap[0] && "active"}`}>
-              <img src={getImage(tap[0])} alt="tap logo" />
+          Object.keys(taps).map((tap) => (
+            <div className={`tap-image ${activeTap === tap && "active"}`}>
+              <img src={getImage(tap)} alt="tap logo" />
             </div>
           ))}
       </div>

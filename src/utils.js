@@ -33,3 +33,15 @@ export const getTopSelling = (beerChart) => {
     return "Collecting data...";
   }
 };
+
+export const countOccurances = (array) => {
+  return array.reduce((acc, curr) => {
+    if (typeof acc[curr] == "undefined") {
+      acc[curr] = 1;
+    } else {
+      acc[curr] += 1;
+    }
+
+    return acc;
+  }, {});
+};

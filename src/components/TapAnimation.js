@@ -3,72 +3,81 @@ import { gsap } from "gsap";
 
 const beerHeight = 196;
 
-const TapAnimation = ({ active, repeat, statusDetail }) => {
+const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
   const beerRef = useRef(null);
   const beerContainerRef = useRef(null);
   const beerLiquidRef = useRef(null);
   const tapStreamRef = useRef(null);
+
+  console.log(`%crender ${activeTap}`, "color: red");
   //const [timeline, setTimeline] = useState(gsap.timeline());
-  const timeline = useMemo(
-    () => gsap.timeline({ repeat: repeat - 1, paused: true }),
-    [repeat]
-  );
-
-  useEffect(() => {
-    timeline.from(beerContainerRef.current, {
-      x: 200,
-      duration: 1,
-    });
-    timeline.from(
-      tapStreamRef.current,
-      {
-        height: 0,
-        duration: 0.5,
-      },
-      "+=1"
+  /* const timeline = useMemo(() => {
+    console.log(
+      `%cnew timeline ${activeTap}`,
+      "color: white; background: black"
     );
-    timeline.from(beerLiquidRef.current, {
-      scaleY: 0,
-      duration: 6,
-      transformOrigin: "50% 100%",
-      ease: "linear",
-    });
-    timeline.to(tapStreamRef.current, {
-      scaleY: 0,
-      y: 100,
-      duration: 0.5,
-    });
-    timeline.to(beerContainerRef.current, {
-      x: -200,
-      duration: 1,
-    });
-  }, [timeline]);
+    return gsap.timeline({ repeat: 0 });
+  }, [activeTap, repeat]); */
 
   useEffect(() => {
-    if (active) {
-      timeline.progress(0);
-      timeline.play();
-    } else {
-      timeline.progress(0);
-      timeline.pause();
-    }
-  }, [active]);
+    if (activeTap !== "none") {
+      console.log(
+        `%canimation gets defined ${activeTap}`,
+        "color: black; background: yellow"
+      );
+      const timeline = gsap.timeline({ repeat: repeat - 1 });
 
-  function buttonClicked() {
-    if (timeline.progress() > 0) {
+      timeline.from(beerContainerRef.current, {
+        x: 200,
+        duration: 1,
+      });
+      timeline.from(
+        tapStreamRef.current,
+        {
+          height: 0,
+          duration: 0.5,
+        },
+        "+=1"
+      );
+      timeline.from(beerLiquidRef.current, {
+        scaleY: 0,
+        duration: 6,
+        transformOrigin: "50% 100%",
+        ease: "linear",
+      });
+      timeline.to(tapStreamRef.current, {
+        scaleY: 0,
+        y: 100,
+        duration: 0.5,
+      });
+      timeline.to(beerContainerRef.current, {
+        x: -200,
+        duration: 1,
+      });
+      timeline.progress(0);
+    }
+  }, [activeTap]);
+
+  /* useEffect(() => {
+    console.log(
+      `%cactive tap changed to ${activeTap}`,
+      "color: white; background: green"
+    );
+    if (activeTap !== "none") {
+      timeline.progress(0);
+      timeline.play();
+    } else {
       timeline.progress(0);
       timeline.pause();
-    } else {
-      timeline.play();
     }
-  }
+  }, [activeTap, timeline]); */
 
   return (
     <div
-      className={`svg-wrapper ${!active ? "hidden" : ""} ${
-        statusDetail === "releaseTap" && "release"
+      key={activeTap}
+      className={`svg-wrapper ${statusDetail === "releaseTap" && "release"} ${
+        activeTap === "none" && "hidden"
       }`}
-      onClick={buttonClicked}
     >
       <div>{repeat}</div>
       <svg
@@ -92,58 +101,57 @@ const TapAnimation = ({ active, repeat, statusDetail }) => {
             fillOpacity="0.65"
             ref={tapStreamRef}
           />
-          <Beer
-            active={active}
-            ref={{ beerRef, beerContainerRef, beerLiquidRef }}
-          />
+          <Beer ref={{ beerRef, beerContainerRef, beerLiquidRef }} />
         </g>
       </svg>
     </div>
   );
 };
 
-const Beer = forwardRef(({}, { beerRef, beerContainerRef, beerLiquidRef }) => {
-  return (
-    <g className="beer-container" ref={beerContainerRef}>
-      <g id="beer" className="beer" ref={beerRef}>
-        <rect
-          id="liquid"
-          x="44"
-          y="276.173"
-          width="86.1135"
-          height="121.1"
-          fill="#FFB62C"
-          ref={beerLiquidRef}
-        />
-        <rect
-          id="Rectangle 130"
-          x="32"
-          y="266.001"
-          width="110.559"
-          height="140.476"
-          rx="0.900137"
-          fill="#CBCBCB"
-          fillOpacity="0.29"
-        />
-        <path
-          id="Rectangle 132"
-          d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
-          fill="#E4E4E4"
-          fillOpacity="0.27"
-        />
-        <g id="Rectangle 133">
-          <path
-            id="Rectangle 133"
-            d="M136 301H169.1C169.597 301 170 301.403 170 301.9V375.1C170 375.597 169.597 376 169.1 376H136V301Z"
-            stroke="#D3D3D3"
-            strokeOpacity="0.62"
-            strokeWidth="12"
+const Beer = forwardRef(
+  (props, { beerRef, beerContainerRef, beerLiquidRef }) => {
+    return (
+      <g className="beer-container" ref={beerContainerRef}>
+        <g id="beer" className="beer" ref={beerRef}>
+          <rect
+            id="liquid"
+            x="44"
+            y="276.173"
+            width="86.1135"
+            height="121.1"
+            fill="#FFB62C"
+            ref={beerLiquidRef}
           />
+          <rect
+            id="Rectangle 130"
+            x="32"
+            y="266.001"
+            width="110.559"
+            height="140.476"
+            rx="0.900137"
+            fill="#CBCBCB"
+            fillOpacity="0.29"
+          />
+          <path
+            id="Rectangle 132"
+            d="M87.5625 266H141.664C142.161 266 142.564 266.403 142.564 266.9V405.576C142.564 406.073 142.161 406.476 141.664 406.476H87.5625V266Z"
+            fill="#E4E4E4"
+            fillOpacity="0.27"
+          />
+          <g id="Rectangle 133">
+            <path
+              id="Rectangle 133"
+              d="M136 301H169.1C169.597 301 170 301.403 170 301.9V375.1C170 375.597 169.597 376 169.1 376H136V301Z"
+              stroke="#D3D3D3"
+              strokeOpacity="0.62"
+              strokeWidth="12"
+            />
+          </g>
         </g>
       </g>
-    </g>
-  );
-});
+    );
+  }
+);
 
 const Misc = () => {
   return (
