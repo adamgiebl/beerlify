@@ -5,9 +5,9 @@ export const formatDate = (timestamp) =>
     second: "2-digit",
   }).format(timestamp);
 
-export const getImage = (name) => {
+export const getImage = (name, directory = "./images/") => {
   try {
-    return require(`./images/${name
+    return require(`${directory}${name
       .toLowerCase()
       .replaceAll(":", "")
       .replaceAll(" ", "")}.png`).default;

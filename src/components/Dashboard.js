@@ -23,6 +23,7 @@ function Dashboard() {
   const beerChart = useBeerChart(completedOrders);
 
   usePeriodicalFetch((data) => {
+    console.log(data);
     updateData(data);
     setRefreshTime(formatDate(data.timestamp));
   });

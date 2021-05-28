@@ -2,33 +2,63 @@ import { useState, useEffect } from "react";
 import logoSrc from "../images/logo.svg";
 import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";
-import hoppilySrc from "../images/barells/hoppilyeverafter.png";
-import volumeSrc from "../images/barells/volume.svg";
-import downArrowSrc from "../images/downarrow.svg";
-import "./Listpage.scss";
-const Listpage = (props) => {
+import Modal from "./Modal.js";
+import Card from "./Card.js";
+import "./ListPage.scss";
+const ListPage = (props) => {
+  //created a state for the product.
   const [products, setProducts] = useState([]);
-  const [amount, setAmount] = useState(1);
   const [order, setOrder] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  function addToOrder(payload) {
-    const inOrder = order.findIndex((item) => item.id === payload.id);
-    if (inOrder === -1) {
-      //add
-      const nextPayload = { ...payload };
-      nextPayload.amount = 1;
-      setOrder((prevState) => [...prevState, nextPayload]);
+  function addToOrder(beer) {
+    const copyOfBeer = { ...beer };
+    const copyOfOrder = [...order];
+    const productInOrder = copyOfOrder.find(
+      (item) => item.name === copyOfBeer.name
+    );
+
+    console.log(productInOrder);
+    if (productInOrder) {
+      // put one more product of that type in the Order
+      productInOrder.count++;
+      // update the state with all the same items, but one of them updated!
+      setOrder(copyOfOrder);
     } else {
-      //it exists, modify amount
-      const nextOrder = order.map((item) => {
-        if (item.id === payload.id) {
-          item.amount += 1;
-        }
-        return item;
-      });
-      setOrder(nextOrder);
+      copyOfBeer.count = 1;
+      // put the product in the basket for the first time
+      setOrder((prevState) => [...prevState, copyOfBeer]);
     }
   }
+
+  function removeFromOrder(beer) {
+    const copyOfBeer = { ...beer };
+    let copyOfOrder = [...order];
+
+    const productInOrder = copyOfOrder.find(
+      (item) => item.name === copyOfBeer.name
+    );
+
+    if (productInOrder.count > 1) {
+      productInOrder.count--;
+    } else {
+      copyOfOrder = copyOfOrder.filter((item) => item.name !== copyOfBeer.name);
+    }
+
+    setOrder(copyOfOrder);
+  }
+
+  useEffect(() => {
+    fetch("https://beerlify.herokuapp.com/beerTypes")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setProducts(data);
+        //console.log(data);
+      });
+  }, []);
+
   return (
     <div className="list-page">
       <div className="elem-up">
@@ -38,177 +68,42 @@ const Listpage = (props) => {
         <h1>Select from the options below to add beer to your order</h1>
         <img className="logo" src={logoSrc} alt="logo" />
       </header>
-      <section className="filters-cards">
-        <article className="filters wrapper ">
+      <section className="content">
+        <div className="filters wrapper ">
           <span className="active">All </span>
           <span>| IPA | </span>
           <span>Belgian Specialty Ale |</span>
           <span>European Lager |</span>
           <span>Belgian Specialty Ale |</span>
           <span>Belgian Specialty Ale</span>
-        </article>
-        <article className="card-container">
-          <div className="card">
-            <img className="keg" src={hoppilySrc} alt="hoppily" />
-            <span className="beer-type">IPA</span>
-            <h3>Hoppily Ever After</h3>
-            <div className="volume-price">
-              <div className="volume">
-                <img className="beer-icon" src={volumeSrc} alt="" />
-                <span className="volume-txt">50cl</span>
-              </div>
-              <span className="price">54,-</span>
-            </div>
-            <button>
-              {" "}
-              <span>+ Add to order</span>
-            </button>
-          </div>
-          <div className="card">
-            <img className="keg" src={hoppilySrc} alt="hoppily" />
-            <span className="beer-type">IPA</span>
-            <h3>Hoppily Ever After</h3>
-            <div className="volume-price">
-              <div className="volume">
-                <img className="beer-icon" src={volumeSrc} alt="" />
-                <span className="volume-txt">50cl</span>
-              </div>
-              <span className="price">54,-</span>
-            </div>
-            <button> + Add to order</button>
-          </div>
-          <div className="card">
-            <img className="keg" src={hoppilySrc} alt="hoppily" />
-            <span className="beer-type">IPA</span>
-            <h3>Hoppily Ever After</h3>
-            <div className="volume-price">
-              <div className="volume">
-                <img className="beer-icon" src={volumeSrc} alt="" />
-                <span className="volume-txt">50cl</span>
-              </div>
-              <span className="price">54,-</span>
-            </div>
-            <button> + Add to order</button>
-          </div>
-          <div className="card">
-            <img className="keg" src={hoppilySrc} alt="hoppily" />
-            <span className="beer-type">IPA</span>
-            <h3>Hoppily Ever After</h3>
-            <div className="volume-price">
-              <div className="volume">
-                <img className="beer-icon" src={volumeSrc} alt="" />
-                <span className="volume-txt">50cl</span>
-              </div>
-              <span className="price">54,-</span>
-            </div>
-            <button> + Add to order</button>
-          </div>
-          <div className="card">
-            <img className="keg" src={hoppilySrc} alt="hoppily" />
-            <span className="beer-type">IPA</span>
-            <h3>Hoppily Ever After</h3>
-            <div className="volume-price">
-              <div className="volume">
-                <img className="beer-icon" src={volumeSrc} alt="" />
-                <span className="volume-txt">50cl</span>
-              </div>
-              <span className="price">54,-</span>
-            </div>
-            <button onClick={() => addToOrder({ data: true })}>
-              {" "}
-              + Add to order
-            </button>
-          </div>
-        </article>
+        </div>
+        <div className="card-container">
+          {products.map((product) => (
+            <Card
+              {...product}
+              // key to differentiate between items when updating UI
+              // always needed when looping over an array that we are rendering
+              key={product.name}
+              setModalOpen={setModalOpen}
+              addToOrder={addToOrder}
+              openDetailPage={() => props.setDetailPage(product)}
+            />
+          ))}
+        </div>
       </section>
       <div className="elem-down">
         <img src={elemdownSrc} alt="" />
       </div>
-      <footer>Foobar 2021 • All rights reserved</footer>
-      {/* <div className="modal">
-        <div className="modal-content">
-          <button className="close-arrow">
-            <img src={downArrowSrc} alt="" />
-          </button>
-          <div className="rows-container">
-            <div className="row-header">
-              <h3>Order summary</h3>
-            </div>
-            <div className="beer-row">
-              <img className="beer-small-pic" src={hoppilySrc} alt="" />
-              <div className="name-type">
-                <h3> Hoppily Ever After</h3>
-                <span className="beer-type">Belgian Specialty Ale</span>
-              </div>
-              <div className="qty">
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount - 1)}
-                  disabled={amount === 0}
-                >
-                  -
-                </button>
-                <input value={amount} />
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount + 1)}
-                >
-                  +
-                </button>
-              </div>
-              <div className="price">54,-</div>
-            </div>
-            <div className="beer-row">
-              <img className="beer-small-pic" src={hoppilySrc} alt="" />
-              <div className="name-type">
-                <h3> Hoppily Ever After</h3>
-                <span className="beer-type">Belgian Specialty Ale</span>
-              </div>
-              <div className="qty">
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount - 1)}
-                  disabled={amount === 0}
-                >
-                  -
-                </button>
-                <input value={amount} />
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount + 1)}
-                >
-                  +
-                </button>
-              </div>
-              <div className="price">54,-</div>
-            </div>
-            <div className="beer-row">
-              <img className="beer-small-pic" src={hoppilySrc} alt="" />
-              <div className="name-type">
-                <h3> Hoppily Ever After</h3>
-                <span className="beer-type">Belgian Specialty Ale</span>
-              </div>
-              <div className="qty">
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount - 1)}
-                  disabled={amount === 0}
-                >
-                  -
-                </button>
-                <input value={amount} />
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount + 1)}
-                >
-                  +
-                </button>
-              </div>
-              <div className="price">54,-</div>
-            </div>
-            <div className="total">
-              <h3 className="price">Total</h3>
-              <h3 className="price">162,-</h3>
-            </div>
-            <button>Checkout</button>
-          </div>
-        </div>
-      </div> */}
+      <footer>Foobar 2021 • All rights reserved - The Group</footer>
+      {order.length > 0 && (
+        <Modal
+          setModalOpen={setModalOpen}
+          order={order}
+          addToOrder={addToOrder}
+          removeFromOrder={removeFromOrder}
+        />
+      )}
     </div>
   );
 };
-export default Listpage;
+export default ListPage;
