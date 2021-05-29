@@ -28,7 +28,6 @@ const Bartender = ({
   // group all beers inside of the order and set as taps
   useEffect(() => {
     if (order) {
-      console.log(countOccurances(order.order));
       setTaps(countOccurances(order.order));
     }
   }, [order]);
@@ -51,23 +50,12 @@ const Bartender = ({
       <span>
         {statusMessages[statusDetail]} | {activeTap}
       </span>
-      <div className="steps">
-        {/* {taps.map((tap) => (
-          <TapAnimation
-            key={tap[0]}
-            active={tap[0] === activeTap}
-            repeat={tap.length}
-            statusDetail={statusDetail}
-            name={tap[0]}
-          />
-        ))} */}
-        <TapAnimation
-          activeTap={activeTap}
-          repeat={taps[activeTap]}
-          statusDetail={statusDetail}
-          name={activeTap}
-        />
-      </div>
+      <TapAnimation
+        activeTap={activeTap}
+        repeat={taps[activeTap]}
+        statusDetail={statusDetail}
+        name={activeTap}
+      />
       <div className="taps">
         {taps &&
           activeTap !== "none" &&

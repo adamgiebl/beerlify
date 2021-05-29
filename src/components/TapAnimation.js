@@ -1,37 +1,29 @@
 import { useEffect, useState, useRef, forwardRef, useMemo, memo } from "react";
 import { gsap } from "gsap";
-
-const beerHeight = 196;
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
+  const svgRef = useRef(null);
   const beerRef = useRef(null);
   const beerContainerRef = useRef(null);
   const beerLiquidRef = useRef(null);
   const tapStreamRef = useRef(null);
 
-  console.log(`%crender ${activeTap}`, "color: red");
-  //const [timeline, setTimeline] = useState(gsap.timeline());
-  /* const timeline = useMemo(() => {
-    console.log(
-      `%cnew timeline ${activeTap}`,
-      "color: white; background: black"
-    );
-    return gsap.timeline({ repeat: 0 });
-  }, [activeTap, repeat]); */
-
   useEffect(() => {
     if (activeTap !== "none") {
-      console.log(
-        `%canimation gets defined ${activeTap}`,
-        "color: black; background: yellow"
-      );
-      const timeline = gsap.timeline({ repeat: repeat - 1 });
-
-      timeline.from(beerContainerRef.current, {
+      const secondTimeline = gsap.timeline({ repeat: repeat - 1 });
+      const timeline = gsap.timeline().add(secondTimeline, 0.5);
+      console.log(timeline);
+      timeline.from(svgRef.current, {
+        x: 120,
+        opacity: 0,
+        duration: 0.5,
+      });
+      secondTimeline.from(beerContainerRef.current, {
         x: 200,
         duration: 1,
       });
-      timeline.from(
+      secondTimeline.from(
         tapStreamRef.current,
         {
           height: 0,
@@ -39,72 +31,60 @@ const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
         },
         "+=1"
       );
-      timeline.from(beerLiquidRef.current, {
+      secondTimeline.from(beerLiquidRef.current, {
         scaleY: 0,
         duration: 6,
         transformOrigin: "50% 100%",
         ease: "linear",
       });
-      timeline.to(tapStreamRef.current, {
+      secondTimeline.to(tapStreamRef.current, {
         scaleY: 0,
         y: 100,
         duration: 0.5,
       });
-      timeline.to(beerContainerRef.current, {
+      secondTimeline.to(beerContainerRef.current, {
         x: -200,
-        duration: 1,
+        duration: 0.5,
       });
-      timeline.progress(0);
+      secondTimeline.progress(0);
     }
   }, [activeTap]);
 
-  /* useEffect(() => {
-    console.log(
-      `%cactive tap changed to ${activeTap}`,
-      "color: white; background: green"
-    );
-    if (activeTap !== "none") {
-      timeline.progress(0);
-      timeline.play();
-    } else {
-      timeline.progress(0);
-      timeline.pause();
-    }
-  }, [activeTap, timeline]); */
-
   return (
-    <div
-      key={activeTap}
-      className={`svg-wrapper ${statusDetail === "releaseTap" && "release"} ${
-        activeTap === "none" && "hidden"
-      }`}
-    >
-      <div>{repeat}</div>
-      <svg
-        viewBox="0 0 178 422"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="tap-svg"
-      >
-        <g id="draft">
-          <Stand />
-          <Base />
-          <Tap />
-          <Misc />
-          <rect
-            id="stream"
-            x="79"
-            y="201"
-            width="17"
-            height="196"
-            fill="#FFB62C"
-            fillOpacity="0.65"
-            ref={tapStreamRef}
-          />
-          <Beer ref={{ beerRef, beerContainerRef, beerLiquidRef }} />
-        </g>
-      </svg>
-    </div>
+    <TransitionGroup className="transition-container" key={activeTap}>
+      {statusDetail !== "releaseTap" && activeTap !== "none" && (
+        <CSSTransition in={true} classNames="tap-animation" timeout={300}>
+          <div className={`svg-wrapper`}>
+            <div>{repeat}</div>
+            <svg
+              viewBox="0 0 178 422"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="tap-svg"
+              ref={svgRef}
+            >
+              <g id="draft">
+                <Stand />
+                <Base />
+                <Tap />
+                <Misc />
+                <rect
+                  id="stream"
+                  x="79"
+                  y="201"
+                  width="17"
+                  height="196"
+                  fill="#FFB62C"
+                  fillOpacity="0.65"
+                  ref={tapStreamRef}
+                />
+                <Beer ref={{ beerRef, beerContainerRef, beerLiquidRef }} />
+              </g>
+            </svg>
+          </div>
+        </CSSTransition>
+      )}
+    </TransitionGroup>
   );
 };
 

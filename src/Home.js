@@ -22,6 +22,12 @@ import {
   usePeriodicalFetch,
 } from "./customHooks";
 
+const iconMap = {
+  Dashboard: iconDashboard,
+  Bartenders: iconPerson,
+  "Raw Data": iconData,
+};
+
 function Home() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [refreshTime, setRefreshTime] = useState(null);
@@ -83,7 +89,7 @@ function Home() {
       <main className="main-wrapper">
         <header className="header">
           <div className="label">
-            <img src={iconDashboard} alt="" /> {activeTab}
+            <img src={iconMap[activeTab]} alt="" /> {activeTab}
           </div>
           <div className="time">
             Data refreshed at: <b>{refreshTime}</b>
@@ -99,18 +105,13 @@ function Home() {
             <CSSTransition classNames="dialog" timeout={300}>
               <main className="dashboard-wrapper">
                 <div className="bartenders">
-                  {/* {bartenders.map((bartender) => (
+                  {bartenders.map((bartender) => (
                     <Bartender
                       {...bartender}
                       serving={serving}
                       tapMap={tapMap}
                     />
-                  ))} */}
-                  <Bartender
-                    {...bartenders[0]}
-                    serving={serving}
-                    tapMap={tapMap}
-                  />
+                  ))}
                 </div>
               </main>
             </CSSTransition>
