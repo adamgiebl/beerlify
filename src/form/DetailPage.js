@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "./DetailPage.scss";
 import logoSrc from "../images/logo.svg";
-import hoppilySrc from "../images/barells/hoppilyeverafter.png";
 import volumeSrc from "../images/barells/volume.svg";
 import { getImage } from "../utils.js";
 

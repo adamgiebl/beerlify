@@ -1,10 +1,13 @@
-import { get } from "lodash";
 import { useState, useEffect } from "react";
-import hoppilySrc from "../images/barells/hoppilyeverafter.png";
 import downArrowSrc from "../images/downarrow.svg";
 import { getImage } from "../utils.js";
 
 const Modal = (props) => {
+  const accumulatedPrice = props.order.reduce(
+    (accumulator, currentBeer) => accumulator + currentBeer.count * 54,
+    0
+  );
+  console.log(props);
   return (
     <section className="modal">
       <div className="modal-content">
@@ -28,7 +31,7 @@ const Modal = (props) => {
           ))}
           <div className="total">
             <h3 className="price">Total</h3>
-            <h3 className="price">{props.order.length * 54},-</h3>
+            <h3 className="price">{accumulatedPrice},-</h3>
           </div>
           <button className="checkout-button">Checkout</button>
         </div>
@@ -38,7 +41,7 @@ const Modal = (props) => {
 };
 
 const BeerRow = (props) => {
-  console.log("beerRow", props);
+  //console.log("beerRow", props);
   const [amount, setAmount] = useState(props.count);
 
   useEffect(() => {

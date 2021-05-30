@@ -1,14 +1,10 @@
-import hoppilySrc from "../images/barells/hoppilyeverafter.png";
 import volumeSrc from "../images/barells/volume.svg";
 import { getImage } from "../utils.js";
 
 const Card = (props) => {
-  //console.log(props);
-
   const onButtonClick = (event) => {
-    // stops event from bubbling up to the parent onClick handler
-    event.stopPropagation();
-
+    event.stopPropagation(); // stops event from bubbling up to the parent onClick handler
+    props.setModalOpen(true);
     const currentBeerToBeAdded = props;
     props.addToOrder(currentBeerToBeAdded);
   };

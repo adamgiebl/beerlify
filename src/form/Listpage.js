@@ -6,27 +6,21 @@ import Modal from "./Modal.js";
 import Card from "./Card.js";
 import "./ListPage.scss";
 const ListPage = (props) => {
-  //created a state for the product.
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); //created a state for the product.
   const [order, setOrder] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
   function addToOrder(beer) {
     const copyOfBeer = { ...beer };
     const copyOfOrder = [...order];
     const productInOrder = copyOfOrder.find(
       (item) => item.name === copyOfBeer.name
     );
-
-    console.log(productInOrder);
     if (productInOrder) {
-      // put one more product of that type in the Order
-      productInOrder.count++;
-      // update the state with all the same items, but one of them updated!
-      setOrder(copyOfOrder);
+      productInOrder.count++; // puts one more product of that type in the order
+      setOrder(copyOfOrder); // updates the state with all the same items, but one of them updated!
     } else {
-      copyOfBeer.count = 1;
-      // put the product in the basket for the first time
+      copyOfBeer.count = 1; // puts the product in the basket for the first time
+
       setOrder((prevState) => [...prevState, copyOfBeer]);
     }
   }
@@ -81,9 +75,7 @@ const ListPage = (props) => {
           {products.map((product) => (
             <Card
               {...product}
-              // key to differentiate between items when updating UI
-              // always needed when looping over an array that we are rendering
-              key={product.name}
+              key={product.name} // key to differentiate between items when updating UI.
               setModalOpen={setModalOpen}
               addToOrder={addToOrder}
               openDetailPage={() => props.setDetailPage(product)}
@@ -97,6 +89,7 @@ const ListPage = (props) => {
       <footer>Foobar 2021 • All rights reserved - The Group</footer>
       {order.length > 0 && (
         <Modal
+          isOpen={modalOpen}
           setModalOpen={setModalOpen}
           order={order}
           addToOrder={addToOrder}
