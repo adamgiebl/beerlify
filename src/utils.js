@@ -45,3 +45,15 @@ export const countOccurances = (array) => {
     return acc;
   }, {});
 };
+
+export const getRandomDelay = () => {
+  return randomNumber(0, 1);
+};
+
+export const getRandomPosition = () => {
+  return randomNumber(0, 80);
+};
+
+export function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}

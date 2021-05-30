@@ -10,6 +10,7 @@
     padding-top: calc(var(--width) + 10px);
     display: inline-grid;
     grid-auto-flow: column;
+    justify-content: start;
     align-items: end;
     height: 100%;
     gap: 20px;

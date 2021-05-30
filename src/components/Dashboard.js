@@ -1,17 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./Dashboard.scss";
 import { getBeersSold, getImage, getTopSelling, formatDate } from "../utils";
 import { useQueueChart, useBeerChart } from "../customHooks";
 import { Table } from "antd";
-import _ from "lodash";
 import { antChartConfig } from "../constants";
 import { Area as AreaChart } from "@ant-design/charts";
 import BeerChart from "./BeerChart";
+import _ from "lodash";
 import Statistic from "./Statistic";
 import timeIcon from "../images/time.svg";
 import beerIcon from "../images/beer.svg";
 import moneyIcon from "../images/money.svg";
+import MonitoringChart from "./MonitoringChart";
+import CompletedOrdersChart from "./CompletedOrdersChart";
 
 const { Column } = Table;
 
@@ -27,13 +29,16 @@ function Dashboard({
   beerChart,
   newOrders,
   setNewOrders,
+  beersServed,
 }) {
-  const onAnimationEnd = (id) => {
-    //console.log(id, "ontransitionend");
-    setNewOrders((prev) => {
-      return _.filter(prev, (order) => order.id !== id);
-    });
-  };
+  const removeFromNewOrders = useCallback(
+    (id) => {
+      setNewOrders((prev) => {
+        return _.filter(prev, (order) => order.id !== id);
+      });
+    },
+    [setNewOrders]
+  );
   return (
     <main className="dashboard-wrapper">
       <div className="widgets">
@@ -82,22 +87,13 @@ function Dashboard({
         </section>
         <section className="beer-chart chart">
           <h4 className="chart__label">Beers sold</h4>
-          <BeerChart data={beerChart} />
+          <BeerChart data={beerChart} beersServed={beersServed} />
         </section>
         <section className="monitoring-chart chart">
-          <h4 className="chart__label">New orders</h4>
-          <div className="new-orders">
-            {newOrders &&
-              newOrders.map((item) => (
-                <div
-                  className="order"
-                  key={item.id}
-                  onAnimationEnd={() => onAnimationEnd(item.id)}
-                >
-                  Order: {item.id}
-                </div>
-              ))}
-          </div>
+          <MonitoringChart
+            newOrders={newOrders}
+            removeFromNewOrders={removeFromNewOrders}
+          />
         </section>
         {false && (
           <section className="orders-table">
@@ -112,6 +108,10 @@ function Dashboard({
             </Table>
           </section>
         )}
+        <section className="chart completed-orders-chart">
+          <h4 className="chart__label">Completed Orders</h4>
+          <CompletedOrdersChart completedOrders={completedOrders} />
+        </section>
       </div>
     </main>
   );

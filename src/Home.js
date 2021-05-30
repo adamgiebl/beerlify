@@ -36,6 +36,7 @@ function Home() {
     useOrderProcessing(serving, queue);
   const queueChart = useQueueChart(queue);
   const beerChart = useBeerChart(completedOrders);
+  const beersServed = new Set(Object.values(tapMap));
 
   usePeriodicalFetch((data) => {
     updateData(data);
@@ -54,6 +55,7 @@ function Home() {
     beerChart,
     newOrders,
     setNewOrders,
+    beersServed,
   };
 
   return (

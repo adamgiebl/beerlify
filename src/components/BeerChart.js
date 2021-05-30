@@ -2,7 +2,7 @@ import { getImage } from "../utils";
 import { Spin } from "antd";
 import "./BeerChart.scss";
 
-const BeerChart = ({ data }) => {
+const BeerChart = ({ data, beersServed }) => {
   if (!data)
     return (
       <div className="spinner">
@@ -42,7 +42,12 @@ const BeerChart = ({ data }) => {
 
   return (
     <>
-      <div className="beer-chart-content">{renderBars()}</div>
+      <div
+        className="beer-chart-content"
+        style={{ width: `${beersServed.size * 75 - 20}px` }}
+      >
+        {renderBars()}
+      </div>
       <div className="annotations">{renderNames()}</div>
     </>
   );
