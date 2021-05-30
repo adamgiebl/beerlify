@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, forwardRef, useMemo, memo } from "react";
 import { gsap } from "gsap";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
+const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
   const svgRef = useRef(null);
   const beerRef = useRef(null);
   const beerContainerRef = useRef(null);
@@ -13,16 +13,20 @@ const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
     if (activeTap !== "none") {
       const secondTimeline = gsap.timeline({ repeat: repeat - 1 });
       const timeline = gsap.timeline().add(secondTimeline, 0.5);
-      console.log(timeline);
       timeline.from(svgRef.current, {
         x: 120,
         opacity: 0,
         duration: 0.5,
       });
-      secondTimeline.from(beerContainerRef.current, {
-        x: 200,
-        duration: 1,
-      });
+      secondTimeline.from(
+        beerContainerRef.current,
+        {
+          x: 200,
+          duration: 1,
+          ease: "expo",
+        },
+        "+=0.5"
+      );
       secondTimeline.from(
         tapStreamRef.current,
         {
@@ -33,7 +37,7 @@ const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
       );
       secondTimeline.from(beerLiquidRef.current, {
         scaleY: 0,
-        duration: 6,
+        duration: 5.5,
         transformOrigin: "50% 100%",
         ease: "linear",
       });
@@ -45,6 +49,7 @@ const TapAnimation = ({ activeTap, repeat, statusDetail, name }) => {
       secondTimeline.to(beerContainerRef.current, {
         x: -200,
         duration: 0.5,
+        ease: "expo",
       });
       secondTimeline.progress(0);
     }

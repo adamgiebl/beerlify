@@ -19,6 +19,8 @@ const useMemoizeArray = () => {
       } else {
         return false;
       }
+    } else {
+      return true;
     }
   };
 

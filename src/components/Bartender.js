@@ -6,6 +6,7 @@ import _ from "lodash/collection";
 import "./Bartender.scss";
 import Tap from "./Tap";
 import TapAnimation from "./TapAnimation";
+import orderIcon from "../images/order-icon.svg";
 
 const Bartender = ({
   name,
@@ -44,31 +45,33 @@ const Bartender = ({
 
   return (
     <div className="bartender">
-      <h3>
-        {name} - Order: {order?.id}
-      </h3>
-      <span>
-        {statusMessages[statusDetail]} | {activeTap}
-      </span>
-      <TapAnimation
-        activeTap={activeTap}
-        repeat={taps[activeTap]}
-        statusDetail={statusDetail}
-        name={activeTap}
-      />
-      <div className="taps">
-        {taps &&
-          activeTap !== "none" &&
-          Object.keys(taps).map((tap) => (
-            <div className={`tap-image ${activeTap === tap && "active"}`}>
-              <img src={getImage(tap)} alt="tap logo" />
-            </div>
-          ))}
-      </div>
-      <div className="order">
-        {order &&
-          activeTap !== "none" &&
-          order.order.map((item) => <span className="ant-tag">{item}</span>)}
+      <h3 className="bartender__title">{name}</h3>
+      <div className="bartender__card">
+        <span className="order-number">
+          <img src={orderIcon} alt="" /> Order: #{order?.id}
+        </span>
+        {/* <span>
+          {statusMessages[statusDetail]} | {activeTap}
+        </span> */}
+        <TapAnimation
+          activeTap={activeTap}
+          repeat={taps[activeTap]}
+          statusDetail={statusDetail}
+        />
+        <div className="taps">
+          {taps &&
+            activeTap !== "none" &&
+            Object.keys(taps).map((tap) => (
+              <div className={`tap-image ${activeTap === tap && "active"}`}>
+                <img src={getImage(tap)} alt="tap logo" />
+              </div>
+            ))}
+        </div>
+        {/* <div className="order">
+          {order &&
+            activeTap !== "none" &&
+            order.order.map((item) => <span className="ant-tag">{item}</span>)}
+        </div> */}
       </div>
     </div>
   );
