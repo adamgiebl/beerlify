@@ -25,5 +25,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--roboto);
-  background: white;
+  background: var(--light-gray);
+}
+
+.dashboard-wrapper:not(.dashboard-wrapper--raw) {
+  .ant-table-tbody > tr > td {
+    border-bottom: none;
+  }
+
+  .ant-table-small .ant-table-thead > tr > th {
+    background-color: transparent;
+  }
 }

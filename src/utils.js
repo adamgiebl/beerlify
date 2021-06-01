@@ -57,3 +57,12 @@ export const getRandomPosition = () => {
 export function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
+
+export function runAnimationOnce(element, className, callback = () => {}) {
+  if (!element) return;
+  element.classList.add(className);
+  element.addEventListener("animationend", () => {
+    element.classList.remove(className);
+    callback();
+  });
+}

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./Tap.scss";
 
 const Tap = ({ beerArray, isActiveTap, statusDetail }) => {
   const [timer, setTimer] = useState(0);
@@ -25,7 +24,7 @@ const Tap = ({ beerArray, isActiveTap, statusDetail }) => {
           "--height": timer * 10 + "%",
         }}
       >
-        <div>
+        <div className="tap-info">
           <span>{beerArray.length}</span>
           <span className="time">
             {isActiveTap(beerArray[0]) && Math.floor(timer)}

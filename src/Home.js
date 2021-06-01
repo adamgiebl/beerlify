@@ -1,19 +1,19 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import "./Home.scss";
-import Tables from "./components/Tables";
+import Tables from "./components/data/Tables";
 import { formatDate, getBeersSold } from "./utils";
 import _ from "lodash/array";
 import { Statistic } from "antd";
 import Bartender from "./components/Bartender";
-import TapAnimation from "./components/TapAnimation";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import logo from "./images/logo.svg";
 import iconDashboard from "./images/icon-dashboard.svg";
 import iconPerson from "./images/icon-person.svg";
 import iconData from "./images/data.svg";
 import Dashboard from "./components/Dashboard";
-import DataDump from "./components/DataDump";
+import Bartenders from "./components/Bartenders";
+import RawData from "./components/data/RawData";
 import {
   useSplitData,
   useQueueChart,
@@ -105,22 +105,12 @@ function Home() {
           )}
           {activeTab === "Bartenders" && (
             <CSSTransition classNames="dialog" timeout={300}>
-              <main className="dashboard-wrapper">
-                <div className="bartenders">
-                  {bartenders.map((bartender) => (
-                    <Bartender
-                      {...bartender}
-                      serving={serving}
-                      tapMap={tapMap}
-                    />
-                  ))}
-                </div>
-              </main>
+              <Bartenders {...dashboardProps} />
             </CSSTransition>
           )}
           {activeTab === "Raw Data" && (
             <CSSTransition classNames="dialog" timeout={300}>
-              <DataDump {...dashboardProps} />
+              <RawData {...dashboardProps} />
             </CSSTransition>
           )}
         </TransitionGroup>

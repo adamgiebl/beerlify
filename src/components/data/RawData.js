@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import "./DataDump.scss";
+import "./RawData.scss";
 import Tables from "./Tables";
-import { getBeersSold } from "../utils";
+import { getBeersSold } from "../../utils";
 import _ from "lodash/array";
-import { Statistic } from "antd";
+import { Statistic, Alert } from "antd";
 import BartenderRaw from "./BartenderRaw";
-import TapAnimation from "./TapAnimation";
 
-function DataDump({
+function RawData({
   taps,
   serving,
   queue,
@@ -16,10 +14,15 @@ function DataDump({
   tapMap,
   completedOrders,
   averageOrderTime,
-  refreshTime,
 }) {
   return (
-    <main className="dashboard-wrapper">
+    <main className="dashboard-wrapper dashboard-wrapper--raw">
+      <Alert
+        message="This page is for the admins only!"
+        type="warning"
+        className="alert"
+        showIcon
+      />
       {true && (
         <div className="widgets">
           <div className="widget widget--orders">
@@ -50,7 +53,6 @@ function DataDump({
           </div>
         </div>
       )}
-
       {true && (
         <div className="data-tables">
           <Tables
@@ -65,10 +67,15 @@ function DataDump({
           />
         </div>
       )}
-      {false && (
-        <div className="bartenders">
+      {true && (
+        <div className="bartenders bartenders--raw">
           {bartenders.map((bartender) => (
-            <BartenderRaw {...bartender} serving={serving} tapMap={tapMap} />
+            <BartenderRaw
+              {...bartender}
+              serving={serving}
+              tapMap={tapMap}
+              key={bartender.name}
+            />
           ))}
         </div>
       )}
@@ -76,4 +83,4 @@ function DataDump({
   );
 }
 
-export default DataDump;
+export default RawData;

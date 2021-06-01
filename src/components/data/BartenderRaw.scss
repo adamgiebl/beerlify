@@ -1,0 +1,96 @@
+.bartender-raw {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.steps {
+  display: flex;
+  margin: 20px 0;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .step {
+    padding: 20px;
+    background: lightcyan;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+
+    span {
+      white-space: nowrap;
+    }
+
+    &.yes {
+      background: rgb(205, 205, 255);
+    }
+
+    &--starting {
+      &.yes {
+        background: rgb(205, 205, 255);
+      }
+    }
+
+    &--receiving {
+      &.yes {
+        background: rgb(253, 229, 95);
+      }
+    }
+
+    &--releasing {
+      &.yes {
+        background: rgb(166, 166, 255);
+      }
+    }
+
+    .tap-name {
+      color: darkblue;
+      font-weight: bold;
+    }
+  }
+}
+
+.steps {
+  .step {
+    &--tap {
+      --iterations: 1;
+      --height: 0;
+      background: transparent;
+      position: relative;
+
+      &.yes {
+        background: transparent;
+        &::before {
+          content: " ";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: all 0.5s;
+          height: var(--height);
+          width: 100%;
+          background: rgb(255, 212, 70);
+          animation: fillUp 10s linear;
+          animation-fill-mode: forwards;
+          animation-iteration-count: var(--iterations);
+          z-index: 0;
+          will-change: height;
+        }
+      }
+
+      .time {
+        color: royalblue;
+        font-weight: bold;
+        padding-left: 10px;
+      }
+
+      .tap-name,
+      .tap-info {
+        z-index: 1;
+      }
+    }
+  }
+}

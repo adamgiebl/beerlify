@@ -1,0 +1,54 @@
+.transition-container {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  .svg-wrapper {
+    margin: auto;
+    position: absolute;
+    transition: all 600ms;
+
+    .tap-svg {
+      width: 100%;
+      max-width: 80px;
+
+      .beer {
+        transition: all 0.5s ease-in-out;
+
+        #liquid {
+          transform-origin: 50% 100%;
+        }
+      }
+    }
+  }
+}
+
+// CSSTransition animation classes
+.tap-animation-enter {
+  opacity: 0.01;
+  transform: translateX(-200px);
+  overflow: hidden;
+}
+
+.tap-animation-enter-active {
+  opacity: 1;
+  transform: scale(1);
+
+  overflow: hidden;
+}
+
+.tap-animation-exit {
+  opacity: 1;
+  transform: scale(1);
+  overflow: hidden;
+}
+
+.tap-animation-exit-active {
+  opacity: 0.01;
+  transform: scale(0.9);
+  transition: all 300ms;
+  overflow: hidden;
+}

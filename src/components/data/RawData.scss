@@ -1,3 +1,20 @@
+.dashboard-wrapper--raw {
+  .widgets {
+    justify-content: start;
+    gap: 20px;
+
+    .widget {
+      background: white;
+      padding: 10px 30px;
+    }
+  }
+
+  .ant-table-wrapper {
+    padding: 10px;
+    background: white;
+  }
+}
+
 .data-tables {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -37,4 +54,9 @@
     margin-right: 10px;
     border-radius: 50%;
   }
+}
+
+.alert {
+  display: inline-flex;
+  margin: 20px 0;
 }
