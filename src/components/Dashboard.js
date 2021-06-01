@@ -12,7 +12,7 @@ import Statistic from "./Statistic";
 import timeIcon from "../images/time.svg";
 import beerIcon from "../images/beer.svg";
 import moneyIcon from "../images/money.svg";
-import MonitoringChart from "./MonitoringChart";
+import TapsOverview from "./TapsOverview";
 import CompletedOrdersChart from "./CompletedOrdersChart";
 
 const { Column } = Table;
@@ -86,19 +86,14 @@ function Dashboard({
             height={250}
           />
         </section>
-        <section className="chart taps-chart"></section>
+        <section className="chart taps-chart">
+          <h4 className="chart__label">Barrels on tap</h4>
+          <TapsOverview taps={taps} />
+        </section>
         <section className="chart beer-chart">
           <h4 className="chart__label">Beers sold</h4>
           <BeerChart data={beerChart} beersServed={beersServed} />
         </section>
-        {false && (
-          <section className="chart monitoring-chart">
-            <MonitoringChart
-              newOrders={newOrders}
-              removeFromNewOrders={removeFromNewOrders}
-            />
-          </section>
-        )}
         <section className="chart completed-orders-chart">
           <h4 className="chart__label">Completed Orders</h4>
           <CompletedOrdersChart completedOrders={completedOrders} />

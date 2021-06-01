@@ -18,7 +18,7 @@ export const antChartConfig = {
     color: "#292d3c",
   },
   line: {
-    color: "#292d3c",
+    color: "#eeb448",
   },
   style: {
     lineWidth: 10,
@@ -35,6 +35,6 @@ export const antChartConfig = {
 
   smooth: true,
   areaStyle: {
-    fill: "l(270) 0:#ffffff 0.5:#3f455e 1:#292d3c",
+    fill: "l(270) 0:#ffffff 0.5:#eeb448 1:#eeb448",
   },
 };

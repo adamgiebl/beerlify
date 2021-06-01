@@ -28,26 +28,19 @@ const translateOrderToBartenderCard = (order) => {
 };
 
 const Bartenders = ({ bartenders, queue, serving, tapMap }) => {
-  //const pickedOrders = useRef(null);
   const [pickedOrders, setPickedOrders] = useState([]);
-
   const previousQueue = usePrevious(queue);
 
   useEffect(() => {
+    // find the current order that has been picked up by a bartender
     const diff = _.differenceBy(previousQueue, queue, (item) => item.id);
     if (diff.length > 0) {
       setPickedOrders(diff);
     }
-
-    // does order match
-    /* const matching = diff.map((order) => {
-      return bartenders.find(
-        (bartender) => order.id === bartender.servingCustomer
-      );
-    }); */
   }, [queue, previousQueue, bartenders]);
 
   useEffect(() => {
+    // animation when a bartender picks up a new order from the queue
     const readyOrders = document.querySelectorAll(".ready");
     readyOrders.forEach((order) => {
       translateOrderToBartenderCard(order);
@@ -57,9 +50,9 @@ const Bartenders = ({ bartenders, queue, serving, tapMap }) => {
   return (
     <main className="dashboard-wrapper dashboard-wrapper--bartenders">
       <div className="bartenders">
-        <Bartender {...bartenders[0]} serving={serving} tapMap={tapMap} />
-        <Bartender {...bartenders[1]} serving={serving} tapMap={tapMap} />
-        <Bartender {...bartenders[2]} serving={serving} tapMap={tapMap} />
+        {bartenders.map((bartender) => (
+          <Bartender {...bartender} serving={serving} tapMap={tapMap} />
+        ))}
       </div>
       <div className="bartenders-queue">
         {pickedOrders.map((order) => (

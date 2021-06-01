@@ -109,14 +109,14 @@
 }
 
 .pop {
-  animation: pop 0.3s ease-out;
+  animation: pop 0.3s ease;
 }
 @keyframes pop {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
   100% {
     transform: scale(1);
