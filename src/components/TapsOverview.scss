@@ -1,0 +1,57 @@
+.taps-overview {
+  display: grid;
+  font-size: 10px;
+  grid-template-columns: repeat(4, 135px);
+  gap: 2em;
+
+  .barrel {
+    position: relative;
+    padding-right: 3em;
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+
+    &__volume {
+      font-size: inherit;
+      position: absolute;
+      transform: rotate(-90deg);
+      transform-origin: right top;
+      font-weight: 500;
+      font-size: 1.5em;
+      top: 0.5em;
+      right: 2em;
+    }
+
+    &__image {
+      --volume: 100%;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        background: url(../images/black-barrel.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top;
+        opacity: 0.6;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: calc(100% - var(--volume));
+        transition: all 0.3s;
+      }
+      img {
+        max-width: 100%;
+      }
+    }
+
+    &__title {
+      font-size: 1.35em;
+      line-height: 1.3em;
+      text-align: center;
+      font-weight: 900;
+      font-family: var(--merri);
+      color: var(--blue);
+      margin-top: 10px;
+    }
+  }
+}
