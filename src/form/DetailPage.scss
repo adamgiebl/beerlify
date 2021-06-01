@@ -12,7 +12,6 @@
 .detail-page {
   button {
     display: inline-block;
-    margin-top: 20px;
     background-color: var(--orange);
     border: none;
     padding: 10px 30px;
@@ -95,6 +94,7 @@
         .add-container {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           @media screen and (max-width: 514px) {
             flex-direction: column;
           }
@@ -112,6 +112,7 @@
               cursor: pointer;
               width: 40px;
               height: 40px;
+              margin-top: 0;
               text-align: center;
               &:disabled {
                 filter: grayscale(1);

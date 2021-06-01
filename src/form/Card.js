@@ -4,7 +4,7 @@ import { getImage } from "../utils.js";
 const Card = (props) => {
   const onButtonClick = (event) => {
     event.stopPropagation(); // stops event from bubbling up to the parent onClick handler
-    props.setModalOpen(true);
+
     const currentBeerToBeAdded = props;
     props.addToOrder(currentBeerToBeAdded);
   };
@@ -21,7 +21,9 @@ const Card = (props) => {
       <div className="volume-price">
         <div className="volume">
           <img className="beer-icon" src={volumeSrc} alt="" />
-          <span className="volume-txt">50cl</span>
+          <span className="volume-txt">
+            500<small>ml</small>
+          </span>
         </div>
         <span className="price">54,-</span>
       </div>

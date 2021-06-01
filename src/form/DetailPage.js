@@ -5,7 +5,6 @@ import volumeSrc from "../images/barells/volume.svg";
 import { getImage } from "../utils.js";
 
 const DetailPage = (props) => {
-  const [amount, setAmount] = useState(1);
   console.log(props);
 
   // scroll to top of the page when we open the detail page
@@ -32,23 +31,12 @@ const DetailPage = (props) => {
             <h2>{props.name}</h2>
             <h4>Aroma</h4>
             <p className="main-desc">{props.description.aroma}</p>
-            <span className="price">54,-</span>
+
             <div className="add-container">
-              <div className="qty">
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount - 1)}
-                  disabled={amount === 0}
-                >
-                  -
-                </button>
-                <input value={amount} readOnly />
-                <button
-                  onClick={() => setAmount((prevAmount) => prevAmount + 1)}
-                >
-                  +
-                </button>
-              </div>
-              <button> + Add to order</button>
+              <span className="price">54,-</span>
+              <button onClick={() => props.addToOrder(props)}>
+                + Add to order
+              </button>
             </div>
             <div className="properties">
               <div className="property">
