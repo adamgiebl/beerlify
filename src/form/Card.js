@@ -1,13 +1,9 @@
-import hoppilySrc from "../images/barells/hoppilyeverafter.png";
 import volumeSrc from "../images/barells/volume.svg";
 import { getImage } from "../utils.js";
 
 const Card = (props) => {
-  //console.log(props);
-
   const onButtonClick = (event) => {
-    // stops event from bubbling up to the parent onClick handler
-    event.stopPropagation();
+    event.stopPropagation(); // stops event from bubbling up to the parent onClick handler
 
     const currentBeerToBeAdded = props;
     props.addToOrder(currentBeerToBeAdded);
@@ -25,7 +21,9 @@ const Card = (props) => {
       <div className="volume-price">
         <div className="volume">
           <img className="beer-icon" src={volumeSrc} alt="" />
-          <span className="volume-txt">50cl</span>
+          <span className="volume-txt">
+            500<small>ml</small>
+          </span>
         </div>
         <span className="price">54,-</span>
       </div>

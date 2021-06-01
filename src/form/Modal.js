@@ -1,16 +1,27 @@
-import { get } from "lodash";
 import { useState, useEffect } from "react";
-import hoppilySrc from "../images/barells/hoppilyeverafter.png";
-import downArrowSrc from "../images/downarrow.svg";
+import { useSpring, animated } from "react-spring";
+import downArrowSrc from "../images/arrow.svg";
 import { getImage } from "../utils.js";
+import "./Modal.scss";
 
 const Modal = (props) => {
+  const accumulatedPrice = props.order.reduce(
+    (accumulator, currentBeer) => accumulator + currentBeer.count * 54,
+    0
+  );
+
+  const { accumulatedPriceAnimated } = useSpring({
+    from: { accumulatedPriceAnimated: 0 },
+    accumulatedPriceAnimated: accumulatedPrice || 0,
+    delay: 200,
+  });
+
   return (
-    <section className="modal">
+    <section className={`modal ${props.modalMinimized && "modal--minimized"}`}>
       <div className="modal-content">
         <button
           className="close-arrow"
-          onClick={() => props.setModalOpen(false)}
+          onClick={() => props.setModalMinimized(!props.modalMinimized)}
         >
           <img src={downArrowSrc} alt="" />
         </button>
@@ -18,19 +29,28 @@ const Modal = (props) => {
           <div className="row-header">
             <h3>Order summary</h3>
           </div>
-          {props.order.map((item) => (
-            <BeerRow
-              {...item}
-              key={item.name}
-              addToOrder={props.addToOrder}
-              removeFromOrder={props.removeFromOrder}
-            />
-          ))}
-          <div className="total">
-            <h3 className="price">Total</h3>
-            <h3 className="price">{props.order.length * 54},-</h3>
+          <div className="rows">
+            {!props.modalMinimized &&
+              props.order.map((item) => (
+                <BeerRow
+                  {...item}
+                  key={item.name}
+                  addToOrder={props.addToOrder}
+                  removeFromOrder={props.removeFromOrder}
+                />
+              ))}
           </div>
-          <button className="checkout-button">Checkout</button>
+
+          <div className="total">
+            <span className="total__label">Total: </span>
+            <animated.span className="total__price">
+              {accumulatedPriceAnimated.to((n) => n.toFixed(0))}
+            </animated.span>
+            <span className="total__price">,-</span>
+            <button className="total__checkout" onClick={props.checkout}>
+              Checkout
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -38,7 +58,7 @@ const Modal = (props) => {
 };
 
 const BeerRow = (props) => {
-  console.log("beerRow", props);
+  //console.log("beerRow", props);
   const [amount, setAmount] = useState(props.count);
 
   useEffect(() => {

@@ -68,7 +68,7 @@
         }
         .beer-type {
           color: var(--light-blue);
-          font-weight: 700;
+          font-weight: 400;
           font-family: "Roboto", sans-serif;
         }
         .volume-price {
@@ -82,9 +82,9 @@
               width: 30px;
             }
             .volume-txt {
-              font-weight: 400;
+              font-weight: 300;
               font-family: "Roboto", sans-serif;
-              color: var(--light-blue);
+              color: var(--blue);
               padding-left: 5px;
               font-size: 1.2rem;
             }
@@ -129,137 +129,5 @@
     padding: 50px;
     display: grid;
     place-items: center;
-  }
-  ////////////// MODAL /////////////////
-  .modal {
-    -webkit-box-shadow: 2px -5px 30px 0px rgba(201, 201, 201, 1);
-    -moz-box-shadow: 2px -5px 30px 0px rgba(201, 201, 201, 1);
-    box-shadow: 2px -5px 30px 0px rgba(201, 201, 201, 1);
-    width: 100%;
-    position: sticky;
-    bottom: 0;
-    z-index: 9;
-    background: var(--light-gray);
-
-    button {
-      border: none;
-    }
-
-    .modal-content {
-      display: flex;
-      flex-direction: column;
-      .close-arrow {
-        img {
-          width: 15px;
-        }
-        position: absolute;
-        right: 7vw;
-        top: 3vh;
-        background: transparent;
-        &:hover {
-          background: transparent;
-        }
-      }
-      .rows-container {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        margin: auto;
-        .row-header {
-          display: flex;
-          justify-content: space-between;
-          h3 {
-            max-width: 100px;
-            margin-bottom: 20px;
-            font-weight: 900;
-          }
-        }
-
-        .beer-row {
-          border-bottom: 1px solid var(--darkblue);
-          padding: 10px 0;
-          display: flex;
-          align-items: center;
-          .beer-small-pic {
-            width: 40px;
-            margin-right: 20px;
-          }
-          .name-type {
-            padding-right: 60px;
-            h3 {
-              color: var(--blue);
-              font-weight: 900;
-              margin-bottom: 0;
-            }
-            .beer-type {
-              color: var(--light-blue);
-              font-weight: 700;
-              font-family: "Roboto", sans-serif;
-            }
-          }
-          .qty {
-            padding-right: 30px;
-            display: flex;
-            flex-grow: 1;
-            align-items: center;
-            justify-content: flex-end;
-            button {
-              background-color: var(--orange);
-              border: none;
-              padding: 10px 20px;
-              font-weight: 700;
-              cursor: pointer;
-              width: 40px;
-              height: 40px;
-              text-align: center;
-              &:disabled {
-                filter: grayscale(1);
-                cursor: default;
-              }
-            }
-            input {
-              text-align: center;
-              border: 1px solid var(--darkblue);
-              width: 40px;
-              height: 40px;
-            }
-          }
-
-          .price {
-            color: var(--blue);
-            font-weight: 900;
-            font-size: calc(1rem + 0.8vw);
-          }
-        }
-      }
-
-      .total {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        .price {
-          color: var(--blue);
-          font-weight: 900;
-          font-size: calc(1rem + 0.8vw);
-          margin-top: 0;
-        }
-      }
-      .checkout-button {
-        align-self: flex-end;
-        width: 200px;
-        background-color: var(--orange);
-        border: none;
-        padding: 10px 30px;
-        font-weight: 700;
-        text-align: center;
-        &:hover {
-          transition: 0.3s;
-          background: var(--blue);
-          color: white;
-          cursor: pointer;
-        }
-      }
-    }
   }
 }

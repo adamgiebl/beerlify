@@ -1,0 +1,60 @@
+.form-wrapper {
+  font-family: var(--merri);
+}
+.elem-up {
+  opacity: 0.4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  img {
+    width: 300px;
+  }
+}
+.confirmation {
+  color: var(--blue);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  .logo {
+    width: 170px;
+  }
+  h1 {
+    font-size: 65px;
+    max-width: 500px;
+    text-align: center;
+  }
+  &--number {
+    color: var(--blue);
+  }
+}
+header {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .back-btn {
+    display: inline-block;
+    background-color: var(--orange);
+    border: none;
+    padding: 10px 30px;
+    font-weight: 700;
+    text-align: center;
+    &:hover {
+      transition: 0.3s;
+      background: var(--blue);
+      color: white;
+      cursor: pointer;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    justify-content: space-between;
+  }
+}
+.elem-down {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  opacity: 0.4;
+}

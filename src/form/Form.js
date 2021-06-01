@@ -2,21 +2,21 @@ import { useState } from "react";
 import "./Form.scss";
 import Splash from "./Splash.js";
 import ListPage from "./ListPage.js";
-import DetailPage from "./DetailPage.js";
+import CheckoutPage from "./CheckoutPage";
+import "./CheckoutPage.scss";
+import "./ConfirmationPage";
 
 const Form = () => {
   const [splashOpen, setSplashOpen] = useState(false);
-  const [detailPage, setDetailPage] = useState(null);
+  const [checkoutOrder, setCheckoutOrder] = useState([]);
   return (
+    // if checkoutOpen then we show the Checkout component, else we show the ListPage
     <div className="form-wrapper">
       {/*splashOpen ? <Splash setSplashOpen={setSplashOpen} /> : <ListPage />*/}
-      {detailPage ? (
-        <DetailPage
-          {...detailPage}
-          closeDetailPage={() => setDetailPage(null)}
-        />
+      {checkoutOrder ? (
+        <CheckoutPage order={checkoutOrder} />
       ) : (
-        <ListPage setDetailPage={setDetailPage} />
+        <ListPage setCheckoutOrder={setCheckoutOrder} />
       )}
     </div>
   );
