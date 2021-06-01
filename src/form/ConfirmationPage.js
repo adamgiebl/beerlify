@@ -7,14 +7,22 @@ const ConfirmationPage = (props) => {
   return (
     <main className="confirmation">
       <img className="elem-up" src={elemupSrc} alt="" />
-      <img className="logo" src={logoSrc} alt="" />
-      <h1>Thank you for your order!</h1>
-      <span className="--number">
-        Your order number is <b>#2034</b>
-      </span>
-      <div className="cta">
-        <span>Forgot something or want more beer?</span>
-        <button>Order more</button>
+      <div className="confirmation__content">
+        <img className="logo" src={logoSrc} alt="" />
+        <h1>
+          Thank you
+          <br />
+          for your order!
+        </h1>
+        <span className="order-no">
+          Your order number is <b>#2034</b>
+        </span>
+        <div className="cta">
+          <span>Forgot something or you fancy more beer?</span>
+          <button onClick={() => window.location.reload()} className="cta-btn">
+            Order more
+          </button>
+        </div>
       </div>
       <img className="elem-down" src={elemdownSrc} alt="" />
     </main>
