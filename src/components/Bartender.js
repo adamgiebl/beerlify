@@ -1,10 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState, useRef, useReducer, memo } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useReducer,
+  memo,
+  forwardRef,
+} from "react";
 import { statusMessages } from "../constants";
 import { countOccurances, getImage } from "../utils";
 import _ from "lodash/collection";
-import "./Bartender.scss";
-import Tap from "./Tap";
+import "./Bartenders.scss";
 import TapAnimation from "./TapAnimation";
 import orderIcon from "../images/order-icon.svg";
 
@@ -46,7 +52,7 @@ const Bartender = ({
   return (
     <div className="bartender">
       <h3 className="bartender__title">{name}</h3>
-      <div className="bartender__card">
+      <div className="bartender__card" id={`bartender${servingCustomer}`}>
         <span className="order-number">
           <img src={orderIcon} alt="" /> Order: #{order?.id}
         </span>

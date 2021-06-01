@@ -1,67 +1,90 @@
 .dashboard-wrapper {
   padding: 40px;
   padding-top: 20px;
-}
+  --colGap: 40px;
+  --rowGap: 20px;
 
-.widgets {
-  display: grid;
-  grid-auto-flow: column;
-  margin-bottom: 20px;
-  align-items: start;
-  gap: 20px;
-}
-
-.main-widgets {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-items: start;
-  justify-content: start;
-  gap: 20px;
-
-  .chart {
-    background: white;
-    padding: 30px 40px;
-    padding-top: 20px;
-    border-radius: 20px;
-    box-shadow: var(--lightshadow);
-
-    &__label {
-      font-size: 20px;
-      font-family: var(--merri);
-      font-weight: 700;
-      padding-bottom: 10px;
-    }
+  .widgets {
+    display: grid;
+    grid-auto-flow: column;
+    margin-bottom: var(--rowGap);
+    align-items: stretch;
+    gap: 20px;
   }
-}
 
-.completed-orders-chart {
-  grid-column: 1 / -1;
-  padding-bottom: 10px !important;
-}
+  .main-widgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: var(--rowGap);
+    column-gap: var(--colGap);
+    grid-template-areas:
+      "tapsChart tapsChart beerChart"
+      "completedOrders completedOrders queueChart";
 
-.monitoring-chart {
-  display: flex;
-  flex-direction: column;
-  .new-orders {
-    width: 300px;
-    display: flex;
-    align-items: flex-end;
-    flex-grow: 1;
-    position: relative;
+    .chart {
+      background: white;
+      padding: 30px 40px;
+      padding-top: 20px;
+      border-radius: 20px;
+      box-shadow: var(--lightshadow);
 
-    .order {
-      animation: fly 2s cubic-bezier(0, 0.845, 1, 0.16);
-      opacity: 0;
-      animation-fill-mode: forwards;
-      animation-delay: var(--delay);
-      padding: 10px 0;
-      width: 35%;
-      font-size: 19px;
-      text-align: center;
-      border-radius: 30px;
-      background: var(--green);
-      position: absolute;
-      left: var(--positionX);
+      &__label {
+        font-size: 20px;
+        font-family: var(--merri);
+        font-weight: 700;
+        padding-bottom: 10px;
+      }
+    }
+    .completed-orders-chart {
+      grid-area: completedOrders;
+      padding-bottom: 10px !important;
+      width: 100%;
+    }
+    .queue-chart {
+      grid-area: queueChart;
+    }
+    .beer-chart {
+      grid-area: beerChart;
+    }
+    .queue-chart,
+    .beer-chart {
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+
+      .chart__label {
+        padding-bottom: 20px;
+      }
+    }
+    .taps-chart {
+      grid-area: tapsChart;
+      height: 400px;
+    }
+    .monitoring-chart {
+      display: flex;
+      flex-direction: column;
+      .new-orders {
+        width: 300px;
+        display: flex;
+        align-items: flex-end;
+        flex-grow: 1;
+        position: relative;
+
+        .order {
+          animation: fly 2s cubic-bezier(0, 0.845, 1, 0.16);
+          opacity: 0;
+          animation-fill-mode: forwards;
+          animation-delay: var(--delay);
+          padding: 10px 0;
+          width: 35%;
+          font-size: 19px;
+          text-align: center;
+          border-radius: 30px;
+          background: var(--green);
+          position: absolute;
+          left: var(--positionX);
+        }
+      }
     }
   }
 }

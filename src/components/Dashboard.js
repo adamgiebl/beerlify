@@ -76,36 +76,27 @@ function Dashboard({
         />
       </div>
       <div className="main-widgets">
-        <section className="queue-chart chart">
+        <section className="chart queue-chart">
           <h4 className="chart__label">Customers in queue</h4>
           <AreaChart
             data={queueChart}
             {...antChartConfig}
             autoFit={true}
             width={400}
+            height={250}
           />
         </section>
-        <section className="beer-chart chart">
+        <section className="chart taps-chart"></section>
+        <section className="chart beer-chart">
           <h4 className="chart__label">Beers sold</h4>
           <BeerChart data={beerChart} beersServed={beersServed} />
         </section>
-        <section className="monitoring-chart chart">
-          <MonitoringChart
-            newOrders={newOrders}
-            removeFromNewOrders={removeFromNewOrders}
-          />
-        </section>
         {false && (
-          <section className="orders-table">
-            <Table dataSource={queue} pagination={{ pageSize: 5 }} rowKey="id">
-              <Column title="Customer ID" dataIndex="id" key="id" />
-              <Column
-                title="Order Time"
-                dataIndex="startTime"
-                key="startTime"
-                render={(timestamp) => formatDate(timestamp)}
-              />
-            </Table>
+          <section className="chart monitoring-chart">
+            <MonitoringChart
+              newOrders={newOrders}
+              removeFromNewOrders={removeFromNewOrders}
+            />
           </section>
         )}
         <section className="chart completed-orders-chart">

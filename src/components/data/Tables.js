@@ -1,7 +1,7 @@
 import { Table, Tag, Progress, Typography, Badge } from "antd";
 import { SyncOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { formatDate, getImage } from "../utils";
-import { statusMessages } from "../constants";
+import { formatDate, getImage } from "../../utils";
+import { statusMessages } from "../../constants";
 
 const tableConfig = {
   bordered: true,

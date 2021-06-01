@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef, useReducer, memo } from "react";
-import { statusMessages } from "../constants";
 import _ from "lodash/collection";
-import "./Bartender.scss";
+import "./BartenderRaw.scss";
 import Tap from "./Tap";
 
 const Bartender = ({
@@ -56,7 +55,7 @@ const Bartender = ({
   };
 
   return (
-    <div className="bartender">
+    <div className="bartender-raw">
       <h3>
         {name} - Order: {order?.id}
       </h3>
