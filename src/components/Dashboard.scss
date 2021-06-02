@@ -9,7 +9,7 @@
     grid-auto-flow: column;
     margin-bottom: var(--rowGap);
     align-items: stretch;
-    gap: 20px;
+    gap: 10px;
   }
 
   .main-widgets {
@@ -40,7 +40,7 @@
     }
 
     .chart {
-      background: white;
+      background: #f6f6f6;
       padding: 30px 40px;
       padding-top: 20px;
       border-radius: 20px;
@@ -79,7 +79,7 @@
     }
     .taps-chart {
       grid-area: tapsChart;
-      background: #e5e5e5;
+      background: var(--button-blue);
       box-shadow: none;
       display: grid;
       grid-template-columns: 1fr auto;

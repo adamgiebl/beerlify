@@ -11,7 +11,6 @@
       margin-bottom: 20px;
       margin-right: 40px;
       z-index: 5;
-
       &:last-of-type {
         margin-right: 0px;
       }
@@ -29,7 +28,7 @@
         align-items: center;
         flex-direction: column;
         border-radius: 20px;
-        background: white;
+        background: #f6f6f6;
         box-shadow: var(--lightshadow);
         width: 300px;
         overflow: hidden;

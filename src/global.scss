@@ -8,6 +8,7 @@
 }
 
 :root {
+  --button-blue: #e5e5e5;
   --orange: #eeb448;
   --blue: #475073;
   --darkblue: #292d3c;
@@ -31,6 +32,11 @@ body {
 .dashboard-wrapper:not(.dashboard-wrapper--raw) {
   .ant-table-tbody > tr > td {
     border-bottom: none;
+  }
+
+  .ant-table-wrapper,
+  .ant-table {
+    background: transparent;
   }
 
   .ant-table-small .ant-table-thead > tr > th {
