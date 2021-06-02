@@ -13,6 +13,7 @@ import timeIcon from "../images/time.svg";
 import beerIcon from "../images/beer.svg";
 import moneyIcon from "../images/money.svg";
 import TapsOverview from "./TapsOverview";
+import StorageOverview from "./StorageOverview";
 import CompletedOrdersChart from "./CompletedOrdersChart";
 
 const { Column } = Table;
@@ -30,6 +31,7 @@ function Dashboard({
   newOrders,
   setNewOrders,
   beersServed,
+  storage,
 }) {
   const removeFromNewOrders = useCallback(
     (id) => {
@@ -76,24 +78,28 @@ function Dashboard({
         />
       </div>
       <div className="main-widgets">
-        <section className="chart queue-chart">
-          <h4 className="chart__label">Customers in queue</h4>
-          <AreaChart
-            data={queueChart}
-            {...antChartConfig}
-            autoFit={true}
-            width={400}
-            height={250}
-          />
-        </section>
         <section className="chart taps-chart">
           <h4 className="chart__label">Barrels on tap</h4>
+          <h4 className="chart__label">Storage</h4>
           <TapsOverview taps={taps} />
+          <StorageOverview storage={storage} />
         </section>
-        <section className="chart beer-chart">
-          <h4 className="chart__label">Beers sold</h4>
-          <BeerChart data={beerChart} beersServed={beersServed} />
-        </section>
+        <div className="dashboard-sidebar">
+          <section className="chart beer-chart">
+            <h4 className="chart__label">Beers sold</h4>
+            <BeerChart data={beerChart} beersServed={beersServed} />
+          </section>
+          <section className="chart queue-chart">
+            <h4 className="chart__label">Customers in queue</h4>
+            <AreaChart
+              data={queueChart}
+              {...antChartConfig}
+              width={430}
+              autoFit={false}
+              height={250}
+            />
+          </section>
+        </div>
         <section className="chart completed-orders-chart">
           <h4 className="chart__label">Completed Orders</h4>
           <CompletedOrdersChart completedOrders={completedOrders} />

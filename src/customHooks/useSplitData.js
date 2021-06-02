@@ -12,6 +12,7 @@ const createTapMap = (taps) => {
 const useSplitData = () => {
   const [taps, setTaps] = useState([]);
   const [serving, setServing] = useState([]);
+  const [storage, setStorage] = useState([]);
   const [queue, setQueue] = useState([]);
   const [bartenders, setBartenders] = useState([]);
   const [tapMap, setTapMap] = useState({});
@@ -19,12 +20,13 @@ const useSplitData = () => {
   const isQueueDifferent = useMemoizeArray();
   const isServingDifferent = useMemoizeArray();
 
-  const updateData = ({ queue, bartenders, serving, taps }) => {
+  const updateData = ({ queue, bartenders, serving, taps, storage }) => {
     setTaps(taps);
 
     setTapMap(createTapMap(taps));
 
     setBartenders(bartenders);
+    setStorage(storage);
 
     if (isQueueDifferent(queue)) {
       setQueue(queue);
@@ -35,7 +37,7 @@ const useSplitData = () => {
     }
   };
 
-  return [updateData, taps, serving, queue, bartenders, tapMap];
+  return [updateData, taps, serving, queue, bartenders, tapMap, storage];
 };
 
 export default useSplitData;

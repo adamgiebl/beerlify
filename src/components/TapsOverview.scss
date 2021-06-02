@@ -1,8 +1,14 @@
+.taps-overview-wrapper {
+  display: flex;
+}
+
 .taps-overview {
   display: grid;
-  font-size: 10px;
-  grid-template-columns: repeat(4, 135px);
+  font-size: 9px;
+  grid-template-columns: repeat(4, 13em);
   gap: 2em;
+  margin-right: 2em;
+  align-content: start;
 
   .barrel {
     position: relative;
@@ -53,5 +59,48 @@
       color: var(--blue);
       margin-top: 10px;
     }
+  }
+
+  @media screen and (max-width: 1609px) {
+    font-size: 8px;
+  }
+}
+
+.storage-overview {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2em;
+  font-size: 10px;
+
+  .storage-item {
+    margin-bottom: 1em;
+    &__name {
+      font-size: 1.4em;
+      font-weight: 900;
+      font-family: var(--merri);
+      color: var(--blue);
+      padding-bottom: 2px;
+      display: block;
+    }
+
+    .barrel-image {
+      max-width: 1.5em;
+      margin-right: 0.5em;
+    }
+    .barrel-number {
+      padding: 1em 0;
+      font-size: 1.6em;
+      font-family: var(--merri);
+      color: var(--gray);
+      font-weight: 900;
+    }
+  }
+
+  @media screen and (max-width: 1693px) {
+    font-size: 9px;
+  }
+
+  @media screen and (max-width: 1609px) {
+    font-size: 8px;
   }
 }

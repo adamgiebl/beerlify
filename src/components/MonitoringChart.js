@@ -8,13 +8,11 @@ import notificationSound from "../sounds/notification.mp3";
 const MonitoringChart = ({ removeFromNewOrders, newOrders }) => {
   const [playSound] = useSound(notificationSound, { volume: 0.6 });
 
-  console.log("render", newOrders);
   const onAnimationEnd = (id) => {
     removeFromNewOrders(id);
   };
 
   const onAnimationStart = () => {
-    console.log("plaing sounds");
     playSound();
   };
   return (

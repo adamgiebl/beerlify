@@ -20,10 +20,11 @@ const translateOrderToBartenderCard = (order) => {
   const sizeDifY = endPos.height / startPos.height;
 
   order.style.transform = `translate(${-difX}px, ${-difY}px) scale(${sizeDifX}, ${sizeDifY})`;
-
+  setTimeout(() => {
+    runAnimationOnce(bartenderCardEl, "pop");
+  }, 370); // timeout set 130ms before the transition ends
   order.addEventListener("transitionend", () => {
     order.style.display = "none";
-    runAnimationOnce(bartenderCardEl, "pop");
   });
 };
 
