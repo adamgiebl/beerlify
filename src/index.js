@@ -9,7 +9,7 @@ import Form from "./form/Form";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router basepath="/beerlify">
       <Home path="/" />
       <RawData path="data" />
       <Dash path="dashboard" />

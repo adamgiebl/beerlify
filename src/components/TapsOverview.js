@@ -13,7 +13,6 @@ const getVolumeColor = (level, capacity) => {
 };
 
 const TapsOverview = ({ taps }) => {
-  console.log("taps", taps);
   return (
     <div className="taps-overview">
       {taps.map((tap) => (

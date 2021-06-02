@@ -41,8 +41,6 @@ const useOrderProcessing = (serving, queue) => {
     if (diff.length > 0) {
       setNewOrders((prev) => [...prev, ...diff]);
     }
-
-    //console.log(diff);
   }, [queue, previousQueue]);
 
   return [completedOrders, avgTime, newOrders, setNewOrders];

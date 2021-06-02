@@ -31,7 +31,8 @@ const iconMap = {
 function Home() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [refreshTime, setRefreshTime] = useState(null);
-  const [updateData, taps, serving, queue, bartenders, tapMap] = useSplitData();
+  const [updateData, taps, serving, queue, bartenders, tapMap, storage] =
+    useSplitData();
   const [completedOrders, averageOrderTime, newOrders, setNewOrders] =
     useOrderProcessing(serving, queue);
   const queueChart = useQueueChart(queue);
@@ -56,6 +57,7 @@ function Home() {
     newOrders,
     setNewOrders,
     beersServed,
+    storage,
   };
 
   return (

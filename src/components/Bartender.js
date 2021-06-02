@@ -68,7 +68,12 @@ const Bartender = ({
           {taps &&
             activeTap !== "none" &&
             Object.keys(taps).map((tap) => (
-              <div className={`tap-image ${activeTap === tap && "active"}`}>
+              <div
+                className={`tap-image ${activeTap === tap && "active"} ${
+                  taps[tap] > 1 && "show-count"
+                }`}
+                data-count={taps[tap]}
+              >
                 <img src={getImage(tap)} alt="tap logo" />
               </div>
             ))}

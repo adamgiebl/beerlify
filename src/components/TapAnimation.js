@@ -61,7 +61,6 @@ const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
       {statusDetail !== "releaseTap" && activeTap !== "none" && (
         <CSSTransition in={true} classNames="tap-animation" timeout={300}>
           <div className={`svg-wrapper`}>
-            <div>{repeat}</div>
             <svg
               viewBox="0 0 178 422"
               fill="none"

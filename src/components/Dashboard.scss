@@ -14,12 +14,30 @@
 
   .main-widgets {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto;
     row-gap: var(--rowGap);
     column-gap: var(--colGap);
+    align-items: start;
     grid-template-areas:
-      "tapsChart tapsChart beerChart"
-      "completedOrders completedOrders queueChart";
+      "tapsChart tapsChart sidebar"
+      "completedOrders completedOrders sidebar";
+
+    @media screen and (max-width: 1094px) {
+      grid-template-areas:
+        "tapsChart tapsChart"
+        "sidebar sidebar"
+        "completedOrders completedOrders";
+
+      .dashboard-sidebar {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .dashboard-sidebar {
+      grid-area: sidebar;
+      display: grid;
+      gap: var(--rowGap);
+    }
 
     .chart {
       background: white;
@@ -33,6 +51,11 @@
         font-family: var(--merri);
         font-weight: 700;
         padding-bottom: 10px;
+        color: var(--blue);
+      }
+
+      @media screen and (max-width: 1660px) {
+        padding: 20px;
       }
     }
     .completed-orders-chart {
@@ -41,10 +64,8 @@
       width: 100%;
     }
     .queue-chart {
-      grid-area: queueChart;
     }
     .beer-chart {
-      grid-area: beerChart;
     }
     .queue-chart,
     .beer-chart {
@@ -60,6 +81,8 @@
       grid-area: tapsChart;
       background: #e5e5e5;
       box-shadow: none;
+      display: grid;
+      grid-template-columns: 1fr auto;
     }
   }
 }
