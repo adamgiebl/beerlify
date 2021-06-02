@@ -10,13 +10,12 @@
   border-radius: 2em;
   padding: 2em 3em;
   padding-left: 3em;
-
-  color: var(--darkblue);
+  color: var(--blue);
 
   &__icon {
     grid-row: span 2;
     display: flex;
-    padding-right: 1.5em;
+    padding-right: 1.6em;
     font-size: inherit;
     img,
     svg {
@@ -36,6 +35,8 @@
 
   &__title {
     font-size: 1.7em;
+    font-family: var(--roboto);
+    color: var(--gray);
   }
 
   &__suffix {

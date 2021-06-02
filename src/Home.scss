@@ -1,10 +1,10 @@
 .home-content {
-  padding-left: 240px;
+  padding-left: 220px;
 }
 
 .sidebar {
   height: 100vh;
-  width: 240px;
+  width: 220px;
   background: white;
   position: fixed;
   left: 0;
@@ -24,7 +24,7 @@
   }
 
   &__navigation {
-    padding-left: 20px;
+    padding-left: 10px;
     .navigation-item {
       display: flex;
       align-items: center;
@@ -42,7 +42,7 @@
       }
 
       &:hover {
-        background: ghostwhite;
+        background: var(--light-gray);
       }
     }
   }
