@@ -33,7 +33,7 @@ const CheckoutPage = (props) => {
   console.log(props);
   return (
     <>
-      {true ? (
+      {isSubmitted ? (
         <ConfirmationPage />
       ) : (
         <main className="checkout-form wrapper">
@@ -99,7 +99,7 @@ const CheckoutPage = (props) => {
                 </div>
               </div>
               <label htmlFor="age" className="age-checkbox form-control">
-                <Checkbox id="age" />
+                <Checkbox id="age" required />
                 <span className="age-text">I am 18 years or older</span>
               </label>
               <div className="total">
