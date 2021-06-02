@@ -8,7 +8,7 @@ const Card = (props) => {
     const currentBeerToBeAdded = props;
     props.addToOrder(currentBeerToBeAdded);
   };
-  // TODO: create the "Sold out" card.
+  // TODO: create the "Sold out" card //////////////////
   return (
     <article className="card" onClick={props.openDetailPage}>
       <img

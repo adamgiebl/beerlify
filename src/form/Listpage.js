@@ -5,7 +5,6 @@ import elemdownSrc from "../images/5thdown.svg";
 import Modal from "./Modal.js";
 import Card from "./Card.js";
 import DetailPage from "./DetailPage.js";
-
 import "./ListPage.scss";
 
 const ListPage = (props) => {
@@ -78,6 +77,7 @@ const ListPage = (props) => {
             <img className="logo" src={logoSrc} alt="logo" />
           </header>
           <section className="content">
+            {/* ////Todo: FITERING THE LIST BELOW ////////////// */}
             <div className="filters wrapper ">
               <button className="active">All </button>
               <button className="ipa">| IPA | </button>
