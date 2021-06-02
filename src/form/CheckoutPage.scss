@@ -8,6 +8,7 @@
     max-width: 1000px;
     margin: auto;
     @media screen and (max-width: 1024px) {
+      max-width: 900px;
     }
   }
   .elem-up {
@@ -43,6 +44,9 @@
     }
     @media screen and (max-width: 1024px) {
       justify-content: space-between;
+    }
+    @media screen and (max-width: 1024px) {
+      padding-bottom: 30px;
     }
   }
 
