@@ -20,13 +20,39 @@
     }
   }
   header {
-    padding-top: 50px;
+    padding-top: 70px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     flex-wrap: wrap-reverse;
+    @media screen and (max-width: 865px) {
+      align-items: center;
+      text-align: center;
+    }
+    @media screen and (max-width: 839px) {
+      text-align: center;
+      max-width: 400px;
+    }
     h1 {
+      font-size: calc(1rem + 1vw);
       padding-right: 100px;
+      @media screen and (max-width: 950px) {
+        padding-right: 0;
+        padding: 0px 70px 0 70px;
+      }
+      @media screen and (max-width: 514px) {
+        text-align: center;
+        padding-right: 0;
+        padding: 20px 70px 0px 70px;
+      }
+    }
+    .logo {
+      @media screen and (max-width: 950px) {
+        padding-right: 30px;
+      }
+      @media screen and (max-width: 865px) {
+        padding-bottom: 20px;
+      }
     }
   }
 
@@ -34,17 +60,26 @@
   .content {
     margin: auto;
     padding: 0 50px;
+    @media screen and (max-width: 950px) {
+      padding: 50px;
+    }
     .filters {
       margin: auto;
+      margin-bottom: 40px;
       span {
         color: var(--blue);
         font-size: calc(1rem + 0.1vw);
+      }
+      button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding-right: 6px;
         &.active {
           color: var(--orange);
           font-weight: 700;
         }
       }
-      margin-bottom: 40px;
     }
     .card-container {
       max-width: 1050px;
@@ -53,12 +88,13 @@
       margin: auto;
       gap: 20px;
       .card {
-        padding: 30px;
+        padding: 50px;
         display: flex;
         flex-direction: column;
         background: var(--light-gray);
+        cursor: pointer;
         .keg {
-          padding: 20px;
+          padding-bottom: 20px;
         }
         h3 {
           color: var(--blue);

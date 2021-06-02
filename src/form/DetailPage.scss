@@ -30,7 +30,10 @@
     justify-content: space-between;
     align-items: center;
     @media screen and (max-width: 1024px) {
-      justify-content: space-between;
+      padding-bottom: 20px;
+    }
+    @media screen and (max-width: 1180) {
+      padding: 70px;
     }
   }
   .main-container {

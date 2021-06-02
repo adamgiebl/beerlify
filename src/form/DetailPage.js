@@ -48,7 +48,7 @@ const DetailPage = (props) => {
               <div className="property">
                 <div className="volume">
                   <img className="beer-icon" src={volumeSrc} alt="" />
-                  <span className="volume-txt">50cl</span>
+                  <span className="volume-txt">500 ml</span>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 .form-wrapper {
   font-family: var(--merri);
+  background: white;
 }
 
 .splashscreen {
@@ -25,6 +26,7 @@
       padding: 10px 30px;
       width: 150px;
       margin-top: 10px;
+      font-weight: 900;
       &:hover {
         transition: 0.3s;
         background: var(--blue);

@@ -33,11 +33,9 @@ const ListPage = (props) => {
   function removeFromOrder(beer) {
     const copyOfBeer = { ...beer };
     let copyOfOrder = [...order];
-
     const productInOrder = copyOfOrder.find(
       (item) => item.name === copyOfBeer.name
     );
-
     if (productInOrder.count > 1) {
       productInOrder.count--;
     } else {
@@ -81,12 +79,12 @@ const ListPage = (props) => {
           </header>
           <section className="content">
             <div className="filters wrapper ">
-              <span className="active">All </span>
-              <span>| IPA | </span>
-              <span>Belgian Specialty Ale |</span>
-              <span>European Lager |</span>
-              <span>Belgian Specialty Ale |</span>
-              <span>Belgian Specialty Ale</span>
+              <button className="active">All </button>
+              <button className="ipa">| IPA | </button>
+              <button className="bsa">Belgian Specialty Ale |</button>
+              <button className="el">European Lager |</button>
+              <button className="">Belgian Specialty Ale |</button>
+              <button>Belgian Specialty Ale</button>
             </div>
             <div className="card-container">
               {products.map((product) => (
