@@ -9,6 +9,28 @@ import _ from "lodash";
 import { createTapMap } from "../utils";
 import "../styles/form/ListPage.scss";
 
+const getBeersServed = () => {
+  return fetch("https://beerlify.herokuapp.com/")
+    .then((res) => {
+      return res.json();
+    })
+    .then(({ taps }) => {
+      const beersServed = [...new Set(Object.values(createTapMap(taps)))];
+      console.log(beersServed);
+      return beersServed;
+    });
+};
+
+const getAllBeers = () => {
+  return fetch("https://beerlify.herokuapp.com/beerTypes")
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data;
+    });
+};
+
 const ListPage = (props) => {
   const [products, setProducts] = useState([]); //created a state for the product.
   const [order, setOrder] = useState([]);
@@ -16,7 +38,6 @@ const ListPage = (props) => {
   const [detailPage, setDetailPage] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [availableBeers, setAvailableBeers] = useState([]);
 
   function addToOrder(beer) {
     const copyOfBeer = { ...beer };
@@ -51,26 +72,27 @@ const ListPage = (props) => {
   }
 
   useEffect(() => {
-    fetch("https://beerlify.herokuapp.com/beerTypes")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setProducts(data);
+    const run = async () => {
+      const beersServed = await getBeersServed();
+      const allBeers = await getAllBeers();
 
-        const allBeers = data.map((beer) => beer.name);
-        setCategories([...new Set(data.map((item) => item.category))]);
+      const allBeerNames = allBeers.map((beer) => beer.name);
+      console.log(allBeerNames, beersServed);
+      const unavailableBeers = _.difference(allBeerNames, beersServed);
 
-        fetch("https://beerlify.herokuapp.com/")
-          .then((res) => {
-            return res.json();
-          })
-          .then(({ taps }) => {
-            const beersServed = [...new Set(Object.values(createTapMap(taps)))];
-            console.log(beersServed);
-            setAvailableBeers(_.difference(allBeers, beersServed));
-          });
-      });
+      console.log(unavailableBeers);
+
+      setCategories([...new Set(allBeers.map((item) => item.category))]);
+
+      const productsMappedWithAvailableStatus = allBeers.map((beer) => ({
+        ...beer,
+        available: !unavailableBeers.includes(beer.name),
+      }));
+
+      setProducts(productsMappedWithAvailableStatus);
+    };
+
+    run();
   }, []);
 
   const checkout = () => {
@@ -102,7 +124,7 @@ const ListPage = (props) => {
               >
                 All
               </button>
-              {categories.map((category) => (
+              {categories.map((category, index) => (
                 <button
                   className={`${category === activeCategory && "active"}`}
                   key={category}
@@ -112,7 +134,7 @@ const ListPage = (props) => {
                     )
                   }
                 >
-                  {category}
+                  | {category}
                 </button>
               ))}
             </div>
@@ -121,12 +143,12 @@ const ListPage = (props) => {
                 .filter((item) =>
                   activeCategory ? item.category === activeCategory : true
                 )
+                .sort((a, b) => b.available - a.available)
                 .map((product) => (
                   <Card
                     {...product}
                     key={product.name} // key to differentiate between items when updating UI.
                     addToOrder={addToOrder}
-                    isNotServed={availableBeers.includes(product.name)}
                     openDetailPage={() => setDetailPage(product)}
                   />
                 ))}

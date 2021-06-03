@@ -17,7 +17,12 @@ const Form = () => {
       if (checkoutOrder === null) {
         return <ListPage setCheckoutOrder={setCheckoutOrder} />;
       } else {
-        return <CheckoutPage order={checkoutOrder} />;
+        return (
+          <CheckoutPage
+            order={checkoutOrder}
+            closeCheckoutPage={() => setCheckoutOrder(null)}
+          />
+        );
       }
     }
   };

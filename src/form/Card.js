@@ -2,15 +2,22 @@ import volumeSrc from "../images/barells/volume.svg";
 import { getImage } from "../utils.js";
 
 const Card = (props) => {
+  console.log(props);
   const onButtonClick = (event) => {
+    if (!props.available) {
+      return;
+    }
     event.stopPropagation(); // stops event from bubbling up to the parent onClick handler
 
     const currentBeerToBeAdded = props;
     props.addToOrder(currentBeerToBeAdded);
   };
   return (
-    <article className="card" onClick={props.openDetailPage}>
-      {props.isNotServed && (
+    <article
+      className="card"
+      onClick={() => (props.available ? props.openDetailPage : null)}
+    >
+      {!props.available && (
         <div className="sold-out">
           <p>
             Not

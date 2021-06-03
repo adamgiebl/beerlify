@@ -65,8 +65,6 @@ const CheckoutPage = (props) => {
     const body =
       props.order && props.order.map(({ name, amount }) => ({ name, amount }));
 
-    console.log(body);
-
     const bodyJson = JSON.stringify(body);
 
     fetch("https://beerlify.herokuapp.com/order", {
@@ -92,8 +90,7 @@ const CheckoutPage = (props) => {
         <main className="checkout-form wrapper">
           <img className="elem-up" src={elemupSrc} alt="" />
           <header>
-            {/* //Todo MAKE THIS BUTTON WORK / */}
-            <button className="back-btn" onClick={props.closeDetailPage}>
+            <button className="back-btn" onClick={props.closeCheckoutPage}>
               « Back
             </button>
             <img className="logo" src={logoSrc} alt="" />
