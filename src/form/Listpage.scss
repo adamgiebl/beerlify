@@ -97,6 +97,7 @@
         position: relative;
         .sold-out {
           z-index: 5;
+          pointer-events: none;
           display: flex;
           align-items: center;
           justify-content: center;

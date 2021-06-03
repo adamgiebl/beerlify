@@ -9,18 +9,19 @@ import "./ConfirmationPage";
 const Form = () => {
   const [splashOpen, setSplashOpen] = useState(true);
   const [checkoutOrder, setCheckoutOrder] = useState(null);
-  return (
-    // if checkoutOpen then we show the Checkout component, else we show the ListPage
-    <div className="form-wrapper">
-      {splashOpen ? (
-        <Splash setSplashOpen={setSplashOpen} />
-      ) : checkoutOrder ? (
-        <CheckoutPage order={checkoutOrder} />
-      ) : (
-        <ListPage setCheckoutOrder={setCheckoutOrder} />
-      )}
-    </div>
-  );
+
+  const renderPage = () => {
+    if (splashOpen === true) {
+      return <Splash setSplashOpen={setSplashOpen} />;
+    } else {
+      if (checkoutOrder === null) {
+        return <ListPage setCheckoutOrder={setCheckoutOrder} />;
+      } else {
+        return <CheckoutPage order={checkoutOrder} />;
+      }
+    }
+  };
+  return <div className="form-wrapper">{renderPage()}</div>;
 };
 
 export default Form;

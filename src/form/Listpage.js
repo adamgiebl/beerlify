@@ -53,7 +53,8 @@ const ListPage = (props) => {
       })
       .then((data) => {
         setProducts(data);
-        console.log(data);
+
+        // create an array of categories and set them into the state
         setCategories([...new Set(data.map((item) => item.category))]);
       });
   }, []);
@@ -61,8 +62,6 @@ const ListPage = (props) => {
   const checkout = () => {
     props.setCheckoutOrder(order);
   };
-
-  console.log(categories);
 
   return (
     <>
@@ -82,7 +81,6 @@ const ListPage = (props) => {
             <img className="logo" src={logoSrc} alt="logo" />
           </header>
           <section className="content">
-            {/* ////Todo: FITERING THE LIST BELOW ////////////// */}
             <div className="filters wrapper">
               <button
                 className={`${!activeCategory && "active"}`}

@@ -11,15 +11,17 @@ const Card = (props) => {
   // TODO: create the "Sold out" card //////////////////
   return (
     <article className="card" onClick={props.openDetailPage}>
-      <div className="sold-out">
-        <p>
-          Not
-          <br />
-          available
-          <br />
-          today
-        </p>
-      </div>
+      {false && (
+        <div className="sold-out">
+          <p>
+            Not
+            <br />
+            available
+            <br />
+            today
+          </p>
+        </div>
+      )}
       <img
         className="keg"
         src={getImage(props.name, "./images/barells/")}
