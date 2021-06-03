@@ -1,4 +1,4 @@
-import barrelIcon from "../images/barrel-icon.svg";
+import barrelIcon from "../images/barrel-icon.png";
 
 const StorageOverview = ({ storage }) => {
   const renderBarrels = (amount) => {

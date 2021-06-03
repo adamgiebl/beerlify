@@ -72,15 +72,12 @@ const ListPage = (props) => {
   }
 
   useEffect(() => {
-    const run = async () => {
+    const getData = async () => {
       const beersServed = await getBeersServed();
       const allBeers = await getAllBeers();
 
       const allBeerNames = allBeers.map((beer) => beer.name);
-      console.log(allBeerNames, beersServed);
       const unavailableBeers = _.difference(allBeerNames, beersServed);
-
-      console.log(unavailableBeers);
 
       setCategories([...new Set(allBeers.map((item) => item.category))]);
 
@@ -92,7 +89,7 @@ const ListPage = (props) => {
       setProducts(productsMappedWithAvailableStatus);
     };
 
-    run();
+    getData();
   }, []);
 
   const checkout = () => {
@@ -124,7 +121,7 @@ const ListPage = (props) => {
               >
                 All
               </button>
-              {categories.map((category, index) => (
+              {categories.map((category) => (
                 <button
                   className={`${category === activeCategory && "active"}`}
                   key={category}
