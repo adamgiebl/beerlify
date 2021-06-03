@@ -4,15 +4,22 @@ import logoSrc from "../images/logo.svg";
 import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";
 import InputMask from "react-input-mask";
+import _ from "lodash";
 import ConfirmationPage from "./ConfirmationPage";
 
 const CheckoutPage = (props) => {
   const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
   const [cardnumber, setCardnumber] = useState("");
+  const [cardnumberError, setCardnumberError] = useState("");
   const [monthYear, setMonthYear] = useState("");
+  const [monthYearError, setMonthYearError] = useState("");
   const [CVC, setCVC] = useState("");
+  const [CVCError, setCVCError] = useState("");
+  const [ageChecked, setAgeChecked] = useState(false);
+  const [ageCheckedError, setAgeCheckedError] = useState(false);
 
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const form = useRef(null);
@@ -20,17 +27,50 @@ const CheckoutPage = (props) => {
   useEffect(() => {
     const isCreditCardValid = cardnumber.replaceAll(" ", "").length === 16;
     const isMonthYearValid = monthYear.replace("/", "").length === 4;
+    const isNameValid = name.length > 1;
+    const isCVCValid = CVC.length === 3;
+
+    setCardnumberError(!isCreditCardValid);
+    setMonthYearError(!isMonthYearValid);
+    setNameError(!isNameValid);
+    setCVCError(!isCVCValid);
+    setAgeCheckedError(!ageChecked);
+
     setIsValid(
       form.current?.checkValidity() && isMonthYearValid && isCreditCardValid
     );
-  }, [name, cardnumber, monthYear, CVC]);
+  }, [name, cardnumber, monthYear, CVC, ageChecked]);
 
   function onSubmit(e) {
     e.preventDefault();
-    setIsSubmitted(true);
-    console.log("Thank you one");
+
+    if (!isValid) {
+      return;
+    }
+
+    // pull only name and amount from each beer item
+    const body =
+      props.order && props.order.map(({ name, amount }) => ({ name, amount }));
+
+    console.log(body);
+
+    const bodyJson = JSON.stringify(body);
+
+    fetch("https://beerlify.herokuapp.com/order", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: bodyJson,
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("data posted", response);
+        setIsSubmitted(true);
+      })
+      .catch((err) => console.log(err));
   }
-  console.log(props);
+
   return (
     <>
       {isSubmitted ? (
@@ -54,10 +94,12 @@ const CheckoutPage = (props) => {
                   id="name"
                   type="text"
                   required
-                  minLength="2"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
+                {nameError && (
+                  <span className="error">Card holder name is required</span>
+                )}
               </div>
               <div className="form-control">
                 <label htmlFor="cardnumber">Card number</label>
@@ -70,6 +112,9 @@ const CheckoutPage = (props) => {
                   onChange={(e) => setCardnumber(e.target.value)}
                   required
                 />
+                {cardnumberError && (
+                  <span className="error">Card number is incomplete</span>
+                )}
               </div>
               <div className="form-group">
                 <div className="form-control form-control--date">
@@ -84,6 +129,9 @@ const CheckoutPage = (props) => {
                     onChange={(e) => setMonthYear(e.target.value)}
                     minLength="17"
                   ></InputMask>
+                  {monthYearError && (
+                    <span className="error">Month and year is required</span>
+                  )}
                 </div>
                 <div className="form-control">
                   <label htmlFor="CVC">CVC</label>
@@ -97,15 +145,26 @@ const CheckoutPage = (props) => {
                     value={CVC}
                     onChange={(e) => setCVC(e.target.value)}
                   />
+                  {CVCError && (
+                    <span className="error">Wrong format of the CVC code</span>
+                  )}
                 </div>
               </div>
               <label htmlFor="age" className="age-checkbox form-control">
-                <Checkbox id="age" required />
+                <Checkbox
+                  id="age"
+                  required
+                  value={ageChecked}
+                  onChange={(e) => setAgeChecked(!ageChecked)}
+                />
                 <span className="age-text">I am 18 years or older</span>
               </label>
+              {ageCheckedError && (
+                <span className="error">You need to be over 18 to order</span>
+              )}
               <div className="total">
                 <span className="total__label">Total: </span>
-                <span className="total__price">54,-</span>
+                <span className="total__price">HC 54,-</span>
               </div>
               <button className="place-order" type="submit" disabled={!isValid}>
                 Place order

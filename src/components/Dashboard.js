@@ -33,14 +33,6 @@ function Dashboard({
   beersServed,
   storage,
 }) {
-  const removeFromNewOrders = useCallback(
-    (id) => {
-      setNewOrders((prev) => {
-        return _.filter(prev, (order) => order.id !== id);
-      });
-    },
-    [setNewOrders]
-  );
   return (
     <main className="dashboard-wrapper">
       <div className="widgets">
