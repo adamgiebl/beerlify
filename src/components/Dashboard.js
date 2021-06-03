@@ -2,7 +2,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./Dashboard.scss";
 import { getBeersSold, getImage, getTopSelling, formatDate } from "../utils";
-import { useQueueChart, useBeerChart } from "../customHooks";
+import {
+  useQueueChart,
+  useBeerChart,
+  useWindowDimensions,
+} from "../customHooks";
 import { Table } from "antd";
 import { antChartConfig } from "../constants";
 import { Area as AreaChart } from "@ant-design/charts";
@@ -33,6 +37,7 @@ function Dashboard({
   beersServed,
   storage,
 }) {
+  const { height, width } = useWindowDimensions();
   return (
     <main className="dashboard-wrapper">
       <div className="widgets">
@@ -86,7 +91,7 @@ function Dashboard({
             <AreaChart
               data={queueChart}
               {...antChartConfig}
-              width={430}
+              width={width < 1520 ? 355 : 430}
               autoFit={false}
               height={250}
             />

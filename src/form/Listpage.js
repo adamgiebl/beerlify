@@ -5,6 +5,8 @@ import elemdownSrc from "../images/5thdown.svg";
 import Modal from "./Modal.js";
 import Card from "./Card.js";
 import DetailPage from "./DetailPage.js";
+import _ from "lodash";
+import { createTapMap } from "../utils";
 import "./ListPage.scss";
 
 const ListPage = (props) => {
@@ -14,6 +16,8 @@ const ListPage = (props) => {
   const [detailPage, setDetailPage] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [availableBeers, setAvailableBeers] = useState([]);
+
   function addToOrder(beer) {
     const copyOfBeer = { ...beer };
     const copyOfOrder = [...order];
@@ -54,15 +58,25 @@ const ListPage = (props) => {
       .then((data) => {
         setProducts(data);
         console.log("data", data);
+
+        const allBeers = data.map((beer) => beer.name);
         setCategories([...new Set(data.map((item) => item.category))]);
+
+        fetch("https://beerlify.herokuapp.com/")
+          .then((res) => {
+            return res.json();
+          })
+          .then(({ taps }) => {
+            const beersServed = [...new Set(Object.values(createTapMap(taps)))];
+            console.log(beersServed);
+            setAvailableBeers(_.difference(allBeers, beersServed));
+          });
       });
   }, []);
 
   const checkout = () => {
     props.setCheckoutOrder(order);
   };
-
-  console.log(categories);
 
   return (
     <>
@@ -82,7 +96,6 @@ const ListPage = (props) => {
             <img className="logo" src={logoSrc} alt="logo" />
           </header>
           <section className="content">
-            {/* ////Todo: FITERING THE LIST BELOW ////////////// */}
             <div className="filters wrapper">
               <button
                 className={`${!activeCategory && "active"}`}
@@ -114,6 +127,7 @@ const ListPage = (props) => {
                     {...product}
                     key={product.name} // key to differentiate between items when updating UI.
                     addToOrder={addToOrder}
+                    isNotServed={availableBeers.includes(product.name)}
                     openDetailPage={() => setDetailPage(product)}
                   />
                 ))}

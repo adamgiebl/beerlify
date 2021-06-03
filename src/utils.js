@@ -66,3 +66,11 @@ export function runAnimationOnce(element, className, callback = () => {}) {
     callback();
   });
 }
+
+export const createTapMap = (taps) => {
+  let map = {};
+  taps.forEach((tap) => {
+    map[tap.id] = tap.beer;
+  });
+  return map;
+};

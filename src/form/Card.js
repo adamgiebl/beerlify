@@ -10,7 +10,10 @@ const Card = (props) => {
   };
   // TODO: create the "Sold out" card //////////////////
   return (
-    <article className="card" onClick={props.openDetailPage}>
+    <article
+      className={`card ${props.isNotServed && "sold-out"}`}
+      onClick={props.openDetailPage}
+    >
       <img
         className="keg"
         src={getImage(props.name, "./images/barells/")}

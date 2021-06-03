@@ -71,6 +71,10 @@
       vertical-align: top;
       font-weight: 900;
     }
+
+    @media screen and (max-width: 1520px) {
+      display: none;
+    }
   }
 
   .spinner {
