@@ -86,6 +86,7 @@
       display: flex;
       flex-wrap: wrap;
       margin: auto;
+      justify-content: center;
       gap: 20px;
       .card {
         max-width: 290px;
