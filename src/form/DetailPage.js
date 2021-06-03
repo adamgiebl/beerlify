@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import "./DetailPage.scss";
+import { useEffect } from "react";
+import "../styles/form/DetailPage.scss";
 import logoSrc from "../images/logo.svg";
 import volumeSrc from "../images/barells/volume.svg";
 import { getImage } from "../utils.js";

@@ -6,6 +6,11 @@
   font-family: var(--merri);
   --height: 0;
   --width: 55px;
+
+  @media screen and (max-width: 620px) {
+    --width: 40px;
+  }
+
   .beer-chart-content {
     padding-top: calc(var(--width) + 10px);
     display: inline-grid;
@@ -52,6 +57,14 @@
         justify-content: flex-end;
       }
     }
+
+    @media screen and (max-width: 620px) {
+      gap: 10px;
+
+      .column__bar {
+        font-size: 14px;
+      }
+    }
   }
 
   .annotations {
@@ -70,6 +83,10 @@
       color: var(--darkblue);
       vertical-align: top;
       font-weight: 900;
+    }
+
+    @media screen and (max-width: 1520px) {
+      display: none;
     }
   }
 

@@ -30,7 +30,7 @@ export const getTopSelling = (beerChart) => {
   if (beerChart) {
     return _.maxBy(Object.keys(beerChart), (o) => beerChart[o]);
   } else {
-    return "Collecting data...";
+    return 0;
   }
 };
 
@@ -66,3 +66,11 @@ export function runAnimationOnce(element, className, callback = () => {}) {
     callback();
   });
 }
+
+export const createTapMap = (taps) => {
+  let map = {};
+  taps.forEach((tap) => {
+    map[tap.id] = tap.beer;
+  });
+  return map;
+};

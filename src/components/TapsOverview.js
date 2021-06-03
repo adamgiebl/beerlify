@@ -1,5 +1,5 @@
 import { getImage } from "../utils";
-import "./TapsOverview.scss";
+import "../styles/TapsOverview.scss";
 
 const getVolumeColor = (level, capacity) => {
   const percentage = Math.floor((level / capacity) * 100);
@@ -16,7 +16,7 @@ const TapsOverview = ({ taps }) => {
   return (
     <div className="taps-overview">
       {taps.map((tap) => (
-        <article className="barrel">
+        <article className="barrel" key={tap.beer + tap.id}>
           <div className="barrel__volume">
             <span style={{ color: getVolumeColor(tap.level, tap.capacity) }}>
               {tap.level}

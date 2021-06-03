@@ -1,8 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePrevious } from "../customHooks";
 import _ from "lodash/array";
 import Bartender from "./Bartender";
 import { runAnimationOnce } from "../utils";
+import orderIcon from "../images/order-icon.svg";
 
 const translateOrderToBartenderCard = (order) => {
   const bartenderCardEl = document.querySelector(`#bartender${order.id}`);
@@ -66,7 +67,9 @@ const Bartenders = ({ bartenders, queue, serving, tapMap }) => {
           </article>
         ))}
         {queue.map((order) => (
-          <article className="bartenders-queue__order">{order.id}</article>
+          <article className="bartenders-queue__order">
+            <img src={orderIcon} alt="" /> #{order?.id}
+          </article>
         ))}
       </div>
     </main>

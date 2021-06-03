@@ -1,5 +1,5 @@
 import { useSpring, animated } from "react-spring";
-import "./Statistic.scss";
+import "../styles/Statistic.scss";
 import defaultIcon from "../images/graph.svg";
 
 const Statistic = ({

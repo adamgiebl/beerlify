@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import downArrowSrc from "../images/arrow.svg";
 import { getImage } from "../utils.js";
-import "./Modal.scss";
+import "../styles/form/Modal.scss";
 
 const Modal = (props) => {
   const accumulatedPrice = props.order.reduce(

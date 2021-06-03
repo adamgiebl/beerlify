@@ -4,7 +4,6 @@ import logoSrc from "../images/logo.svg";
 import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";
 import InputMask from "react-input-mask";
-import _ from "lodash";
 import ConfirmationPage from "./ConfirmationPage";
 
 const CheckoutPage = (props) => {
@@ -66,8 +65,6 @@ const CheckoutPage = (props) => {
     const body =
       props.order && props.order.map(({ name, amount }) => ({ name, amount }));
 
-    console.log(body);
-
     const bodyJson = JSON.stringify(body);
 
     fetch("https://beerlify.herokuapp.com/order", {
@@ -93,8 +90,7 @@ const CheckoutPage = (props) => {
         <main className="checkout-form wrapper">
           <img className="elem-up" src={elemupSrc} alt="" />
           <header>
-            {/* //Todo MAKE THIS BUTTON WORK / */}
-            <button className="back-btn" onClick={props.closeDetailPage}>
+            <button className="back-btn" onClick={props.closeCheckoutPage}>
               « Back
             </button>
             <img className="logo" src={logoSrc} alt="" />
@@ -168,7 +164,7 @@ const CheckoutPage = (props) => {
                 <Checkbox
                   id="age"
                   required
-                  value={ageChecked}
+                  checked={ageChecked}
                   onChange={(e) => setAgeChecked(!ageChecked)}
                 />
                 <span className="age-text">

@@ -1,4 +1,4 @@
-import "./ConfirmationPage.scss";
+import "../styles/form/ConfirmationPage.scss";
 import logoSrc from "../images/logo.svg";
 import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";

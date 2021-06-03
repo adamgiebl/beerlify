@@ -1,7 +1,7 @@
 import { useEffect, useRef, forwardRef, memo } from "react";
 import { gsap } from "gsap";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./TapAnimation.scss";
+import "../styles/TapAnimation.scss";
 
 const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
   const svgRef = useRef(null);
@@ -54,7 +54,7 @@ const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
       });
       secondTimeline.progress(0);
     }
-  }, [activeTap]);
+  }, [activeTap, repeat]);
 
   return (
     <TransitionGroup className="transition-container" key={activeTap}>

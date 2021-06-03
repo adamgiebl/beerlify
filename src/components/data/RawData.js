@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import "./RawData.scss";
+import "../../styles/data/RawData.scss";
 import Tables from "./Tables";
 import { getBeersSold } from "../../utils";
 import _ from "lodash/array";
@@ -18,7 +18,7 @@ function RawData({
   return (
     <main className="dashboard-wrapper dashboard-wrapper--raw">
       <Alert
-        message="This page is for the admins only!"
+        message="This page is for the admins only! Not suitable for smaller screens."
         type="warning"
         className="alert"
         showIcon

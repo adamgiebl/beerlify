@@ -19,6 +19,15 @@
   --merri: "Merriweather", serif;
   --roboto: "Roboto", sans-serif;
   --lightshadow: rgba(0, 0, 0, 0.1) 0px 5px 38px;
+  --sidebarWidth: 270px;
+
+  @media screen and (max-width: 1600px) {
+    --sidebarWidth: 230px;
+  }
+
+  @media screen and (max-width: 1440px) {
+    --sidebarWidth: 60px;
+  }
 }
 
 body {
@@ -37,6 +46,27 @@ body {
   .ant-table-wrapper,
   .ant-table {
     background: transparent;
+  }
+
+  .ant-tag-gold {
+    padding: 3px 9px;
+    border-radius: 8px;
+    border: none;
+    background: var(--blue);
+    color: white;
+  }
+
+  .ant-table-thead {
+    .ant-table-cell {
+      font-size: 16px;
+      color: var(--blue);
+    }
+  }
+
+  .ant-table-cell {
+    &:first-of-type {
+      padding-left: 0em;
+    }
   }
 
   .ant-table-small .ant-table-thead > tr > th {

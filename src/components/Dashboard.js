@@ -1,8 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useEffect, useRef, useState } from "react";
-import "./Dashboard.scss";
+import "../styles/Dashboard.scss";
 import { getBeersSold, getImage, getTopSelling, formatDate } from "../utils";
-import { useQueueChart, useBeerChart } from "../customHooks";
+import {
+  useQueueChart,
+  useBeerChart,
+  useWindowDimensions,
+} from "../customHooks";
 import { Table } from "antd";
 import { antChartConfig } from "../constants";
 import { Area as AreaChart } from "@ant-design/charts";
@@ -33,6 +37,7 @@ function Dashboard({
   beersServed,
   storage,
 }) {
+  const { height, width } = useWindowDimensions();
   return (
     <main className="dashboard-wrapper">
       <div className="widgets">
@@ -72,7 +77,7 @@ function Dashboard({
       <div className="main-widgets">
         <section className="chart taps-chart">
           <h4 className="chart__label">Barrels on tap</h4>
-          <h4 className="chart__label">Storage</h4>
+          <h4 className="chart__label chart__label--storage">Storage</h4>
           <TapsOverview taps={taps} />
           <StorageOverview storage={storage} />
         </section>
@@ -86,9 +91,9 @@ function Dashboard({
             <AreaChart
               data={queueChart}
               {...antChartConfig}
-              width={430}
+              width={width < 1520 ? (width < 490 ? 300 : 355) : 430}
               autoFit={false}
-              height={250}
+              height={width < 1278 ? 300 : 250}
             />
           </section>
         </div>

@@ -64,6 +64,10 @@
   @media screen and (max-width: 1609px) {
     font-size: 8px;
   }
+
+  @media screen and (max-width: 1150px) {
+    grid-template-columns: repeat(2, 13em);
+  }
 }
 
 .storage-overview {
@@ -102,5 +106,10 @@
 
   @media screen and (max-width: 1609px) {
     font-size: 8px;
+  }
+
+  @media screen and (max-width: 1150px) {
+    justify-content: start;
+    align-content: start;
   }
 }
