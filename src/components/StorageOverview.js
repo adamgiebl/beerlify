@@ -16,7 +16,11 @@ const StorageOverview = ({ storage }) => {
           <img src={barrelIcon} className="barrel-image" alt="" key={i} />
         );
       }
-      barrels.push(<span className="barrel-number">+{amount - 5}</span>);
+      barrels.push(
+        <span className="barrel-number" key={"123123"}>
+          +{amount - 5}
+        </span>
+      );
       return barrels;
     }
   };

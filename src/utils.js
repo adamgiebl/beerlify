@@ -30,7 +30,7 @@ export const getTopSelling = (beerChart) => {
   if (beerChart) {
     return _.maxBy(Object.keys(beerChart), (o) => beerChart[o]);
   } else {
-    return "Collecting data...";
+    return 0;
   }
 };
 

@@ -19,6 +19,15 @@
   --merri: "Merriweather", serif;
   --roboto: "Roboto", sans-serif;
   --lightshadow: rgba(0, 0, 0, 0.1) 0px 5px 38px;
+  --sidebarWidth: 270px;
+
+  @media screen and (max-width: 1600px) {
+    --sidebarWidth: 230px;
+  }
+
+  @media screen and (max-width: 1440px) {
+    --sidebarWidth: 60px;
+  }
 }
 
 body {

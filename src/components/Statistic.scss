@@ -12,6 +12,10 @@
   padding-left: 3em;
   color: var(--blue);
 
+  @media screen and (max-width: 1000px) {
+    font-size: 7px;
+  }
+
   &__icon {
     grid-row: span 2;
     display: flex;
