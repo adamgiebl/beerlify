@@ -53,7 +53,7 @@ const ListPage = (props) => {
       })
       .then((data) => {
         setProducts(data);
-        console.log(data);
+        console.log("data", data);
         setCategories([...new Set(data.map((item) => item.category))]);
       });
   }, []);
