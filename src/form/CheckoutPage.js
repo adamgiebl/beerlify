@@ -177,7 +177,7 @@ const CheckoutPage = (props) => {
               </label>
               <div className="total">
                 <span className="total__label">Total: </span>
-                <span className="total__price">HC 54,-</span>
+                <span className="total__price"> 54,-</span>
               </div>
               <button className="place-order" type="submit" disabled={!isValid}>
                 Place order
