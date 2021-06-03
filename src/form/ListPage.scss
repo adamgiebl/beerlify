@@ -84,11 +84,10 @@
     .card-container {
       max-width: 1250px;
       display: flex;
-      flex-wrap: wrap;
       margin: auto;
       gap: 20px;
+
       .card {
-        max-width: 290px;
         padding: 50px;
         display: flex;
         flex-direction: column;
@@ -105,7 +104,6 @@
           top: 0;
           position: absolute;
           width: 100%;
-          cursor: default;
           height: 100%;
           background-color: rgba(30, 30, 30, 0.5);
 
