@@ -57,7 +57,6 @@ const ListPage = (props) => {
       })
       .then((data) => {
         setProducts(data);
-        console.log("data", data);
 
         const allBeers = data.map((beer) => beer.name);
         setCategories([...new Set(data.map((item) => item.category))]);

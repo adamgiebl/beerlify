@@ -10,14 +10,17 @@ import ConfirmationPage from "./ConfirmationPage";
 const CheckoutPage = (props) => {
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState("");
+
   const [cardnumber, setCardnumber] = useState("");
   const [cardnumberError, setCardnumberError] = useState("");
+
   const [monthYear, setMonthYear] = useState("");
   const [monthYearError, setMonthYearError] = useState("");
+
   const [CVC, setCVC] = useState("");
   const [CVCError, setCVCError] = useState("");
+
   const [ageChecked, setAgeChecked] = useState(false);
-  const [ageCheckedError, setAgeCheckedError] = useState(false);
 
   const [isValid, setIsValid] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -27,17 +30,28 @@ const CheckoutPage = (props) => {
   useEffect(() => {
     const isCreditCardValid = cardnumber.replaceAll(" ", "").length === 16;
     const isMonthYearValid = monthYear.replace("/", "").length === 4;
-    const isNameValid = name.length > 1;
+    const isNameValid = name.length > 0;
     const isCVCValid = CVC.length === 3;
 
-    setCardnumberError(!isCreditCardValid);
-    setMonthYearError(!isMonthYearValid);
-    setNameError(!isNameValid);
-    setCVCError(!isCVCValid);
-    setAgeCheckedError(!ageChecked);
+    if (cardnumber) {
+      setCardnumberError(!isCreditCardValid);
+    }
+    if (monthYear) {
+      setMonthYearError(!isMonthYearValid);
+    }
+    if (name) {
+      setNameError(!isNameValid);
+    }
+    if (CVC) {
+      setCVCError(!isCVCValid);
+    }
 
     setIsValid(
-      form.current?.checkValidity() && isMonthYearValid && isCreditCardValid
+      form.current?.checkValidity() &&
+        isMonthYearValid &&
+        isCreditCardValid &&
+        isCVCValid &&
+        isNameValid
     );
   }, [name, cardnumber, monthYear, CVC, ageChecked]);
 
@@ -157,11 +171,10 @@ const CheckoutPage = (props) => {
                   value={ageChecked}
                   onChange={(e) => setAgeChecked(!ageChecked)}
                 />
-                <span className="age-text">I am 18 years or older</span>
+                <span className="age-text">
+                  I am 18 years or older<span className="error">*</span>
+                </span>
               </label>
-              {ageCheckedError && (
-                <span className="error">You need to be over 18 to order</span>
-              )}
               <div className="total">
                 <span className="total__label">Total: </span>
                 <span className="total__price">HC 54,-</span>

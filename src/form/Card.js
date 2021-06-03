@@ -8,12 +8,19 @@ const Card = (props) => {
     const currentBeerToBeAdded = props;
     props.addToOrder(currentBeerToBeAdded);
   };
-  // TODO: create the "Sold out" card //////////////////
   return (
-    <article
-      className={`card ${props.isNotServed && "sold-out"}`}
-      onClick={props.openDetailPage}
-    >
+    <article className="card" onClick={props.openDetailPage}>
+      {props.isNotServed && (
+        <div className="sold-out">
+          <p>
+            Not
+            <br />
+            available
+            <br />
+            today
+          </p>
+        </div>
+      )}
       <img
         className="keg"
         src={getImage(props.name, "./images/barells/")}

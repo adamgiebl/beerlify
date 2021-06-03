@@ -79,8 +79,6 @@
     }
     .taps-chart {
       grid-area: tapsChart;
-      background: var(--button-blue);
-      box-shadow: none;
       display: grid;
       grid-template-columns: 1fr auto;
     }
