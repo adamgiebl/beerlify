@@ -6,7 +6,7 @@ import "./Modal.scss";
 
 const Modal = (props) => {
   const accumulatedPrice = props.order.reduce(
-    (accumulator, currentBeer) => accumulator + currentBeer.count * 54,
+    (accumulator, currentBeer) => accumulator + currentBeer.amount * 54,
     0
   );
 
@@ -59,11 +59,11 @@ const Modal = (props) => {
 
 const BeerRow = (props) => {
   //console.log("beerRow", props);
-  const [amount, setAmount] = useState(props.count);
+  const [count, setCount] = useState(props.amount);
 
   useEffect(() => {
-    setAmount(props.count);
-  }, [props.count]);
+    setCount(props.amount);
+  }, [props.amount]);
 
   return (
     <article className="beer-row">
@@ -79,11 +79,11 @@ const BeerRow = (props) => {
       <div className="qty">
         <button
           onClick={() => props.removeFromOrder(props)}
-          disabled={amount === 0}
+          disabled={count === 0}
         >
           -
         </button>
-        <input value={amount} readOnly />
+        <input value={count} readOnly />
         <button onClick={() => props.addToOrder(props)}>+</button>
       </div>
       <div className="price">54,-</div>

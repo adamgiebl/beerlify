@@ -12,6 +12,8 @@ const ListPage = (props) => {
   const [order, setOrder] = useState([]);
   const [modalMinimized, setModalMinimized] = useState(false);
   const [detailPage, setDetailPage] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
   function addToOrder(beer) {
     const copyOfBeer = { ...beer };
     const copyOfOrder = [...order];
@@ -19,10 +21,10 @@ const ListPage = (props) => {
       (item) => item.name === copyOfBeer.name
     );
     if (productInOrder) {
-      productInOrder.count++; // puts one more product of that type in the order
+      productInOrder.amount++; // puts one more product of that type in the order
       setOrder(copyOfOrder); // updates the state with all the same items, but one of them updated!
     } else {
-      copyOfBeer.count = 1; // puts the product in the basket for the first time
+      copyOfBeer.amount = 1; // puts the product in the basket for the first time
 
       setOrder((prevState) => [copyOfBeer, ...prevState]);
     }
@@ -35,8 +37,8 @@ const ListPage = (props) => {
     const productInOrder = copyOfOrder.find(
       (item) => item.name === copyOfBeer.name
     );
-    if (productInOrder.count > 1) {
-      productInOrder.count--;
+    if (productInOrder.amount > 1) {
+      productInOrder.amount--;
     } else {
       copyOfOrder = copyOfOrder.filter((item) => item.name !== copyOfBeer.name);
     }
@@ -51,13 +53,16 @@ const ListPage = (props) => {
       })
       .then((data) => {
         setProducts(data);
-        //console.log(data);
+        console.log(data);
+        setCategories([...new Set(data.map((item) => item.category))]);
       });
   }, []);
 
   const checkout = () => {
     props.setCheckoutOrder(order);
   };
+
+  console.log(categories);
 
   return (
     <>
@@ -78,23 +83,40 @@ const ListPage = (props) => {
           </header>
           <section className="content">
             {/* ////Todo: FITERING THE LIST BELOW ////////////// */}
-            <div className="filters wrapper ">
-              <button className="active">All </button>
-              <button className="ipa">| IPA | </button>
-              <button className="bsa">Belgian Specialty Ale |</button>
-              <button className="el">European Lager |</button>
-              <button className="">Belgian Specialty Ale |</button>
-              <button>Belgian Specialty Ale</button>
+            <div className="filters wrapper">
+              <button
+                className={`${!activeCategory && "active"}`}
+                onClick={() => setActiveCategory(null)}
+              >
+                All
+              </button>
+              {categories.map((category) => (
+                <button
+                  className={`${category === activeCategory && "active"}`}
+                  key={category}
+                  onClick={() =>
+                    setActiveCategory((prev) =>
+                      category === prev ? null : category
+                    )
+                  }
+                >
+                  {category}
+                </button>
+              ))}
             </div>
             <div className="card-container">
-              {products.map((product) => (
-                <Card
-                  {...product}
-                  key={product.name} // key to differentiate between items when updating UI.
-                  addToOrder={addToOrder}
-                  openDetailPage={() => setDetailPage(product)}
-                />
-              ))}
+              {products
+                .filter((item) =>
+                  activeCategory ? item.category === activeCategory : true
+                )
+                .map((product) => (
+                  <Card
+                    {...product}
+                    key={product.name} // key to differentiate between items when updating UI.
+                    addToOrder={addToOrder}
+                    openDetailPage={() => setDetailPage(product)}
+                  />
+                ))}
             </div>
           </section>
           <div className="elem-down">
