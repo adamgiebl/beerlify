@@ -18,7 +18,7 @@ function RawData({
   return (
     <main className="dashboard-wrapper dashboard-wrapper--raw">
       <Alert
-        message="This page is for the admins only!"
+        message="This page is for the admins only! Not suitable for smaller screens."
         type="warning"
         className="alert"
         showIcon

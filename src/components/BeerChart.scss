@@ -6,6 +6,11 @@
   font-family: var(--merri);
   --height: 0;
   --width: 55px;
+
+  @media screen and (max-width: 620px) {
+    --width: 40px;
+  }
+
   .beer-chart-content {
     padding-top: calc(var(--width) + 10px);
     display: inline-grid;
@@ -50,6 +55,14 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+      }
+    }
+
+    @media screen and (max-width: 620px) {
+      gap: 10px;
+
+      .column__bar {
+        font-size: 14px;
       }
     }
   }

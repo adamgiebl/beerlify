@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./DetailPage.scss";
 import logoSrc from "../images/logo.svg";
 import volumeSrc from "../images/barells/volume.svg";

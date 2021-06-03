@@ -54,7 +54,7 @@ const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
       });
       secondTimeline.progress(0);
     }
-  }, [activeTap]);
+  }, [activeTap, repeat]);
 
   return (
     <TransitionGroup className="transition-container" key={activeTap}>

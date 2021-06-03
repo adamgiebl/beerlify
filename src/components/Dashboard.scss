@@ -4,12 +4,22 @@
   --colGap: 40px;
   --rowGap: 20px;
 
+  @media screen and (max-width: 1278px) {
+    --rowGap: 40px;
+    padding: 20px;
+  }
+
   .widgets {
     display: grid;
     grid-auto-flow: column;
     margin-bottom: var(--rowGap);
     align-items: stretch;
     gap: 10px;
+
+    @media screen and (max-width: 1150px) {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   .main-widgets {
@@ -39,6 +49,32 @@
       gap: var(--rowGap);
     }
 
+    @media screen and (max-width: 1278px) {
+      align-items: stretch;
+
+      grid-template-areas:
+        "tapsChart tapsChart tapsChart"
+        "sidebar sidebar sidebar"
+        "completedOrders completedOrders completedOrders";
+
+      .dashboard-sidebar {
+        grid-template-columns: auto auto;
+        justify-content: center;
+        gap: 40px;
+
+        @media screen and (max-width: 1150px) {
+          grid-template-columns: auto;
+        }
+
+        .queue-chart {
+          order: 1;
+        }
+        .beer-chart {
+          order: 2;
+        }
+      }
+    }
+
     .chart {
       background: #f6f6f6;
       padding: 30px 40px;
@@ -62,11 +98,14 @@
       grid-area: completedOrders;
       padding-bottom: 10px !important;
       width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+
+      @media screen and (max-width: 460px) {
+        max-width: 300px;
+      }
     }
-    .queue-chart {
-    }
-    .beer-chart {
-    }
+
     .queue-chart,
     .beer-chart {
       background: transparent;
@@ -81,6 +120,14 @@
       grid-area: tapsChart;
       display: grid;
       grid-template-columns: 1fr auto;
+
+      @media screen and (max-width: 1150px) {
+        grid-template-columns: auto auto;
+      }
+
+      @media screen and (max-width: 620px) {
+        grid-template-columns: auto;
+      }
     }
   }
 }

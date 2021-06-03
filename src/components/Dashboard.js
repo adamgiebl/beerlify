@@ -91,9 +91,9 @@ function Dashboard({
             <AreaChart
               data={queueChart}
               {...antChartConfig}
-              width={width < 1520 ? 355 : 430}
+              width={width < 1520 ? (width < 490 ? 300 : 355) : 430}
               autoFit={false}
-              height={250}
+              height={width < 1278 ? 300 : 250}
             />
           </section>
         </div>

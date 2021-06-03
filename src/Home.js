@@ -8,6 +8,7 @@ import { Statistic } from "antd";
 import Bartender from "./components/Bartender";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import logo from "./images/logo.svg";
+import logoSmall from "./images/beer.svg";
 import iconDashboard from "./images/icon-dashboard.svg";
 import iconPerson from "./images/icon-person.svg";
 import iconData from "./images/data.svg";
@@ -64,7 +65,8 @@ function Home() {
     <div className="home-content">
       <aside className="sidebar">
         <div className="sidebar__logo">
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" className="logo-big" />
+          <img src={logoSmall} alt="logo" className="logo-small" />
         </div>
         <ul className="sidebar__navigation">
           <li
@@ -72,21 +74,21 @@ function Home() {
             onClick={() => setActiveTab("Dashboard")}
           >
             <img src={iconDashboard} alt="" />
-            Dashboard
+            <span className="navigation-item__text">Dashboard</span>
           </li>
           <li
             className="navigation-item"
             onClick={() => setActiveTab("Bartenders")}
           >
             <img src={iconPerson} alt="" />
-            Bartenders
+            <span className="navigation-item__text">Bartenders</span>
           </li>
           <li
             className="navigation-item navigation-item--grey"
             onClick={() => setActiveTab("Raw Data")}
           >
             <img src={iconData} alt="" />
-            Raw Data
+            <span className="navigation-item__text">Raw Data</span>
           </li>
         </ul>
       </aside>

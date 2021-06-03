@@ -4,7 +4,6 @@ import logoSrc from "../images/logo.svg";
 import elemupSrc from "../images/5thup.svg";
 import elemdownSrc from "../images/5thdown.svg";
 import InputMask from "react-input-mask";
-import _ from "lodash";
 import ConfirmationPage from "./ConfirmationPage";
 
 const CheckoutPage = (props) => {
@@ -168,7 +167,7 @@ const CheckoutPage = (props) => {
                 <Checkbox
                   id="age"
                   required
-                  value={ageChecked}
+                  checked={ageChecked}
                   onChange={(e) => setAgeChecked(!ageChecked)}
                 />
                 <span className="age-text">
