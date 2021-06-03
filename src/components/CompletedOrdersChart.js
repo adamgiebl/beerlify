@@ -26,7 +26,7 @@ const CompletedOrdersChart = ({ completedOrders }) => {
       autoFit={true}
       dataSource={completedOrders}
       {...tableConfig}
-      pagination={{ pageSize: 10 }}
+      pagination={{ pageSize: 5 }}
       rowKey="id"
     >
       <Column title="Customer ID" dataIndex="id" key="id" />

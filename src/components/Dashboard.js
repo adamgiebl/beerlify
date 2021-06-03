@@ -1,13 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useEffect, useRef, useState } from "react";
 import "../styles/Dashboard.scss";
-import { getBeersSold, getImage, getTopSelling, formatDate } from "../utils";
-import {
-  useQueueChart,
-  useBeerChart,
-  useWindowDimensions,
-} from "../customHooks";
-import { Table } from "antd";
+import { getBeersSold, getImage, getTopSelling } from "../utils";
+import { useWindowDimensions } from "../customHooks";
 import { antChartConfig } from "../constants";
 import { Area as AreaChart } from "@ant-design/charts";
 import BeerChart from "./BeerChart";
@@ -20,24 +14,18 @@ import TapsOverview from "./TapsOverview";
 import StorageOverview from "./StorageOverview";
 import CompletedOrdersChart from "./CompletedOrdersChart";
 
-const { Column } = Table;
-
 function Dashboard({
   taps,
   serving,
   queue,
-  bartenders,
-  tapMap,
   completedOrders,
   averageOrderTime,
   queueChart,
   beerChart,
-  newOrders,
-  setNewOrders,
   beersServed,
   storage,
 }) {
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   return (
     <main className="dashboard-wrapper">
       <div className="widgets">

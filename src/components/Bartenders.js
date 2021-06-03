@@ -53,7 +53,12 @@ const Bartenders = ({ bartenders, queue, serving, tapMap }) => {
     <main className="dashboard-wrapper dashboard-wrapper--bartenders">
       <div className="bartenders">
         {bartenders.map((bartender) => (
-          <Bartender {...bartender} serving={serving} tapMap={tapMap} />
+          <Bartender
+            {...bartender}
+            serving={serving}
+            tapMap={tapMap}
+            key={bartender.name}
+          />
         ))}
       </div>
       <div className="bartenders-queue">
@@ -67,7 +72,7 @@ const Bartenders = ({ bartenders, queue, serving, tapMap }) => {
           </article>
         ))}
         {queue.map((order) => (
-          <article className="bartenders-queue__order">
+          <article className="bartenders-queue__order" key={order.id}>
             <img src={orderIcon} alt="" /> #{order?.id}
           </article>
         ))}

@@ -63,6 +63,7 @@ const Bartender = ({
                   taps[tap] > 1 && "show-count"
                 }`}
                 data-count={taps[tap]}
+                key={tap}
               >
                 <img src={getImage(tap)} alt="tap logo" />
               </div>
