@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import "./RawData.scss";
+import "../../styles/data/RawData.scss";
 import Tables from "./Tables";
 import { getBeersSold } from "../../utils";
 import _ from "lodash/array";

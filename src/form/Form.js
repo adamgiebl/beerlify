@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "./Form.scss";
+import "../styles/form/Form.scss";
 import Splash from "./Splash.js";
 import ListPage from "./ListPage.js";
 import CheckoutPage from "./CheckoutPage";
-import "./CheckoutPage.scss";
+import "../styles/form/CheckoutPage.scss";
 import "./ConfirmationPage";
 
 const Form = () => {

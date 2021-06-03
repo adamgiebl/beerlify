@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./global.scss";
+import "./styles/global.scss";
 import Home from "./Home";
 import Dash from "./components/Dashboard";
 import RawData from "./components/data/RawData";

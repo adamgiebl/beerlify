@@ -1,5 +1,5 @@
 import { getImage } from "../utils";
-import "./TapsOverview.scss";
+import "../styles/TapsOverview.scss";
 
 const getVolumeColor = (level, capacity) => {
   const percentage = Math.floor((level / capacity) * 100);

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef, useReducer, memo } from "react";
 import _ from "lodash/collection";
-import "./BartenderRaw.scss";
+import "../../styles/data/BartenderRaw.scss";
 import Tap from "./Tap";
 
 const Bartender = ({

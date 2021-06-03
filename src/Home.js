@@ -1,11 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import "./Home.scss";
-import Tables from "./components/data/Tables";
-import { formatDate, getBeersSold } from "./utils";
+import { useState } from "react";
+import "./styles/Home.scss";
+import { formatDate } from "./utils";
 import _ from "lodash/array";
-import { Statistic } from "antd";
-import Bartender from "./components/Bartender";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import logo from "./images/logo.svg";
 import logoSmall from "./images/beer.svg";

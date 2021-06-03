@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useEffect, useRef, useState } from "react";
-import "./Dashboard.scss";
+import "../styles/Dashboard.scss";
 import { getBeersSold, getImage, getTopSelling, formatDate } from "../utils";
 import {
   useQueueChart,
@@ -77,7 +77,7 @@ function Dashboard({
       <div className="main-widgets">
         <section className="chart taps-chart">
           <h4 className="chart__label">Barrels on tap</h4>
-          <h4 className="chart__label">Storage</h4>
+          <h4 className="chart__label chart__label--storage">Storage</h4>
           <TapsOverview taps={taps} />
           <StorageOverview storage={storage} />
         </section>

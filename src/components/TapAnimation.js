@@ -1,7 +1,7 @@
 import { useEffect, useRef, forwardRef, memo } from "react";
 import { gsap } from "gsap";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./TapAnimation.scss";
+import "../styles/TapAnimation.scss";
 
 const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
   const svgRef = useRef(null);

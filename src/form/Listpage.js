@@ -7,7 +7,7 @@ import Card from "./Card.js";
 import DetailPage from "./DetailPage.js";
 import _ from "lodash";
 import { createTapMap } from "../utils";
-import "./ListPage.scss";
+import "../styles/form/ListPage.scss";
 
 const ListPage = (props) => {
   const [products, setProducts] = useState([]); //created a state for the product.

@@ -101,6 +101,10 @@
       max-width: 100%;
       overflow-x: auto;
 
+      .chart__label {
+        padding-bottom: 0;
+      }
+
       @media screen and (max-width: 460px) {
         max-width: 300px;
       }
@@ -127,6 +131,14 @@
 
       @media screen and (max-width: 620px) {
         grid-template-columns: auto;
+
+        .taps-overview {
+          margin-bottom: 40px;
+        }
+
+        .chart__label--storage {
+          display: none;
+        }
       }
     }
   }
