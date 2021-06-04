@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/beerlify/static/css/main.e4696c17.chunk.css",
-    "main.js": "/beerlify/static/js/main.c073f98e.chunk.js",
-    "main.js.map": "/beerlify/static/js/main.c073f98e.chunk.js.map",
+    "main.js": "/beerlify/static/js/main.ce05c200.chunk.js",
+    "main.js.map": "/beerlify/static/js/main.ce05c200.chunk.js.map",
     "runtime-main.js": "/beerlify/static/js/runtime-main.d5466e6a.js",
     "runtime-main.js.map": "/beerlify/static/js/runtime-main.d5466e6a.js.map",
     "static/css/2.f738492e.chunk.css": "/beerlify/static/css/2.f738492e.chunk.css",
@@ -41,6 +41,6 @@
     "static/css/2.f738492e.chunk.css",
     "static/js/2.3ffd9143.chunk.js",
     "static/css/main.e4696c17.chunk.css",
-    "static/js/main.c073f98e.chunk.js"
+    "static/js/main.ce05c200.chunk.js"
   ]
 }
