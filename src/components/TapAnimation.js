@@ -91,16 +91,16 @@ const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
           </div>
         </CSSTransition>
       )}
-      {statusDetail === "waiting" ||
+      {(statusDetail === "waiting" ||
         statusDetail === "replaceKeg" ||
         statusDetail === "reserveTap" ||
-        (statusDetail === "startServing" && (
-          <CSSTransition in={true} timeout={0}>
-            <div className="status">
-              <SyncOutlined spin={true} style={{ fontSize: "60px" }} />
-            </div>
-          </CSSTransition>
-        ))}
+        statusDetail === "startServing") && (
+        <CSSTransition in={true} timeout={0}>
+          <div className="status">
+            <SyncOutlined spin={true} style={{ fontSize: "60px" }} />
+          </div>
+        </CSSTransition>
+      )}
       {statusDetail === "receivePayment" && (
         <CSSTransition in={true} timeout={0}>
           <div className="status">
