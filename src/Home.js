@@ -31,8 +31,10 @@ function Home() {
   const [refreshTime, setRefreshTime] = useState(null);
   const [updateData, taps, serving, queue, bartenders, tapMap, storage] =
     useSplitData();
-  const [completedOrders, averageOrderTime, newOrders, setNewOrders] =
-    useOrderProcessing(serving, queue);
+  const [completedOrders, averageOrderTime, newOrders] = useOrderProcessing(
+    serving,
+    queue
+  );
   const queueChart = useQueueChart(queue);
   const beerChart = useBeerChart(completedOrders);
   const beersServed = new Set(Object.values(tapMap));
@@ -53,7 +55,6 @@ function Home() {
     queueChart,
     beerChart,
     newOrders,
-    setNewOrders,
     beersServed,
     storage,
   };

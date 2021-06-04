@@ -1,5 +1,7 @@
 import { getImage } from "../utils";
 import "../styles/TapsOverview.scss";
+import { Tag } from "antd";
+import { SyncOutlined } from "@ant-design/icons";
 
 const getVolumeColor = (level, capacity) => {
   const percentage = Math.floor((level / capacity) * 100);
@@ -29,6 +31,15 @@ const TapsOverview = ({ taps }) => {
               "--volume": Math.floor((tap.level / tap.capacity) * 100) + "%",
             }}
           >
+            {tap.inUse && (
+              <Tag
+                icon={<SyncOutlined spin />}
+                color="processing"
+                className="in-use-tag"
+              >
+                In use
+              </Tag>
+            )}
             <img
               className="barrel-image"
               src={getImage(tap.beer, "./images/barells/")}

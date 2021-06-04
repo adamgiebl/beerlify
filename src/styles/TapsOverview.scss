@@ -48,6 +48,18 @@
       img {
         max-width: 100%;
       }
+
+      .in-use-tag {
+        position: absolute;
+        bottom: 0.5em;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px;
+        background: var(--light-gray);
+        color: var(--blue);
+        border: none;
+        padding: 0.2em 0.7em;
+      }
     }
 
     &__title {

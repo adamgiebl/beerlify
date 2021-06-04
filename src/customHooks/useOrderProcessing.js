@@ -43,7 +43,7 @@ const useOrderProcessing = (serving, queue) => {
     }
   }, [queue, previousQueue]);
 
-  return [completedOrders, avgTime, newOrders, setNewOrders];
+  return [completedOrders, avgTime, newOrders];
 };
 
 export default useOrderProcessing;

@@ -1,7 +1,9 @@
 import { useEffect, useRef, forwardRef, memo } from "react";
 import { gsap } from "gsap";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { SyncOutlined } from "@ant-design/icons";
 import "../styles/TapAnimation.scss";
+import moneyIcon from "../images/money.svg";
 
 const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
   const svgRef = useRef(null);
@@ -86,6 +88,21 @@ const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
                 <Beer ref={{ beerRef, beerContainerRef, beerLiquidRef }} />
               </g>
             </svg>
+          </div>
+        </CSSTransition>
+      )}
+      {statusDetail === "waiting" ||
+        (statusDetail === "startServing" && (
+          <CSSTransition timeout={300}>
+            <div className="status">
+              <SyncOutlined spin={true} style={{ fontSize: "60px" }} />
+            </div>
+          </CSSTransition>
+        ))}
+      {statusDetail === "receivePayment" && (
+        <CSSTransition timeout={300}>
+          <div className="status">
+            <img className="status__image" src={moneyIcon} alt="" />
           </div>
         </CSSTransition>
       )}
