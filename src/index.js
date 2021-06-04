@@ -2,19 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/global.scss";
 import Home from "./Home";
-import Dash from "./components/Dashboard";
-import RawData from "./components/data/RawData";
-import { Router } from "@reach/router";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Form from "./form/Form";
 
 ReactDOM.render(
-  <Router>
-    <RawData path="data" />
-    <Dash path="dashboard" />
-    <Form path="form" />
-    <Home path="/" />
+  <Router basename="/beerlify">
+    <Switch>
+      <Route exact path="/form">
+        <Form />
+      </Route>
+      <Route exact path="/">
+        <Home />
+      </Route>
+    </Switch>
   </Router>,
   document.getElementById("root")
 );
-
-//comment

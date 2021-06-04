@@ -24,6 +24,11 @@ const CheckoutPage = (props) => {
   const [isValid, setIsValid] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const accumulatedPrice = props.order.reduce(
+    (accumulator, currentBeer) => accumulator + currentBeer.amount * 54,
+    0
+  );
+
   const form = useRef(null);
 
   useEffect(() => {
@@ -173,7 +178,7 @@ const CheckoutPage = (props) => {
               </label>
               <div className="total">
                 <span className="total__label">Total: </span>
-                <span className="total__price"> 54,-</span>
+                <span className="total__price"> {accumulatedPrice},-</span>
               </div>
               <button className="place-order" type="submit" disabled={!isValid}>
                 Place order
