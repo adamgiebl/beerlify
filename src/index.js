@@ -8,11 +8,11 @@ import { Router } from "@reach/router";
 import Form from "./form/Form";
 
 ReactDOM.render(
-  <Router basepath="/beerlify">
-    <Home path="/" />
+  <Router>
     <RawData path="data" />
     <Dash path="dashboard" />
     <Form path="form" />
+    <Home path="/" />
   </Router>,
   document.getElementById("root")
 );
