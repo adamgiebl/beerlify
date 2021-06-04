@@ -15,7 +15,7 @@ const Card = (props) => {
   return (
     <article
       className="card"
-      onClick={() => (props.available ? props.openDetailPage : null)}
+      onClick={() => (props.available ? props.openDetailPage() : null)}
     >
       {!props.available && (
         <div className="sold-out">
