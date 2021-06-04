@@ -15,7 +15,7 @@ const ConfirmationPage = (props) => {
           for your order!
         </h1>
         <span className="order-no">
-          Your order number is <b>#2034</b>
+          Your order number is <b>#{props.orderNumber}</b>
         </span>
         <div className="cta">
           <span>Forgot something or you fancy more beer?</span>

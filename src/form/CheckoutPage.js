@@ -24,6 +24,8 @@ const CheckoutPage = (props) => {
   const [isValid, setIsValid] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const [orderNumber, setOrderNumber] = useState(0);
+
   const accumulatedPrice = props.order.reduce(
     (accumulator, currentBeer) => accumulator + currentBeer.amount * 54,
     0
@@ -81,7 +83,8 @@ const CheckoutPage = (props) => {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log("data posted", response);
+        console.log("Data posted", response);
+        setOrderNumber(response.id);
         setIsSubmitted(true);
       })
       .catch((err) => console.log(err));
@@ -90,7 +93,7 @@ const CheckoutPage = (props) => {
   return (
     <>
       {isSubmitted ? (
-        <ConfirmationPage />
+        <ConfirmationPage orderNumber={orderNumber} />
       ) : (
         <main className="checkout-form wrapper">
           <img className="elem-up" src={elemupSrc} alt="" />
