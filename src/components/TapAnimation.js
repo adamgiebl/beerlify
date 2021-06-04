@@ -92,6 +92,8 @@ const TapAnimation = ({ activeTap, repeat, statusDetail }) => {
         </CSSTransition>
       )}
       {statusDetail === "waiting" ||
+        statusDetail === "replaceKeg" ||
+        statusDetail === "reserveTap" ||
         (statusDetail === "startServing" && (
           <CSSTransition in={true} timeout={0}>
             <div className="status">
