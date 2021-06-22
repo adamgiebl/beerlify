@@ -72,7 +72,7 @@ function Home() {
             onClick={() => setActiveTab("Dashboard")}
           >
             <img src={iconDashboard} alt="" />
-            <span className="navigation-item__text">Dashboard 2</span>
+            <span className="navigation-item__text">Dashboard</span>
           </li>
           <li
             className="navigation-item"
